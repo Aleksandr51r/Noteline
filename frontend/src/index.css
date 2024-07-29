@@ -1,0 +1,42 @@
+/* main.css */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+
+button {
+
+
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #242424;
+  border: 1px solid #757575;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #555555;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #222222;
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background-color: #777777;
+  cursor: not-allowed;
+  border-color: #666666;
+}

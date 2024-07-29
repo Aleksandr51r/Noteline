@@ -1,0 +1,54 @@
+
+.color-mode-btn {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin:5px;
+    width: 20px; 
+    height: 20px; 
+    border: none; 
+    background-color: #f0f0f0; 
+    border-radius: 10%; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+  }
+  
+  .color-mode-btn:hover {
+    background-color: #e0e0e0; 
+  }
+  
+  .color-mode-btn:focus {
+    outline: none; 
+  }
+  
+  .color-mode-btn svg {
+    width: 15px; 
+    height: 15px; 
+    color: #333; 
+  }
+  
+  .color-mode-btn svg:hover {
+    color: #555; 
+  }
+  
+
+
+
+
+  
+
+  body {
+    background-color: #11283c;
+    color: aliceblue;
+  }
+  
+  .ligth-theme {
+    background-color: #dbdbdb;
+    color: rgb(25, 26, 27);
+  
+    .navbar {
+      background-color: #dbdbdb;
+      color: rgb(25, 26, 27);
+    }
+  }
+  

@@ -1,0 +1,34 @@
+.flag-button {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 25px; 
+    height: 10px; 
+    margin: 10px;
+    border: none; 
+    background-color: #f0f0f0; 
+    border-radius: 10%; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+    background-size: "cover";
+    background-position: "center";
+    background-repeat: "no-repeat"
+}
+
+.flag-button:hover {
+    background-color: #e0e0e0; 
+  }
+  
+  .flag-button:focus {
+    outline: none; 
+  }
+  
+  .flag-button svg {
+    width: 10px; 
+    height: 10px; 
+    color: #333; 
+  }
+  
+  .flag-button svg:hover {
+    color: #555; 
+  }

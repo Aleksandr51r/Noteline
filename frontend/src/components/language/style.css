@@ -1,0 +1,7 @@
+.drop-down-lang-list {
+  position: absolute;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
