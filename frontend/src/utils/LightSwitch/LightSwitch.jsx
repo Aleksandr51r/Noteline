@@ -11,7 +11,12 @@ function LightSwitch() {
 
   useEffect(() => {
     localStorage.setItem("theme", isLight ? "light" : "dark")
-  })
+    document.documentElement.setAttribute(
+      "savedTheme",
+      isLight ? "light" : "dark"
+    )
+  }, [isLight])
+
 
   const handleChange = () => {
     setIsLight((prevIsLight) => !prevIsLight)
@@ -23,7 +28,7 @@ function LightSwitch() {
         handleChange()
       }}
     >
-      {isLight ? <MdOutlineNightlightRound /> : <MdOutlineLightMode />}
+      {isLight ? <MdOutlineNightlightRound className="btn-icon"/> : <MdOutlineLightMode className="btn-icon"/>}
     </button>
   )
 }

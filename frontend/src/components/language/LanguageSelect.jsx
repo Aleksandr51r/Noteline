@@ -5,26 +5,32 @@ import flagEn from "./svg/flagEn.svg"
 import flagFr from "./svg/flagFr.svg"
 import flagRu from "./svg/flagRu.svg"
 import "./style.css"
+import { useTranslation } from "react-i18next"
 
 function LanguageSelect() {
+  const { i18n } = useTranslation()
   const langFlags = {
-    En: flagEn,
-    Fr: flagFr,
-    Ru: flagRu,
+    en: flagEn,
+    fr: flagFr,
+    ru: flagRu,
   }
-  const [chosenLang, setChosenLang] = useState(() => {
-    const savedLangueage = localStorage.getItem("language")
-    return savedLangueage || "En";
-  })
-
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
+  // Set a language to lockalStorage
+  const [chosenLang, setChosenLang] = useState(() => {
+    const savedLangueage = localStorage.getItem("language")
+    return savedLangueage || "fr"
+  })
+
+  // Get a language from lockalStorage
   useEffect(() => {
     localStorage.setItem("language", chosenLang)
   }, [chosenLang])
 
+  // Set a language in i18n
   const handleLangSelect = (lang) => {
     setChosenLang(lang)
+    i18n.changeLanguage(lang)
     setIsDropDownOpen(false)
   }
 

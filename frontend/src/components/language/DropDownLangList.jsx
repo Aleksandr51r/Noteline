@@ -8,18 +8,18 @@ import flagRu from "./svg/flagRu.svg"
 function DropDownLangList({ onLangSelect }) {
   const langsList = [
     {
-      lang: "Fr",
+      lang: "fr",
       text: "French",
       source: flagFr,
     },
     {
-      lang: "En",
+      lang: "en",
       text: "English",
       source: flagEn,
     },
 
     {
-      lang: "Ru",
+      lang: "ru",
       text: "Russian",
       source: flagRu,
     },

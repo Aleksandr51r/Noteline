@@ -5,18 +5,16 @@ import { GiBlackBook } from "react-icons/gi"
 import { PiGraphThin } from "react-icons/pi"
 import LightSwitch from "../../utils/LightSwitch/LightSwitch"
 import LanguageSelect from "../language/LanguageSelect"
-
+import { useTranslation } from "react-i18next"
 
 function Welcome() {
+  const { t } = useTranslation()
   return (
-    <nav
-      className='navbar bg-dark navbar-expand-lg bg-body-tertiary '
-      data-bs-theme='dark'
-    >
+    <nav className='navbar navbar-expand-lg navbar-custom-style'>
       <div className='container-fluid'>
         <div>
           <div>
-            <a className='navbar-brand' href='#'>
+            <a className='navbar-brand nav-link-text ' href='#'>
               <PiGraphThin /> 𝐆𝐫𝐚𝐩𝐡 𝐍𝐨𝐭𝐞
             </a>
           </div>
@@ -37,14 +35,18 @@ function Welcome() {
           <div className='collapse navbar-collapse' id='navbarNav'>
             <ul className='navbar-nav'>
               <li className='nav-item'>
-                <a className='nav-link active' aria-current='page' href='#'>
-                  Guide <GiBlackBook />
+                <a
+                  className='nav-link nav-link-text'
+                  aria-current='page'
+                  href='#'
+                >
+                  {t("guide")} <GiBlackBook className='nav-link-text' />
                 </a>
               </li>
 
-              <li className='nav-item'>
-                <a className='nav-link active' href='#'>
-                  Account <MdAccountCircle />
+              <li className='nav-item nav-link-text'>
+                <a className='nav-link nav-link-text' href='#'>
+                {t('account')} <MdAccountCircle className='nav-link-text' />
                 </a>
               </li>
 

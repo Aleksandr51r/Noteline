@@ -1,6 +1,22 @@
 /* main.css */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+html[savedTheme="light"] {
+  --background-color: #bebebe;
+  --background-color-for-light-mode: #cccccc;
+  --text-color: #414141;
+  --navbar-color: #a0a0a0;
+  --navbar-toggler: #A0A0A0
+}
+
+html[savedTheme="dark"] {
+  --background-color: #11283c;
+  --text-color: aliceblue;
+  --background-color-for-light-mode: #4d4d4d;
+  --navbar-color: #2c3036;
+  --navbar-toggler: #A0A0A0
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,14 +24,31 @@
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.navbar-custom-style {
+  background-color: var(--navbar-color);
+}
+
+.nav-link-text {
+  color: var(--text-color);
+}
+
+.navbar-toggler {
+  background-color: var(--navbar-toggler);
+}
+.navbar-toggler:hover {
+  background-color: #949494;
+}
 
 button {
-
-
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--text-color);
   background-color: #242424;
   border: 1px solid #757575;
   border-radius: 5px;
