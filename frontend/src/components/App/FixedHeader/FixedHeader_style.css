@@ -1,0 +1,39 @@
+.fixed-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 30px;
+  width: 100%;
+  background-color: var(--navbar-color);
+  color: var(--text-color);
+}
+
+.fixed-header-item {
+  align-self: center;
+  height: 80%;
+  width: auto;
+  margin: 0 5px;
+}
+
+.fixed-header-item {
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.fixed-header-item:hover {
+  transform: scale(1.05);
+}
+
+.fixed-header-item:active {
+  transform: scale(0.98);
+}
+.commun-settings {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

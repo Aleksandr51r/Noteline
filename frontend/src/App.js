@@ -1,11 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
-import Welcome from "./components/AuthPages/Welcome"
-import Application from "./components/AppPages/Application"
+import Starting from "./components/Auth/Starting"
+import Application from "./components/App/Application"
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false)
-  return <div className='App'>{isLogged ? <Application /> : <Welcome />}</div>
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme")
+    if (savedTheme) {
+      document.documentElement.setAttribute("savedTheme", savedTheme)
+    }
+  }, [])
+
+  const [isLogged, setIsLogged] = useState(true)
+  return <div className='App'>{isLogged ? <Application /> : <Starting />}</div>
 }
 
 export default App
