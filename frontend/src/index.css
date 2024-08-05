@@ -6,12 +6,12 @@
 }
 
 html[savedTheme="light"] {
-  --background-color: #f7f2e7;
+  --background-color: #e9e5dd;
   --background-color-for-toggle-light-mode: #353535;
   --background-color-for-icon-light-mode: #e0e0e0;
-  --background-color-for-modul-window-settings: #e6d8c0;
+  --background-color-for-modul-window-settings: rgb(212, 207, 199);
   --text-color: #5c4f42;
-  --navbar-color: #e9d0b2;
+  --navbar-color: #c9c7b3;
   --navbar-toggler: #bfae8c;
 }
 
@@ -21,7 +21,7 @@ html[savedTheme="dark"] {
   --background-color-for-icon-light-mode: #353535;
   --background-color-for-modul-window-settings: #404040;
   --text-color: #e0e0e0;
-  --navbar-color: #747272;
+  --navbar-color: #454547;
   --navbar-toggler: #777777;
 }
 
@@ -30,13 +30,22 @@ html[savedTheme="dark"] {
   padding: 0;
   font-family: "montserrat";
   font-weight: 900;
-  /* font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; */
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }
 
 .navbar-custom-style {
@@ -54,6 +63,8 @@ body {
   background-color: #949494;
 }
 
+
+/* 
 button {
   display: inline-block;
   font-size: 16px;
@@ -63,7 +74,6 @@ button {
   border: 1px solid #757575;
   border-radius: 5px;
   text-align: center;
-  text-decoration: none;
   cursor: pointer;
   transform: scale(1);
   transition: background-color 0.3s ease, transform 0.3s ease-in-out;
@@ -84,4 +94,4 @@ button:disabled {
   background-color: #777777;
   cursor: not-allowed;
   border-color: #666666;
-}
+} */
