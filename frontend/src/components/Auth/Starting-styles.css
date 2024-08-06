@@ -1,10 +1,23 @@
-
 a:hover {
   background-color: aqua;
 }
 
-
 .nav-link svg {
   font-size: 1.25rem; /* Установите размер иконок */
   vertical-align: middle; /* Выравнивание по центру строки */
+}
+
+.navbar-custom-style {
+  background-color: var(--navbar-color);
+}
+
+.nav-link-text {
+  color: var(--text-color);
+}
+
+.navbar-toggler {
+  background-color: var(--navbar-toggler);
+}
+.navbar-toggler:hover {
+  background-color: #949494;
 }

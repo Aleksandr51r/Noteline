@@ -1,24 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import Category from "./Category"
 import "./Category-style.css"
 import { useTranslation } from "react-i18next"
-import { IoIosAddCircle } from "react-icons/io"
-import { RiInboxArchiveFill } from "react-icons/ri";
+import { RiInboxArchiveFill } from "react-icons/ri"
+import NewCategory from "./NewCategoryModal/NewCategoryModal"
 
 function CategoryList() {
   const { t } = useTranslation()
+
   return (
     <div className='category-list'>
       {t("category")}
       <hr />
-
-
-      
-
-      <button className='category-btn category' aria-label='Add new category'>
-        <IoIosAddCircle />
-      </button>
-
+      <NewCategory />
     </div>
   )
 }

@@ -7,22 +7,30 @@
 
 html[savedTheme="light"] {
   --background-color: #e9e5dd;
-  --background-color-for-toggle-light-mode: #353535;
+  --background-color-onhover: #686561;
+  --background-color-for-toggle-light-mode: #464444;
+  --background-color-for-toggle-light-mode-onhover: #270180;
   --background-color-for-icon-light-mode: #e0e0e0;
   --background-color-for-modul-window-settings: rgb(212, 207, 199);
   --text-color: #5c4f42;
   --navbar-color: #c9c7b3;
   --navbar-toggler: #bfae8c;
+  --background-shadow: rgb(63, 73, 80);
+  --border-for-background-shadow: #55586e;
 }
 
 html[savedTheme="dark"] {
   --background-color: #2c2c2c;
-  --background-color-for-toggle-light-mode: #d8cfc2;
+  --background-color-onhover: #5c5c5c;
+  --background-color-for-toggle-light-mode: #f5eadd;
+  --background-color-for-toggle-light-mode-onhover: #fde786;
   --background-color-for-icon-light-mode: #353535;
   --background-color-for-modul-window-settings: #404040;
   --text-color: #e0e0e0;
   --navbar-color: #454547;
   --navbar-toggler: #777777;
+  --background-shadow: #7a7373;
+  --border-for-background-shadow: #6b838a;
 }
 
 * {
@@ -41,6 +49,7 @@ body {
   color: var(--text-color);
   height: 100vh;
   width: 100vw;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 #root {
@@ -48,50 +57,36 @@ body {
   width: 100%;
 }
 
-.navbar-custom-style {
-  background-color: var(--navbar-color);
-}
-
-.nav-link-text {
-  color: var(--text-color);
-}
-
-.navbar-toggler {
-  background-color: var(--navbar-toggler);
-}
-.navbar-toggler:hover {
-  background-color: #949494;
-}
-
-
-/* 
-button {
+.btn-standart {
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   color: var(--text-color);
-  background-color: #242424;
-  border: 1px solid #757575;
-  border-radius: 5px;
+  background-color: var(--background-color);
+  border: 1px solid #000000;
+  border-radius: 10px;
   text-align: center;
   cursor: pointer;
   transform: scale(1);
-  transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+  padding: 5px 15px;
+
+  transition: background-color 0.3s ease, color 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
 }
 
-button:hover {
-  background-color: #555555;
-  transform: scale(1.1);
-  transition: transform 0.3s ease-in-out;
+.btn-standart:hover {
+  background-color: var(--background-color-onhover);
+  color: aliceblue;
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out color 0.3s;
 }
 
-button:active {
-  background-color: #222222;
-  transform: scale(0.85);
+.btn-standart:active {
+  background-color: var(--background-color-onhover);
+  transform: scale(0.98);
 }
-
-button:disabled {
+.btn-standart:disabled {
   background-color: #777777;
   cursor: not-allowed;
   border-color: #666666;
-} */
+}

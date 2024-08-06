@@ -11,14 +11,13 @@
   cursor: pointer;
   transition: background-color 0.3s;
   background-color: var(--background-color-for-toggle-light-mode);
-  
 }
 .btn-icon {
   fill: var(--background-color-for-icon-light-mode);
 }
 
 .color-mode-btn:hover {
-  background-color: #e0e0e0;
+  background-color: var(--background-color-for-toggle-light-mode-onhover);
 }
 
 .color-mode-btn:focus {

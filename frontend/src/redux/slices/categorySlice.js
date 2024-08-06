@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
+const initialState = []
 
-const initialState = {
-  categories:[]
-}
+const categorySlice = createSlice({
+  name: "categories",
+  initialState,
+  reducers: {
+    addCategory: (state, action) => {
+      state.category.push(action.payload)
+    },
+  },
+})
 
-
-
-export default categorySlice.reducer;
+export default categorySlice.reducer
