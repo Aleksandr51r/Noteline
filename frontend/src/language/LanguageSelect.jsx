@@ -25,7 +25,6 @@ function LanguageSelect() {
   // Get a language from localStorage
   useEffect(() => {
     localStorage.setItem("language", chosenLang)
-    console.log("savedLangueage", chosenLang)
   }, [chosenLang])
 
   // Set a language in i18n

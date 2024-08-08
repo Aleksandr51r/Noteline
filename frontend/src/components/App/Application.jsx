@@ -2,7 +2,7 @@ import React from "react"
 import TopBar from "./layouts/TopBar"
 import "./Application-style.css"
 import "./Debug-Application-style copy.css"
-import CategoryList from "./Logic/Category/CategoryList"
+import ContentList from "./Logic/Content/ContentList"
 import WorkSpace from "./WorkSpace/WorkSpace"
 
 function Application() {
@@ -10,15 +10,13 @@ function Application() {
     <>
       <TopBar />
       <div className='main-space'>
-
         <div className='category-group'>
-          <CategoryList />
+          <ContentList />
         </div>
 
         <div className='work-space'>
           <WorkSpace />
         </div>
-        
       </div>
     </>
   )

@@ -4,22 +4,23 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  border: 3px solid rgb(157, 255, 0);
 }
 
 .category-group {
+  /* border: 13px solid rgb(38, 0, 255); */
   margin: 0px 15px;
   width: 20%;
   max-width: 250px;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   left: 0;
   z-index: 1;
 }
 
 .work-space {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   border-left: 1px solid #81818154;
   position: relative;
   top: 10%;

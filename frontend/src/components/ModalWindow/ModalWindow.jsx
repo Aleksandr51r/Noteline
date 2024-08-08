@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import "./ModalWindow_style.css"
 import { useTranslation } from "react-i18next"
 import CloseButton from "../../UI/closeButton/CloseButton"

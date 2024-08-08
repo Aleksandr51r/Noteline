@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import Starting from "./components/Auth/Starting"
 import Application from "./components/App/Application"
+import Error from "./components/Error/Error"
 
 function App() {
   useEffect(() => {
@@ -12,7 +13,12 @@ function App() {
   }, [])
 
   const [isLogged, setIsLogged] = useState(true)
-  return <div className='App'>{isLogged ? <Application /> : <Starting />}</div>
+  return (
+    <div className='App'>
+      {isLogged ? <Application /> : <Starting />}
+      <Error />
+    </div>
+  )
 }
 
 export default App

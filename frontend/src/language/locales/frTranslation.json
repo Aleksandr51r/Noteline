@@ -3,5 +3,7 @@
   "account": "Compte",
   "settings": "Paramètres",
   "registration": "Inscription",
-  "category": "Catégorie"
+  "category": "Catégorie",
+  "trashcan": "Corbeille",
+  "doneList": "Terminé"
 }

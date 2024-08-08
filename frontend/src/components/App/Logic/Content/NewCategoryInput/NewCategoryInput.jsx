@@ -1,26 +1,41 @@
-import React from "react"
-import "./NewCategory-style.css"
-import { useState } from "react"
-import { IoIosAddCircle } from "react-icons/io"
-import CloseButton from "../../../../../UI/closeButton/CloseButton"
-import { useTranslation } from "react-i18next"
-// import ColorPicker from "../../../color/ColorPicker"
+import React, { useState } from "react"
 
-function NewCategory() {
+import { IoIosAddCircle } from "react-icons/io"
+import { useTranslation } from "react-i18next"
+
+import { useDispatch } from "react-redux"
+
+import { addNewContentList } from "../../../../../redux/slices/contentSlice"
+
+import { setError } from "../../../../../redux/slices/errorSlice"
+
+import CloseButton from "../../../../../UI/closeButton/CloseButton"
+import "./NewCategoryInput-style.css"
+
+function NewCategoryInput() {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const [isNewCategoryOpen, setIsNewCategoryOpen] = useState(false)
   const [inputText, setInputText] = useState("")
 
   const handleInputText = (e) => {
     setInputText(e.target.value)
-    console.log(inputText)
+  }
+
+  const closeAndClear = () => {
+    setInputText("")
+    setIsNewCategoryOpen(false)
   }
 
   const handleAddNewCategory = () => {
-    console.log("sendedText", inputText)
-    setInputText("")
-    setIsNewCategoryOpen(!isNewCategoryOpen)
+    if (inputText) {
+      dispatch(addNewContentList(inputText))
+      setInputText("")
+      setIsNewCategoryOpen(!isNewCategoryOpen)
+    } else {
+      dispatch(setError("Complete the field!"))
+    }
   }
 
   return (
@@ -29,16 +44,14 @@ function NewCategory() {
         <>
           <div
             className={`overlay ${isNewCategoryOpen ? "open" : "closed"}`}
-            onClick={() => setIsNewCategoryOpen(!isNewCategoryOpen)}
+            onClick={() => closeAndClear()}
           ></div>
           <div
             className={`category-modal-window ${
               isNewCategoryOpen ? "open" : "closed"
             }`}
           >
-            <CloseButton
-              onClick={() => setIsNewCategoryOpen(!isNewCategoryOpen)}
-            />
+            <CloseButton onClick={() => closeAndClear()} />
             <div className='new-category-input'>
               <input
                 type='text'
@@ -72,4 +85,4 @@ function NewCategory() {
   )
 }
 
-export default NewCategory
+export default NewCategoryInput

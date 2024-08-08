@@ -3,5 +3,7 @@
   "account": "Аккаунт",
   "settings": "Настройки",
   "registration": "Регистрация",
-  "category": "Категория"
+  "category": "Категория",
+  "trashcan": "Корзина",
+  "doneList": "Выполнено"
 }

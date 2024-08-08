@@ -3,5 +3,7 @@
   "account": "Account",
   "settings": "Settings",
   "registration": "Registration",
-  "category": "Category"
+  "category": "Category",
+  "trashcan": "Trash can",
+  "doneList": "Finished"
 }

@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from "react-redux"
 import { ToastContainer, toast } from "react-toastify"
+import { useDispatch, useSelector } from "react-redux"
+
 import "react-toastify/dist/ReactToastify.css"
-import { selectErrorMessage } from "../../redux/slices/errorSlice"
+import { clearError, selectErrorMessage } from "../../redux/slices/errorSlice"
 import { useEffect } from "react"
 
 const Error = () => {
@@ -17,3 +18,5 @@ const Error = () => {
 
   return <ToastContainer position='top-right' autoClose={1000} />
 }
+
+export default Error
