@@ -1,10 +1,12 @@
 import React from "react"
 import "../Tools-style.css"
+import Search from "../Search/Search"
 
 function ToolBar() {
   return (
     <div className='tool-bar'>
-      <div>::NameCAT</div>
+      <Search />
+      <div className='tools-button'></div>
     </div>
   )
 }

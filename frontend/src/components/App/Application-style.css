@@ -23,9 +23,8 @@
   /* border: 1px solid red; */
   border-left: 1px solid #81818154;
   position: relative;
-  top: 10%;
+  top: 5%;
   left: 0%;
   width: 90%;
   height: 90%;
-  overflow: auto;
 }

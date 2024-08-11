@@ -1,7 +1,5 @@
 .tool-bar {
-    width: 75%;
-    max-width: auto;
-    height: 30px;
-    position:sticky;
-
+  width: 100%;
+  max-width: auto;
+  height: 30px;
 }

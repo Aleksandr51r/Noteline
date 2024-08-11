@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import Starting from "./components/Auth/Starting"
 import Application from "./components/App/Application"
-import Error from "./components/Error/Error"
+
 
 function App() {
   useEffect(() => {
@@ -16,7 +16,7 @@ function App() {
   return (
     <div className='App'>
       {isLogged ? <Application /> : <Starting />}
-      <Error />
+
     </div>
   )
 }

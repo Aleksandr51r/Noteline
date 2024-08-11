@@ -12,7 +12,7 @@ function FixedHeader() {
   return (
     <>
       <div className='fixed-header'>
-        <h2 className='title'>Note Line</h2>
+        <h3 className='title'>𝐍𝐎𝐓𝐄𝐋𝐈𝐍𝐄</h3>
         <BsQuestionDiamond className='fixed-header-item' size='25px' />
         <IoSettingsOutline
           size='25px'
