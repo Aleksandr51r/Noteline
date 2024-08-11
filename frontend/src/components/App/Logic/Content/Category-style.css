@@ -67,6 +67,7 @@
   all: unset;
   transition: background-color 0.4s, color 0.7s;
   border-radius: 2px;
+
 }
 .category-btn:active {
   color: aliceblue;
@@ -92,7 +93,6 @@
   margin-left: 20%;
 }
 
-
 /* 
 .inbox {
   fill: rgb(84, 229, 255);
@@ -103,8 +103,6 @@
 .trashcan {
   fill: rgb(255, 255, 255);
 } */
-
-
 
 ::-webkit-scrollbar {
   width: 5px;

@@ -8,7 +8,7 @@ function AppSettings() {
   return (
     <>
       <div className='commun-settings'>
-        <LightSwitch />
+
         <LanguageSelect />
       </div>
       <hr />
