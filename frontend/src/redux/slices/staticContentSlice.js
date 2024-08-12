@@ -3,10 +3,8 @@ import { v4 as uuidv4 } from "uuid"
 import { FaRegTrashCan } from "react-icons/fa6"
 import { MdDeleteForever } from "react-icons/md"
 import { MdOutlineDoneOutline } from "react-icons/md"
-import { BsFileEarmarkArrowDown } from "react-icons/bs"
 
 import { HiArrowDownOnSquareStack } from "react-icons/hi2"
-import { HiMiniArrowDownOnSquareStack } from "react-icons/hi2"
 import { HiDocumentArrowDown } from "react-icons/hi2"
 import { HiFolderArrowDown } from "react-icons/hi2"
 import { HiOutlineArrowDownOnSquareStack } from "react-icons/hi2"
@@ -17,13 +15,12 @@ const getInitialSelectedCategoryId = () => {
   return savedId || "inbox"
 }
 
-
 const initialState = {
   categories: [
     {
       id: "aaaa-1111-aaaa-1111-aaaa",
       name: "inbox",
-      icon: PiArrowSquareInBold,
+      icon: HiFolderArrowDown,
       content: [
         "Test1",
         "Test2",
@@ -136,7 +133,7 @@ const initialState = {
     {
       id: uuidv4(),
       name: "trashcan",
-      icon: MdDeleteForever,
+      icon: FaRegTrashCan,
       content: [
         "TrashItem1",
         "TrashItem2",

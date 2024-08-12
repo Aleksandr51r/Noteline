@@ -8,7 +8,7 @@
 
 .category-group {
   /* border: 13px solid rgb(38, 0, 255); */
-  margin: 0px 15px;
+  margin: 0px 10px;
   width: 20%;
   max-width: 250px;
   height: 100%;
@@ -26,5 +26,5 @@
   top: 5%;
   left: 0%;
   width: 90%;
-  height: 90%;
+  height: 95%;
 }

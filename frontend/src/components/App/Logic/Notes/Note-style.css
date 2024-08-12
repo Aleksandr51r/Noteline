@@ -3,8 +3,41 @@
   height: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  border: 1px solid blue;
-  border-radius: 3px;
-  margin: 3px;
+  justify-content: start;
+  margin: 5px;
+  border-right: 1px solid grey;
 }
+
+.note-title {
+  width: 20%;
+  border-right: 1px solid grey;
+  justify-content: center;
+  align-items: center;
+}
+
+.note-text {
+  width: 40%;
+  border-right: 1px solid grey;
+}
+
+.note-extend {
+  width: 10%;
+  border-right: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
+
+/* .note {
+  border: 3px solid rgb(255, 0, 212);
+}
+
+.note-title {
+  border: 1px solid blue;
+}
+
+.note-text {
+  border: 1px solid blue;
+} */
