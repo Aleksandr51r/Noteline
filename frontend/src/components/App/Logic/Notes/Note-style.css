@@ -1,8 +1,10 @@
 .note {
   width: 90%;
-  height: 25px;
+  height: 30px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
+  border-radius: 3px;
+  margin: 3px;
 }

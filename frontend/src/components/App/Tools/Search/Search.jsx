@@ -1,8 +1,10 @@
-import React, { useState } from "react"
+import React, { useState, useTransition } from "react"
 import "./Search-style.css"
-import { PiEraserFill } from "react-icons/pi";
+import { PiEraserFill } from "react-icons/pi"
+import { useTranslation } from "react-i18next"
 
 function Search() {
+  const { t } = useTranslation()
   const [inputText, setInputState] = useState("")
 
   const handleInputText = (e) => {
@@ -20,15 +22,15 @@ function Search() {
       )}
       <input
         type='text'
-        placeholder='Search'
+        placeholder={t("search")}
         value={inputText}
         onChange={handleInputText}
         className='search-bar'
       />
 
       <select className='search-select'>
-        <option className='search-option'>Here</option>
-        <option className='search-option'>Global</option>
+        <option className='search-option'>{t("here")}</option>
+        <option className='search-option'>{t("global")}</option>
       </select>
     </div>
   )

@@ -1,13 +1,13 @@
-/* .category-group {
-    border: 2px solid red;
-  }
+.category-group {
+  border: 2px solid red;
+}
 
-  .main-space {
-    border: 2px solid rgb(0, 255, 13);
-  }
-  
-  .work-space {
-    border: 3px solid rgb(0, 177, 247);
+.main-space {
+  border: 2px solid rgb(0, 255, 13);
+}
+
+.work-space {
+  border: 3px solid rgb(0, 177, 247);
 }
 
 .tool-bar {
@@ -17,8 +17,10 @@
 .place-of-content {
   border: 4px solid red;
 }
-*/
+.category-list {
+  border: 2px solid rgb(255, 0, 200);
+} 
+
+
 /* 
-  .category-list {
-    border: 2px solid rgb(255, 0, 200);
-  } */
+    */

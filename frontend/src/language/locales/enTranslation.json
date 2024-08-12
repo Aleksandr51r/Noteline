@@ -5,5 +5,12 @@
   "registration": "Registration",
   "category": "Category",
   "trashcan": "Trash can",
-  "doneList": "Finished"
+  "doneList": "Finished",
+  "New name": "New name",
+  "add": "Add",
+  "Add new category": "Add new category",
+  "inbox": "Inbox",
+  "search": "Search",
+  "here": "In selected",
+  "global": "Globaly"
 }

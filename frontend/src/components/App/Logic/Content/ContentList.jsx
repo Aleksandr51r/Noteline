@@ -5,6 +5,7 @@ import Category from "./Category"
 import NewCategoryInput from "./NewCategoryInput/NewCategoryInput"
 import { selectContentList } from "../../../../redux/slices/contentSlice"
 import {
+  selectSelectedCategory,
   selectStaticContentList,
   setSelectedCategory,
 } from "../../../../redux/slices/staticContentSlice"
@@ -15,10 +16,11 @@ function ContentList() {
   const dispatch = useDispatch()
   const contentList = useSelector(selectContentList)
   const staticContentList = useSelector(selectStaticContentList)
+  const choosenCategory = useSelector(selectSelectedCategory)
 
-  // useEffect(() => {
-  //   console.log(contentList)
-  // }, [contentList])
+  useEffect(() => {
+    console.log(contentList)
+  }, [contentList])
 
   const handleChoseCategory = (name) => {
     console.log("id", name)
@@ -36,7 +38,11 @@ function ContentList() {
             key={staticContentList[0].id}
             name={t(staticContentList[0].name)}
             Icon={staticContentList[0].icon}
-            addedClassName={"static"}
+            addedClassName={`static ${
+              staticContentList[0].name === choosenCategory.name
+                ? "choosen"
+                : ""
+            }`}
             addedIconClassName={staticContentList[0].name}
             onClick={() => {
               handleChoseCategory(staticContentList[0].name)
@@ -61,7 +67,9 @@ function ContentList() {
               key={staticCategory.id}
               name={t(staticCategory.name)}
               Icon={staticCategory.icon}
-              addedClassName={"static"}
+              addedClassName={`static ${
+                staticCategory.name === choosenCategory.name ? "choosen" : ""
+              }`}
               addedIconClassName={staticCategory.name}
               onClick={() => {
                 handleChoseCategory(staticCategory.name)

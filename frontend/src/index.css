@@ -6,19 +6,20 @@
 }
 
 html[savedTheme="light"] {
-  --background-color: #e9e3dd;
+  --background-color: #efeadb;
   --background-color-onhover: #686561;
   --background-color-for-toggle-light-mode: #464444;
   --background-color-for-toggle-light-mode-onhover: #270180;
   --background-color-for-icon-light-mode: #e0e0e0;
-  --background-color-for-modul-window-settings: rgb(212, 207, 199);
-  --background-color-for-button: #d4d4d4;
+  --background-color-for-modul-window-settings: #dcd1ad;
+  --background-color-for-button: #073e46;
   --background-color-for-button-onhover: #525252;
-  --text-color: #5c4f42;
-  --navbar-color: #c9c7b3;
+  --text-for-button-color: #ffffff;
+  --text-color: hsl(0, 0%, 0%);
+  --navbar-color: #dcd1ad;
   --navbar-toggler: #bfae8c;
-  --background-shadow: #5e6566;
-  --border-for-background-shadow: #017180;
+  --background-shadow: #cfcfcfd5;
+  --border-for-background-shadow: #6d6d6d;
 }
 
 html[savedTheme="dark"] {
@@ -28,9 +29,10 @@ html[savedTheme="dark"] {
   --background-color-for-toggle-light-mode-onhover: #fde786;
   --background-color-for-icon-light-mode: #353535;
   --background-color-for-modul-window-settings: #404040;
-  --background-color-for-button: #5e696b;
+  --background-color-for-button: #025f6b;
   --background-color-for-button-onhover: #017180;
   --text-color: #e0e0e0;
+  --text-for-button-color: #ffffff;
   --navbar-color: #454547;
   --navbar-toggler: #777777;
   --background-shadow: #536872;
@@ -65,21 +67,21 @@ body {
   display: inline-block;
   font-size: 12px;
   font-weight: bold;
-  color: var(--text-color);
+  color: var(--text-for-button-color);
   background-color: var(--background-color-for-button);
   border: 1px solid #000000;
   border-radius: 3px;
   text-align: center;
   cursor: pointer;
   transform: scale(1);
-  padding: 5px 15px;
+  padding: 5px 5px;
 
   transition: background-color 0.3s ease, color 0.3s ease-in-out,
     transform 0.3s ease-in-out;
 }
 
 .btn-standart:hover {
-  background-color: var(--background-color-for-button-onhover);
+  background-color: #017180;
   color: aliceblue;
   transform: scale(1.03);
   transition: transform 0.3s ease-in-out color 0.3s;

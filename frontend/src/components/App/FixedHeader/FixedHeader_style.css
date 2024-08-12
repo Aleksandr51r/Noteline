@@ -19,7 +19,8 @@
 .fixed-header-item {
   color: var(--text-color);
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out transform 0.3s ease-in-out;
 }
 .fixed-header-item:hover {
   transform: scale(1.05);
@@ -38,4 +39,6 @@
   left: 50%;
   top: 2px;
   transform: translateX(-50%);
+  transition: background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out transform 0.3s ease-in-out;
 }

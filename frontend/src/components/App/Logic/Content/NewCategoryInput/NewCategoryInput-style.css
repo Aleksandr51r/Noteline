@@ -18,10 +18,31 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   z-index: 1002;
 }
 
 .input-add-category {
   width: 73%;
+  border-radius: 2px;
+}
+
+.confirm-add-category {
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+  .new-category-input {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+  .confirm-add-category {
+    margin-left: 0px;
+  }
+  .input-add-category {
+    min-width: 50px;
+    margin: 3px;
+    border-radius: 5px;
+  }
 }

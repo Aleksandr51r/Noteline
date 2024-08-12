@@ -15,7 +15,8 @@
   position: fixed;
   top: 0;
   right: -400px;
-  width: 400px;
+  width: 350px;
+  max-width: 50%;
   height: 100%;
   background: var(--background-color-for-modul-window-settings);
   padding: 10px;

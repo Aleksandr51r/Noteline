@@ -5,5 +5,12 @@
   "registration": "Inscription",
   "category": "Catégorie",
   "trashcan": "Corbeille",
-  "doneList": "Terminé"
+  "doneList": "Terminé",
+  "New name": "Nouveau nom",
+  "add": "Ajouter",
+  "Add new category": "Ajouter une nouvelle catégorie",
+  "inbox": "Boîte de réception",
+  "search": "Recherche",
+  "here": "Dans le sélectionné",
+  "global": "Globalement"
 }

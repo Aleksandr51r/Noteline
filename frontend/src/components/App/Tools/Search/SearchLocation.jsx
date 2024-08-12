@@ -4,22 +4,21 @@ import Search from "../Search/Search"
 import { selectSelectedCategory } from "../../../../redux/slices/staticContentSlice"
 import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
-import SearchLocation from "../Search/SearchLocation"
-import ControlPanel from "../ControlPanel/ControlPanel"
+import "./Search-style.css"
 
-function ToolBar() {
+function SearchLocation() {
   const { t } = useTranslation()
   const selectedCategory = useSelector(selectSelectedCategory)
   // console.log("selectedCategory", selectedCategory.name)
 
   return (
-    <div className='tool-bar'>
-      <SearchLocation />
-      <div className='tools-control-panel'>
-        <ControlPanel />
+    <div className='search-location'>
+      <div className='name-of-selected-category'>
+        <h2>selectedCategory</h2>
       </div>
+      <Search />
     </div>
   )
 }
 
-export default ToolBar
+export default SearchLocation
