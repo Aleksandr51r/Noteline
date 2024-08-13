@@ -4,8 +4,8 @@ import "./Category-style.css"
 function Category({
   Icon: Icon = null,
   name,
-  addedClassName = " ",
-  addedIconClassName = " ",
+  addedClassName = "",
+  addedIconClassName = "",
   onClick,
 }) {
   return (

@@ -12,5 +12,9 @@
   "inbox": "Boîte de réception",
   "search": "Recherche",
   "here": "Dans le sélectionné",
-  "global": "Globalement"
+  "global": "Globalement",
+  "list is empty": "La liste est vide",
+  "press": "Appuyez",
+  "to add a note and": "pour ajouter une note et",
+  "to add a todo": "pour ajouter une tâche"
 }

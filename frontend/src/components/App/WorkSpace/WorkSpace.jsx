@@ -7,6 +7,7 @@ function WorkSpace() {
   return (
     <>
       <ToolBar />
+      <hr />
       <div className='place-of-content'>
         <ContentOfSelectedList />
       </div>

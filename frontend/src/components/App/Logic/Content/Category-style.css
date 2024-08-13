@@ -46,7 +46,7 @@
   background-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 0.4s, color 0.7s;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   /* border: 2px solid rgb(255, 0, 200); */
 }
 .category-icon {
@@ -76,8 +76,8 @@
 .category-btn {
   text-decoration: none;
   all: unset;
-  transition: background-color 0.4s, color 0.7s;
   border-radius: 2px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 .category-btn:active {
   color: aliceblue;

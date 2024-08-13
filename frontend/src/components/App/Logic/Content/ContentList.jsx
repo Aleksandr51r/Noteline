@@ -3,19 +3,18 @@ import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import Category from "./Category"
 import NewCategoryInput from "./NewCategoryInput/NewCategoryInput"
-import { selectContentList } from "../../../../redux/slices/contentSlice"
 import {
-  selectSelectedCategory,
-  selectStaticContentList,
+  selectContentList,
   setSelectedCategory,
-} from "../../../../redux/slices/staticContentSlice"
+  selectSelectedCategory,
+} from "../../../../redux/slices/contentSlice"
 import "./Category-style.css"
 
 function ContentList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+
   const contentList = useSelector(selectContentList)
-  const staticContentList = useSelector(selectStaticContentList)
   const choosenCategory = useSelector(selectSelectedCategory)
 
   useEffect(() => {
@@ -35,26 +34,27 @@ function ContentList() {
           <hr />
 
           <Category
-            key={staticContentList[0].id}
-            name={t(staticContentList[0].name)}
-            Icon={staticContentList[0].icon}
+            key={contentList[0].id}
+            name={t(contentList[0].name)}
+            Icon={contentList[0].icon}
             addedClassName={`static ${
-              staticContentList[0].name === choosenCategory.name
-                ? "choosen"
-                : ""
+              contentList[0].name === choosenCategory.name ? "choosen" : ""
             }`}
-            addedIconClassName={staticContentList[0].name}
+            addedIconClassName={contentList[0].name}
             onClick={() => {
-              handleChoseCategory(staticContentList[0].name)
+              handleChoseCategory(contentList[0].name)
             }}
           />
         </div>
         <div className='category-list'>
-          {contentList.map((contentPart) => (
+          {contentList.slice(2).map((contentPart) => (
             <Category
               key={contentPart.id}
               name={contentPart.name}
               onClick={() => handleChoseCategory(contentPart.name)}
+              addedClassName={`${
+                contentPart.name === choosenCategory.name ? "choosen" : ""
+              }`}
             />
           ))}
         </div>
@@ -62,20 +62,18 @@ function ContentList() {
         <NewCategoryInput />
 
         <div>
-          {staticContentList.slice(1).map((staticCategory) => (
-            <Category
-              key={staticCategory.id}
-              name={t(staticCategory.name)}
-              Icon={staticCategory.icon}
-              addedClassName={`static ${
-                staticCategory.name === choosenCategory.name ? "choosen" : ""
-              }`}
-              addedIconClassName={staticCategory.name}
-              onClick={() => {
-                handleChoseCategory(staticCategory.name)
-              }}
-            />
-          ))}
+          <Category
+            key={contentList[1].id}
+            name={t(contentList[1].name)}
+            Icon={contentList[1].icon}
+            addedClassName={`static ${
+              contentList[1].name === choosenCategory.name ? "choosen" : ""
+            }`}
+            addedIconClassName={contentList[1].name}
+            onClick={() => {
+              handleChoseCategory(contentList[1].name)
+            }}
+          />
         </div>
       </div>
     </>

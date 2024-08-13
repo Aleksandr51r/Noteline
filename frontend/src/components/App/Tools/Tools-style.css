@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   align-items: center;
 }
 
@@ -30,14 +31,13 @@
   height: auto;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 }
 .control-panel {
   margin-left: 30px;
 }
 
 .btn-tool {
-  margin: 0px 5px;
+  margin: 0px 0px;
   width: 40px;
   height: 40px;
   color: var(--text-color);
@@ -76,10 +76,14 @@
   transform: rotatez(-15deg);
 }
 
-.little-btn-tool-icon {
+.btn-tool-principle {
+  margin: 0px 10px;
+}
 
-  width: 55%;
-  height: 55%;
+.little-btn-tool-icon {
+  width: 60%;
+  height: 60%;
+  margin: 0px 0px;
 }
 
 @media screen and (max-width: 840px) {
