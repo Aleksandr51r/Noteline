@@ -2,11 +2,8 @@ import React, { useState, useEffect, useRef } from "react"
 import { IoIosAddCircle } from "react-icons/io"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-
 import { addNewContentList } from "../../../../../redux/slices/contentSlice"
 import { setError } from "../../../../../redux/slices/errorSlice"
-
-import CloseButton from "../../../../../UI/closeButton/CloseButton"
 import "./NewCategoryInput-style.css"
 
 function NewCategoryInput() {
@@ -17,6 +14,7 @@ function NewCategoryInput() {
   const [inputText, setInputText] = useState("")
 
   const inputRef = useRef(null)
+
   useEffect(() => {
     if (isAddingCategory && inputRef.current) {
       inputRef.current.focus()
@@ -56,7 +54,6 @@ function NewCategoryInput() {
           <div
             className={`overlay ${isAddingCategory ? "open" : "closed"}`}
             onClick={closeAndClear}
-
           ></div>
           <div className='new-category-input'>
             <input

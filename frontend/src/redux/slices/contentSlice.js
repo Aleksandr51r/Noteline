@@ -9,11 +9,23 @@ import { HiDocumentArrowDown } from "react-icons/hi2"
 import { HiFolderArrowDown } from "react-icons/hi2"
 import { HiOutlineArrowDownOnSquareStack } from "react-icons/hi2"
 import { PiArrowSquareInBold } from "react-icons/pi"
+import getFormattedDateTime from "../../utils/getFormattedDateTime"
 
 const getInitialSelectedCategoryId = () => {
   const savedName = localStorage.getItem("saved-category")
   return savedName || "inbox"
 }
+
+const generateNote = (level, title) => ({
+  id: uuidv4(),
+  level,
+  title,
+  noteContent: `Content for ${title}`,
+  status: Math.floor(Math.random() * 5), // Случайное значение статуса от 0 до 4
+  tags: [`tag${Math.floor(Math.random() * 3)}`], // Один из трех случайных тегов
+  nestedNotes: [],
+  additionalInfo: { timeOfCreation: getFormattedDateTime() },
+})
 
 const initialState = {
   categories: [
@@ -22,87 +34,38 @@ const initialState = {
       name: "inbox",
       icon: HiFolderArrowDown,
       content: [
-        "Test23",
-        "Test24",
-        "Test25",
-        "Test26",
-        "Test27",
-        "Test28",
-        "Test29",
-        "Test30",
-        "Test31",
-        "Test32",
-        "Test33",
-        "Test34",
-        "Test35",
-        "Test36",
-        "Test37",
-        "Test38",
-        "Test39",
-        "Test40",
-        "Test41",
-        "Test42",
-        "Test43",
-        "Test44",
-        "Test45",
-        "Test46",
-        "Test47",
-        "Test48",
-        "Test49",
-        "Test50",
-        "Test51",
-        "Test52",
-        "Test53",
-        "Test54",
-        "Test55",
-        "Test56",
-        "Test57",
-        "Test58",
-        "Test59",
-        "Test60",
-        "Test61",
-        "Test62",
-        "Test63",
-        "Test64",
-        "Test65",
-        "Test66",
-        "Test67",
-        "Test68",
-        "Test69",
-        "Test70",
-        "Test71",
-        "Test72",
-        "Test73",
-        "Test74",
-        "Test75",
+        generateNote(1, "Note 1"),
+        generateNote(2, "Note 2"),
+        generateNote(3, "Note 3"),
+        generateNote(4, "Note 4"),
+        generateNote(5, "Note 5"),
+        generateNote(6, "Note 6"),
+        generateNote(7, "Note 7"),
+        generateNote(8, "Note 8"),
+        generateNote(9, "Note 9"),
+        generateNote(10, "Note 10"),
+        generateNote(1, "Note 11"),
+        generateNote(2, "Note 12"),
+        generateNote(3, "Note 13"),
+        generateNote(4, "Note 14"),
+        generateNote(5, "Note 15"),
+        generateNote(6, "Note 16"),
+        generateNote(7, "Note 17"),
+        generateNote(8, "Note 18"),
+        generateNote(9, "Note 19"),
+        generateNote(10, "Note 20"),
+        generateNote(1, "Note 21"),
       ],
     },
     {
       id: uuidv4(),
       name: "trashcan",
       icon: FaRegTrashCan,
-      content: [
-        "TrashItem1",
-        "TrashItem2",
-        "TrashItem3",
-        "TrashItem4",
-        "TrashItem5",
-        "TrashItem6",
-        "TrashItem7",
-        "TrashItem8",
-        "TrashItem9",
-        "TrashItem10",
-        "TrashItem11",
-        "TrashItem12",
-        "TrashItem13",
-        "TrashItem14",
-        "TrashItem15",
-        "TrashItem16",
-        "TrashItem17",
-      ],
+      content: [],
     },
   ],
   selectedCategoryName: getInitialSelectedCategoryId(),
+  isAddingNewNote: false,
 }
 
 const contentSlice = createSlice({
@@ -121,12 +84,59 @@ const contentSlice = createSlice({
       state.selectedCategoryName = action.payload
       localStorage.setItem("saved-category", action.payload)
     },
+    addNewNote: (state, action) => {
+      const title = action.payload
+      let level = 1
+
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+
+      category.content.unshift({
+        id: uuidv4(),
+        level,
+        title,
+        noteContent: "",
+        status: 0,
+        tags: [],
+        nestedNotes: [],
+        additionalInfo: { timeOfCreation: getFormattedDateTime() },
+      })
+    },
+    toggleAddingNewNote: (state) => {
+      state.isAddingNewNote = !state.isAddingNewNote
+    },
+    // addNestedNote: (state, action) => {
+    //   const title = action.payload.title
+    //   const category = state.categories.find(
+    //     (cat) => cat.name === state.selectedCategoryName
+    //   )
+    //   level++;
+
+    //   category.content.unshift({
+    //     id: uuidv4(),
+    //     level,
+    //     title,
+    //     noteContent: "",
+    //     status: 0,
+    //     tags: [],
+    //     nestedNotes: [],
+    //     additionalInfo: { timeOfCreation: getFormattedDateTime() },
+    //   })
+    // },
   },
 })
 
-export const { addNewContentList, setSelectedCategory } = contentSlice.actions
+export const {
+  addNewContentList,
+  setSelectedCategory,
+  addNewNote,
+  toggleAddingNewNote,
+} = contentSlice.actions
 
 export const selectContentList = (state) => state.content.categories
+
+export const selectIsAddingNewNote = (state) => state.content.isAddingNewNote
 
 export const selectSelectedCategory = (state) =>
   state.content.categories.find(

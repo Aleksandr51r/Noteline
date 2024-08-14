@@ -25,6 +25,6 @@ const noteSlice = createSlice({
 
 export const { addNewNote } = noteSlice.actions
 
-export const selctNotes = (state) => state.notes
+export const selectNotes = (state) => state.notes
 
 export default noteSlice.reducer

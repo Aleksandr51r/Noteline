@@ -4,10 +4,11 @@
   display: flex;
   flex-direction: row;
   justify-content: start;
-  margin: 2px;
-  border-right: 1px solid grey;
+
+  margin: 4px;
   align-content: center;
-  border: 1px solid red;
+  /* border-right: 1px solid grey; */
+  /* border: 1px solid red; */
 }
 
 .note-part {
@@ -19,31 +20,59 @@
   margin: 7px 0px;
   border-right: 1px solid grey;
 }
-
-.note-first {
-  width: 10%;
+.note-wrap {
+  border-right: none;
+  width: 5%;
 }
-.note-title {
-  width: 25%;
+.note-level {
+  width: 5%;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.8em;
+  color: grey;
+}
+.note-color {
+  width: 10%;
 }
 
 .note-btn-extend {
   width: 7%;
 }
+.note-title {
+  width: 25%;
+}
+
+.note-title-span {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: "Times New Roman", Times, serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .note-option {
   width: 5%;
 }
 .note-text {
-  width: 15%;
+  width: 25%;
   border-right: none;
 }
+.note-text-span {
+  margin-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.note-option {
+  margin-right: 5px;
+}
 
+.note-status {
+  width: 25%;
+}
 .note-tags {
   width: 20%;
   border-right: none;
-}
-.note-status {
-  width: 20%;
 }
 /*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
 
