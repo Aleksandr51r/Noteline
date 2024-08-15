@@ -1,0 +1,89 @@
+.todo {
+  width: 90%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin: 3px;
+  align-content: center;
+  /* border-right: 1px solid grey; */
+  border: 1px solid red;
+}
+
+.todo-part {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 0px;
+  padding: 0px 5px;
+  border-right: 1px solid grey;
+}
+
+.todo-wrap {
+  border-right: none;
+}
+
+.todo-level {
+  width: 10px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.8em;
+  color: grey;
+}
+
+.todo-btn-extend {
+  width: 50px;
+}
+.todo-check {
+  width: 50px ;
+}
+
+.todo-title {
+  width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.todo-title-span {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: "Times New Roman", Times, serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.todo-text {
+  width: 40%;
+}
+
+.todo-text-span {
+  margin-left: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.todo-option {
+  padding: 0px 5px;
+}
+
+.todo-tags {
+  width: 150px;
+  border-right: none;
+}
+
+/*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
+
+/* .todo {
+    border: 3px solid rgb(255, 0, 212);
+    }
+  
+  .todo-title {
+    border: 1px solid blue;
+  }
+  
+  .todo-text {
+    border: 1px solid blue;
+  } */

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   selectSelectedCategory,
   toggleAddingNewNote,
+  toggleAddingNewTodo
 } from "../../../../redux/slices/contentSlice"
 
 
@@ -18,11 +19,14 @@ function ControlPanel() {
   const handleAddNewNote = () => {
     dispatch(toggleAddingNewNote())
   }
+  const handleAddNewTodo = () => {
+    dispatch(toggleAddingNewTodo())
+  }
 
   return (
     <div className='control-panel'>
       <NoteForm onClick={handleAddNewNote} />
-      <TodoForm />
+      <TodoForm onClick={handleAddNewTodo}/>
     </div>
   )
 }

@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from "uuid"
 import { FaRegTrashCan } from "react-icons/fa6"
 import { MdDeleteForever } from "react-icons/md"
 import { MdOutlineDoneOutline } from "react-icons/md"
+import { FaBookmark } from "react-icons/fa6"
+import { IoBookmarksSharp } from "react-icons/io5"
+import { FiBookmark } from "react-icons/fi"
 
 import { HiArrowDownOnSquareStack } from "react-icons/hi2"
 import { HiDocumentArrowDown } from "react-icons/hi2"
@@ -20,6 +23,7 @@ const generateNote = (level, title) => ({
   id: uuidv4(),
   level,
   title,
+  type: "note",
   noteContent: `Content for ${title}`,
   status: Math.floor(Math.random() * 5), // Случайное значение статуса от 0 до 4
   tags: [`tag${Math.floor(Math.random() * 3)}`], // Один из трех случайных тегов
@@ -59,6 +63,12 @@ const initialState = {
     },
     {
       id: uuidv4(),
+      name: "Favorites",
+      icon: FiBookmark,
+      content: [],
+    },
+    {
+      id: uuidv4(),
       name: "trashcan",
       icon: FaRegTrashCan,
       content: [],
@@ -66,6 +76,7 @@ const initialState = {
   ],
   selectedCategoryName: getInitialSelectedCategoryId(),
   isAddingNewNote: false,
+  isAddingNewTodo: false,
 }
 
 const contentSlice = createSlice({
@@ -94,6 +105,29 @@ const contentSlice = createSlice({
 
       category.content.unshift({
         id: uuidv4(),
+        type: "note",
+        level,
+        title,
+        noteContent: "",
+        status: 0,
+        tags: [],
+        nestedNotes: [],
+        additionalInfo: { timeOfCreation: getFormattedDateTime() },
+      })
+    },
+
+    addNewTodo: (state, action) => {
+      const title = action.payload
+      let level = 1
+
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+
+      category.content.unshift({
+        id: uuidv4(),
+        type: "todo",
+        isComplited: false,
         level,
         title,
         noteContent: "",
@@ -105,6 +139,9 @@ const contentSlice = createSlice({
     },
     toggleAddingNewNote: (state) => {
       state.isAddingNewNote = !state.isAddingNewNote
+    },
+    toggleAddingNewTodo: (state) => {
+      state.isAddingNewTodo = !state.isAddingNewTodo
     },
     // addNestedNote: (state, action) => {
     //   const title = action.payload.title
@@ -132,11 +169,14 @@ export const {
   setSelectedCategory,
   addNewNote,
   toggleAddingNewNote,
+  toggleAddingNewTodo,
+  addNewTodo,
 } = contentSlice.actions
 
 export const selectContentList = (state) => state.content.categories
 
 export const selectIsAddingNewNote = (state) => state.content.isAddingNewNote
+export const selectIsAddingNewTodo = (state) => state.content.isAddingNewTodo
 
 export const selectSelectedCategory = (state) =>
   state.content.categories.find(

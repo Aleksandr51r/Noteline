@@ -1,35 +1,31 @@
 import React, { useEffect, useRef, useState } from "react"
-import "./Note-style.css"
-import { useDispatch, useSelector } from "react-redux"
+import { RxTriangleRight } from "react-icons/rx"
+import "./Todo-style.css"
 import {
   selectSelectedCategory,
-  selectIsAddingNewNote,
-  toggleAddingNewNote,
-  addNewNote,
+  selectIsAddingNewTodo,
+  toggleAddingNewTodo,
+  addNewTodo,
 } from "../../../../redux/slices/contentSlice"
-import { useTranslation } from "react-i18next"
-import NoteForm from "../../Tools/NoteForm/NoteForm"
-import { RxTriangleRight } from "react-icons/rx"
+import "./NewTodo-style.css"
 import TodoForm from "../../Tools/TodoForm/TodoForm"
-import "./NewNote-style.css"
-import { MdAddBox } from "react-icons/md"
 import { GoBookmark } from "react-icons/go"
 import { IoMdOptions } from "react-icons/io"
 import { PiScrollThin } from "react-icons/pi"
+import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
 
-function NewNote() {
+function NewTodo() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const selectedCategory = useSelector(selectSelectedCategory)
-  const isAddingNewNote = useSelector(selectIsAddingNewNote)
-  
+  const isAddingNewTodo = useSelector(selectIsAddingNewTodo)
   const [inputText, setInputText] = useState("")
   const inputRef = useRef(null)
   useEffect(() => {
-    if (isAddingNewNote && inputRef.current) {
+    if (isAddingNewTodo && inputRef.current) {
       inputRef.current.focus()
     }
-  }, [isAddingNewNote])
+  }, [isAddingNewTodo])
 
   const handleInputText = (e) => {
     setInputText(e.target.value)
@@ -37,14 +33,14 @@ function NewNote() {
 
   const closeAndClear = () => {
     setInputText("")
-    dispatch(toggleAddingNewNote())
+    dispatch(toggleAddingNewTodo())
   }
 
   const handleAddNewNote = () => {
     if (inputText) {
-      dispatch(addNewNote(inputText))
+      dispatch(addNewTodo(inputText))
       setInputText("")
-      dispatch(toggleAddingNewNote())
+      dispatch(toggleAddingNewTodo())
     }
   }
 
@@ -57,21 +53,25 @@ function NewNote() {
   }
 
   return (
-    <div className='note'>
-      <button className='btn-empty note-wrap note-part'>
+    <div className='todo'>
+      <button className='btn-empty todo-wrap todo-part'>
         <RxTriangleRight style={{ transform: "scale(1.5)" }} />
       </button>
-      <div className='note-level note-part'>1</div>
 
-      <div className='note-btn-extend note-part'>
-        <NoteForm additionalClassName='little-btn-tool-icon' />
+      <div className='todo-level todo-part'>1</div>
+
+      <div className='todo-btn-extend todo-part'>
+        {/* <NoteForm additionalClassName='little-btn-tool-icon' /> */}
         <TodoForm additionalClassName='little-btn-tool-icon' />
+      </div>
+      <div className='todo-check todo-part'>
+        <input type='checkbox' />
       </div>
 
       <div className='note-title note-part add-new-note'>
         <div
           className={`overlay ${
-            isAddingNewNote ? "open" : "closed"
+            isAddingNewTodo ? "open" : "closed"
           } overlay-for-note-title`}
           onClick={closeAndClear}
         ></div>
@@ -86,29 +86,28 @@ function NewNote() {
           onKeyDown={handleKeyDown}
         />
       </div>
-
-      <div className='note-text note-part '>
+      <div className='todo-text note-part'>
         <button
           className='btn-standart note-part btn-add-note'
           onClick={handleAddNewNote}
         >
           {t("add")}
         </button>
-        <span className='note-text-span'></span>
+        <span className='todo-text-span'></span>
       </div>
 
-      <div className='note-option note-part'>
-        <button className='btn-empty  note-part'>
+      <div className='todo-option todo-part'>
+        <button className='btn-empty'>
           <GoBookmark />
         </button>
-        <button className='btn-empty note-part'>
+        <button className='btn-empty'>
           <IoMdOptions />
         </button>
       </div>
 
-      <div className='note-tags note-part'>tags</div>
+      <div className='todo-tags todo-part'>tags</div>
     </div>
   )
 }
 
-export default NewNote
+export default NewTodo

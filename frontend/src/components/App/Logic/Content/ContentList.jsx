@@ -45,9 +45,21 @@ function ContentList() {
               handleChoseCategory(contentList[0].name)
             }}
           />
+          <Category
+            key={contentList[1].id}
+            name={t(contentList[1].name)}
+            Icon={contentList[1].icon}
+            addedClassName={`static ${
+              contentList[1].name === choosenCategory.name ? "choosen" : ""
+            }`}
+            addedIconClassName={contentList[1].name}
+            onClick={() => {
+              handleChoseCategory(contentList[1].name)
+            }}
+          />
         </div>
         <div className='category-list'>
-          {contentList.slice(2).map((contentPart) => (
+          {contentList.slice(3).map((contentPart) => (
             <Category
               key={contentPart.id}
               name={contentPart.name}
@@ -63,15 +75,15 @@ function ContentList() {
 
         <div>
           <Category
-            key={contentList[1].id}
-            name={t(contentList[1].name)}
-            Icon={contentList[1].icon}
+            key={contentList[2].id}
+            name={t(contentList[2].name)}
+            Icon={contentList[2].icon}
             addedClassName={`static ${
-              contentList[1].name === choosenCategory.name ? "choosen" : ""
+              contentList[2].name === choosenCategory.name ? "choosen" : ""
             }`}
-            addedIconClassName={contentList[1].name}
+            addedIconClassName={contentList[2].name}
             onClick={() => {
-              handleChoseCategory(contentList[1].name)
+              handleChoseCategory(contentList[2].name)
             }}
           />
         </div>
