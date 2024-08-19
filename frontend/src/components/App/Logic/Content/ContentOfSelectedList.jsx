@@ -3,8 +3,9 @@ import {
   selectSelectedCategory,
   selectIsAddingNewNote,
   selectIsAddingNewTodo,
+  toggleAddingNewNote,
 } from "../../../../redux/slices/contentSlice"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 import Note from "../Notes/Note"
 import NoteForm from "../../Tools/NoteForm/NoteForm"
@@ -18,10 +19,17 @@ function ContentOfSelectedList() {
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
   const isAddingNewTodo = useSelector(selectIsAddingNewTodo)
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const [selectedNoteId, setSelectedNoteId] = useState(null)
+
+  const handleAddNestedNote = (noteId) => {
+    setSelectedNoteId(noteId)
+    dispatch(toggleAddingNewNote())
+  }
 
   return (
     <>
-      {isAddingNewNote ? <NewNote /> : null}
+      {isAddingNewNote ? <NewNote parentId={selectedNoteId} /> : null}
       {isAddingNewTodo ? <NewTodo /> : null}
       {selectedCategory.content.length > 0 ? (
         selectedCategory.content.map((item) =>
@@ -31,6 +39,8 @@ function ContentOfSelectedList() {
               level={item.level}
               title={item.title}
               content={item.noteContent}
+              onAddNestedNote={() => handleAddNestedNote(item.id)}
+              
             />
           ) : (
             <Todo
@@ -38,10 +48,12 @@ function ContentOfSelectedList() {
               level={item.level}
               title={item.title}
               content={item.noteContent}
-              isComplited = {item.isComplited}
+              isComplited={item.isComplited}
             />
           )
         )
+      ) : selectedCategory.name === "trashcan" ? (
+        <h3 style={{ marginTop: "40px" }}>Corbeille est vide</h3>
       ) : (
         <h3 style={{ marginTop: "40px" }}>
           {t("list is empty")}

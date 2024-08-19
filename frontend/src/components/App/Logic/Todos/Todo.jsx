@@ -1,15 +1,24 @@
-import React from "react"
+import React, { useState } from "react"
 import { RxTriangleRight } from "react-icons/rx"
-
 import "./Todo-style.css"
 import TodoForm from "../../Tools/TodoForm/TodoForm"
 import { GoBookmark } from "react-icons/go"
 import { IoMdOptions } from "react-icons/io"
 import { PiScrollThin } from "react-icons/pi"
+import { v4 as uuidv4 } from "uuid"
 
 function Todo({ level, title, content }) {
+  const [isCompleted, setIsComplited] = useState(false)
+
+  const handleComplitedTask = () => {
+    setIsComplited(!isCompleted)
+  }
+
+  const checkBoxId = `_checkbox_${uuidv4()}`
+
+
   return (
-    <div className='todo'>
+    <div className={`todo ${isCompleted ? "finished" : ""} todo-static`}>
       <button className='btn-empty todo-wrap todo-part'>
         <RxTriangleRight style={{ transform: "scale(1.5)" }} />
       </button>
@@ -20,8 +29,11 @@ function Todo({ level, title, content }) {
         {/* <NoteForm additionalClassName='little-btn-tool-icon' /> */}
         <TodoForm additionalClassName='little-btn-tool-icon' />
       </div>
-      <div className='todo-check todo-part'>
-        <input type='checkbox' />
+      <div class='checkbox-wrapper-26 todo-checkbox todo-part'>
+        <input type='checkbox' id={checkBoxId} onChange={handleComplitedTask} />
+        <label for={checkBoxId}>
+          <div class='tick_mark'></div>
+        </label>
       </div>
 
       <div className='todo-title todo-part'>

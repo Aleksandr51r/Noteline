@@ -53,7 +53,7 @@ function NewTodo() {
   }
 
   return (
-    <div className='todo'>
+    <div className='todo new-todo'>
       <button className='btn-empty todo-wrap todo-part'>
         <RxTriangleRight style={{ transform: "scale(1.5)" }} />
       </button>

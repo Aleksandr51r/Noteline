@@ -7,6 +7,8 @@
 
 html[savedTheme="light"] {
   --background-color: #e6e6e6;
+  --background-color-for-items: #f7f7f7;
+
   --background-color-onhover: #686561;
   --background-color-for-toggle-light-mode: #464444;
   --background-color-for-toggle-light-mode-onhover: #270180;
@@ -16,15 +18,28 @@ html[savedTheme="light"] {
   --background-color-for-button-onhover: #525252;
   --text-for-button-color: #ffffff;
   --text-color: hsl(0, 0%, 0%);
-  --text-color-onhover: #0077ff;
+  --text-color-onhover: #0a06d8;
   --navbar-color: #e6e6e6;
   --navbar-toggler: #bfae8c;
   --background-shadow: #cfcfcfd5;
   --border-for-background-shadow: #6d6d6d;
+  
+  --todo-done: #ffffff;
+  --todo-done-border: #ececec;
+  --todo-done-text: #2c2c2c;
+  --todo-done-text-onhover:#2c2c2c;
+  --todo-done-onhover-background-color: #ffffff;
+  
+  
+  --todo-border: #ffffff;
+  --todo-onhover-shadow-inset: #6d6d6d;
+  --todo-done-shadow-onhover: #b5b8b9;
 }
 
 html[savedTheme="dark"] {
-  --background-color: #2c2c2c;
+  --background-color: #454547;
+  --background-color-for-items: #363638;
+  
   --background-color-onhover: #5c5c5c;
   --background-color-for-toggle-light-mode: #f5eadd;
   --background-color-for-toggle-light-mode-onhover: #fde786;
@@ -33,14 +48,24 @@ html[savedTheme="dark"] {
   --background-color-for-button: #025f6b;
   --background-color-for-button-onhover: #017180;
   --text-color: #e0e0e0;
-  --text-color-onhover: #00cfeb;
+  --text-color-onhover: #5bdbdb;
   --text-for-button-color: #ffffff;
-  --navbar-color: #2c2c2c;
+  --navbar-color: #454547;
   /* --navbar-color: #2c2c2c; */
   /* --navbar-color: #454547; */
   --navbar-toggler: #777777;
-  --background-shadow: #536872;
-  --border-for-background-shadow: #8faeb8;
+  --background-shadow: #757e80;
+  --border-for-background-shadow: rgb(127, 132, 134);
+  
+  --todo-done: #000000;
+  --todo-done-border: #000000;
+  --todo-done-text: #f0f0f0;
+  --todo-done-text-onhover:#a0a0a0;
+  --todo-done-onhover-background-color: #26262b;
+  
+  --todo-border: #000000;
+  --todo-onhover-shadow-inset: #a5a5a5;
+  --todo-done-shadow-onhover: #adcddb;
 }
 
 * {
@@ -83,8 +108,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease-in-out,
     transform 0.3s ease-in-out;
 }
-
-.btn-standart:hover {
+ы .btn-standart:hover {
   background-color: #017180;
   color: aliceblue;
   transform: scale(1.03);
@@ -128,4 +152,8 @@ body {
   background-color: #777777;
   cursor: not-allowed;
   border-color: #666666;
+}
+
+.btn-disabled {
+  display: none;
 }

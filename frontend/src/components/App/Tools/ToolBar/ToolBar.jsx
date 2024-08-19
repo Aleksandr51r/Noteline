@@ -5,6 +5,7 @@ import SearchLocation from "../Search/SearchLocation"
 import ControlPanel from "../ControlPanel/ControlPanel"
 
 function ToolBar() {
+
   const { t } = useTranslation()
 
   return (

@@ -59,14 +59,14 @@
 .category:hover {
   background-color: #a5a5a5;
   color: #333;
-  transition: background-color 0.7s, color 0.2s;
+  transition: background-color 0.3s, color 0.2s;
 }
 
 .category:active {
   background-color: #222;
   border: 1px solid rgb(196, 196, 196);
   box-shadow: -5px 0px 6px 1px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, box-shadow 0.4s, color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
 .category span {
@@ -77,7 +77,7 @@
   text-decoration: none;
   all: unset;
   border-radius: 2px;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 .category-btn:active {
   color: aliceblue;

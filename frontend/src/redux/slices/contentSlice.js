@@ -63,7 +63,7 @@ const initialState = {
     },
     {
       id: uuidv4(),
-      name: "Favorites",
+      name: "favorites",
       icon: FiBookmark,
       content: [],
     },
@@ -97,7 +97,7 @@ const contentSlice = createSlice({
     },
     addNewNote: (state, action) => {
       const title = action.payload
-      let level = 1
+      const level = 1
 
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
@@ -118,7 +118,7 @@ const contentSlice = createSlice({
 
     addNewTodo: (state, action) => {
       const title = action.payload
-      let level = 1
+      const level = 1
 
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
@@ -143,6 +143,31 @@ const contentSlice = createSlice({
     toggleAddingNewTodo: (state) => {
       state.isAddingNewTodo = !state.isAddingNewTodo
     },
+    addNestedNote: (state, action) => {
+      const { parentId, title } = action.payload
+
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+
+      const parentNote = category.content.find((note) => note.id === parentId)
+      const level = parentNote.level + 1
+      if (parentNote) {
+        parentNote.nestedNotes.unshift({
+          id: uuidv4(),
+          type: "todo",
+          isComplited: false,
+          level,
+          title,
+          noteContent: "",
+          status: 0,
+          tags: [],
+          nestedNotes: [],
+          additionalInfo: { timeOfCreation: getFormattedDateTime() },
+        })
+      }
+    },
+
     // addNestedNote: (state, action) => {
     //   const title = action.payload.title
     //   const category = state.categories.find(
@@ -171,6 +196,7 @@ export const {
   toggleAddingNewNote,
   toggleAddingNewTodo,
   addNewTodo,
+  addNestedNote,
 } = contentSlice.actions
 
 export const selectContentList = (state) => state.content.categories

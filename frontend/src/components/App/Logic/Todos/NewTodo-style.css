@@ -1,0 +1,9 @@
+.new-todo {
+  box-shadow: none;
+  box-shadow: 0px 0px 4px 0px #767676;
+  border-radius: 3px;
+}
+
+.new-todo:hovrer {
+  transform: none;
+}
