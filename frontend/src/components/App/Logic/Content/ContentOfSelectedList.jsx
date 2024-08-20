@@ -24,23 +24,25 @@ function ContentOfSelectedList() {
 
   const handleAddNestedNote = (noteId) => {
     setSelectedNoteId(noteId)
-    dispatch(toggleAddingNewNote())
+    console.log("hhhhhhhhhhhhhhh")
   }
 
   return (
     <>
-      {isAddingNewNote ? <NewNote parentId={selectedNoteId} /> : null}
+      {isAddingNewNote ? <NewNote /> : null}
       {isAddingNewTodo ? <NewTodo /> : null}
       {selectedCategory.content.length > 0 ? (
         selectedCategory.content.map((item) =>
           item.type === "note" ? (
             <Note
+              id={item.id}
               key={item.id}
               level={item.level}
               title={item.title}
               content={item.noteContent}
-              onAddNestedNote={() => handleAddNestedNote(item.id)}
-              
+              onClick={() => handleAddNestedNote(item.id)}
+              nestedNotes={item.nestedNotes}
+              showNestedNotes={item.showNestedNotes}
             />
           ) : (
             <Todo

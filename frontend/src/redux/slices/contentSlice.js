@@ -6,6 +6,8 @@ import { MdOutlineDoneOutline } from "react-icons/md"
 import { FaBookmark } from "react-icons/fa6"
 import { IoBookmarksSharp } from "react-icons/io5"
 import { FiBookmark } from "react-icons/fi"
+import { GrSort } from "react-icons/gr"
+import { BsKanban } from "react-icons/bs"
 
 import { HiArrowDownOnSquareStack } from "react-icons/hi2"
 import { HiDocumentArrowDown } from "react-icons/hi2"
@@ -19,52 +21,24 @@ const getInitialSelectedCategoryId = () => {
   return savedName || "inbox"
 }
 
-const generateNote = (level, title) => ({
-  id: uuidv4(),
-  level,
-  title,
-  type: "note",
-  noteContent: `Content for ${title}`,
-  status: Math.floor(Math.random() * 5), // Случайное значение статуса от 0 до 4
-  tags: [`tag${Math.floor(Math.random() * 3)}`], // Один из трех случайных тегов
-  nestedNotes: [],
-  additionalInfo: { timeOfCreation: getFormattedDateTime() },
-})
-
 const initialState = {
   categories: [
     {
       id: "aaaa-1111-aaaa-1111-aaaa",
-      name: "inbox",
-      icon: HiFolderArrowDown,
-      content: [
-        generateNote(1, "Note 1"),
-        generateNote(2, "Note 2"),
-        generateNote(3, "Note 3"),
-        generateNote(4, "Note 4"),
-        generateNote(5, "Note 5"),
-        generateNote(6, "Note 6"),
-        generateNote(7, "Note 7"),
-        generateNote(8, "Note 8"),
-        generateNote(9, "Note 9"),
-        generateNote(10, "Note 10"),
-        generateNote(1, "Note 11"),
-        generateNote(2, "Note 12"),
-        generateNote(3, "Note 13"),
-        generateNote(4, "Note 14"),
-        generateNote(5, "Note 15"),
-        generateNote(6, "Note 16"),
-        generateNote(7, "Note 17"),
-        generateNote(8, "Note 18"),
-        generateNote(9, "Note 19"),
-        generateNote(10, "Note 20"),
-        generateNote(1, "Note 21"),
-      ],
+      name: "unsorted",
+      icon: GrSort,
+      content: [],
     },
     {
       id: uuidv4(),
       name: "favorites",
-      icon: FiBookmark,
+      icon: IoBookmarksSharp,
+      content: [],
+    },
+    {
+      id: uuidv4(),
+      name: "kanban",
+      icon: BsKanban,
       content: [],
     },
     {
@@ -76,6 +50,7 @@ const initialState = {
   ],
   selectedCategoryName: getInitialSelectedCategoryId(),
   isAddingNewNote: false,
+  isAddingNewNestedNote: false,
   isAddingNewTodo: false,
 }
 
@@ -102,17 +77,16 @@ const contentSlice = createSlice({
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
       )
-
       category.content.unshift({
         id: uuidv4(),
         type: "note",
         level,
         title,
         noteContent: "",
-        status: 0,
-        tags: [],
         nestedNotes: [],
-        additionalInfo: { timeOfCreation: getFormattedDateTime() },
+        showNestedNotes: true,
+        tags: [],
+        additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
       })
     },
 
@@ -130,22 +104,26 @@ const contentSlice = createSlice({
         isComplited: false,
         level,
         title,
-        noteContent: "",
-        status: 0,
-        tags: [],
+        todoPresicion: "",
         nestedNotes: [],
-        additionalInfo: { timeOfCreation: getFormattedDateTime() },
+        showNestedTodo: false,
+        tags: [],
+        additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
       })
     },
+
     toggleAddingNewNote: (state) => {
       state.isAddingNewNote = !state.isAddingNewNote
+    },
+    toggleAddingNewNestedNote: (state) => {
+      state.isAddingNewNestedNote = !state.isAddingNewNestedNote
     },
     toggleAddingNewTodo: (state) => {
       state.isAddingNewTodo = !state.isAddingNewTodo
     },
+
     addNestedNote: (state, action) => {
       const { parentId, title } = action.payload
-
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
       )
@@ -167,25 +145,6 @@ const contentSlice = createSlice({
         })
       }
     },
-
-    // addNestedNote: (state, action) => {
-    //   const title = action.payload.title
-    //   const category = state.categories.find(
-    //     (cat) => cat.name === state.selectedCategoryName
-    //   )
-    //   level++;
-
-    //   category.content.unshift({
-    //     id: uuidv4(),
-    //     level,
-    //     title,
-    //     noteContent: "",
-    //     status: 0,
-    //     tags: [],
-    //     nestedNotes: [],
-    //     additionalInfo: { timeOfCreation: getFormattedDateTime() },
-    //   })
-    // },
   },
 })
 
@@ -194,6 +153,7 @@ export const {
   setSelectedCategory,
   addNewNote,
   toggleAddingNewNote,
+  toggleAddingNewNestedNote,
   toggleAddingNewTodo,
   addNewTodo,
   addNestedNote,
@@ -202,6 +162,9 @@ export const {
 export const selectContentList = (state) => state.content.categories
 
 export const selectIsAddingNewNote = (state) => state.content.isAddingNewNote
+export const selectIsAddingNewNestedNote = (state) =>
+  state.content.isAddingNewNestedNote
+
 export const selectIsAddingNewTodo = (state) => state.content.isAddingNewTodo
 
 export const selectSelectedCategory = (state) =>

@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   selectSelectedCategory,
   selectIsAddingNewNote,
+  selectIsAddingNewNestedNote,
   toggleAddingNewNote,
+  toggleAddingNewNestedNote,
   addNewNote,
   addNestedNote,
 } from "../../../../redux/slices/contentSlice"
@@ -18,16 +20,17 @@ import { GoBookmark } from "react-icons/go"
 import { IoMdOptions } from "react-icons/io"
 import { PiScrollThin } from "react-icons/pi"
 
-function NewNote({ parentId = "" }) {
+function NewNote({ parentId = null, onClose }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const selectedCategory = useSelector(selectSelectedCategory)
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
+  const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
 
   const [inputText, setInputText] = useState("")
   const inputRef = useRef(null)
   useEffect(() => {
-    if (isAddingNewNote && inputRef.current) {
+    if (isAddingNewNote || (isAddingNewNestedNote && inputRef.current)) {
       inputRef.current.focus()
     }
   }, [isAddingNewNote])
@@ -38,18 +41,25 @@ function NewNote({ parentId = "" }) {
 
   const closeAndClear = () => {
     setInputText("")
-    dispatch(toggleAddingNewNote())
+    if (parentId) {
+      dispatch(!toggleAddingNewNestedNote())
+      onClose()
+    } else {
+      dispatch(toggleAddingNewNote())
+    }
   }
 
   const handleAddNewNote = () => {
     if (inputText) {
       if (parentId) {
         dispatch(addNestedNote({ title: inputText, parentId }))
+        dispatch(toggleAddingNewNestedNote())
+        onClose()
       } else {
         dispatch(addNewNote(inputText))
+        dispatch(toggleAddingNewNote())
       }
       setInputText("")
-      dispatch(toggleAddingNewNote())
     }
   }
 

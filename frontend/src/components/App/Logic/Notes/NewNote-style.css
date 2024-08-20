@@ -29,7 +29,7 @@
   justify-content: flex-start;
 }
 
-
 .new-note {
   box-shadow: none;
+  width: 98%;
 }

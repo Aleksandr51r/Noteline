@@ -9,7 +9,7 @@
   "New name": "Nouveau nom",
   "add": "Ajouter",
   "Add new category": "Ajouter une nouvelle catégorie",
-  "inbox": "Boîte de réception",
+  "unsorted": "Non trié",
   "search": "Recherche",
   "here": "Dans le sélectionné",
   "global": "Globalement",
@@ -17,5 +17,6 @@
   "press": "Appuyez",
   "to add a note and": "pour ajouter une note et",
   "to add a todo": "pour ajouter une tâche",
-  "favorites": "Favoris"
+  "favorites": "Favoris",
+  "kanban": "Kanban"
 }
