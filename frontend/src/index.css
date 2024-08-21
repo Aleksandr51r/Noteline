@@ -7,7 +7,7 @@
 
 html[savedTheme="light"] {
   --background-color: #e6e6e6;
-  --background-color-for-items: #f7f7f7;
+  --background-color-for-items: #d6d6d6;
 
   --background-color-onhover: #686561;
   --background-color-for-toggle-light-mode: #464444;
@@ -18,28 +18,28 @@ html[savedTheme="light"] {
   --background-color-for-button-onhover: #525252;
   --text-for-button-color: #ffffff;
   --text-color: hsl(0, 0%, 0%);
-  --text-color-onhover: #0a06d8;
+  --text-color-onhover: #008a83;
   --navbar-color: #e6e6e6;
   --navbar-toggler: #bfae8c;
   --background-shadow: #cfcfcfd5;
   --border-for-background-shadow: #6d6d6d;
-  
+
   --todo-done: #ffffff;
   --todo-done-border: #ececec;
   --todo-done-text: #2c2c2c;
-  --todo-done-text-onhover:#2c2c2c;
+  --todo-done-text-onhover: #2c2c2c;
   --todo-done-onhover-background-color: #ffffff;
-  
-  
-  --todo-border: #ffffff;
-  --todo-onhover-shadow-inset: #6d6d6d;
   --todo-done-shadow-onhover: #b5b8b9;
+
+  --todo-border: #616161;
+  --todo-onhover-background-color: #feffff;
+  --todo-onhover-shadow-inset: #6d6d6d;
 }
 
 html[savedTheme="dark"] {
   --background-color: #454547;
-  --background-color-for-items: #363638;
-  
+  --background-color-for-items: #2c2c2c;
+
   --background-color-onhover: #5c5c5c;
   --background-color-for-toggle-light-mode: #f5eadd;
   --background-color-for-toggle-light-mode-onhover: #fde786;
@@ -48,7 +48,7 @@ html[savedTheme="dark"] {
   --background-color-for-button: #025f6b;
   --background-color-for-button-onhover: #017180;
   --text-color: #e0e0e0;
-  --text-color-onhover: #5bdbdb;
+  --text-color-onhover: #00ada5;
   --text-for-button-color: #ffffff;
   --navbar-color: #454547;
   /* --navbar-color: #2c2c2c; */
@@ -56,16 +56,16 @@ html[savedTheme="dark"] {
   --navbar-toggler: #777777;
   --background-shadow: #757e80;
   --border-for-background-shadow: rgb(127, 132, 134);
-  
+
   --todo-done: #000000;
   --todo-done-border: #000000;
   --todo-done-text: #f0f0f0;
-  --todo-done-text-onhover:#a0a0a0;
+  --todo-done-text-onhover: #a0a0a0;
   --todo-done-onhover-background-color: #26262b;
-  
-  --todo-border: #000000;
+
+  --todo-border: #cccccc;
+  --todo-onhover-background-color: #6e6e6e;
   --todo-onhover-shadow-inset: #a5a5a5;
-  --todo-done-shadow-onhover: #adcddb;
 }
 
 * {

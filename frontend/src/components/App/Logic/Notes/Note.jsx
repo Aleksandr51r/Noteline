@@ -49,7 +49,7 @@ function Note({
 
   return (
     <div className='note-main'>
-      <div className={`note ${areNestedNotesVisible ? "expanded" : "note-hidden"}`}>
+      <div className={`note note-static ${areNestedNotesVisible ? "expanded" : "note-hidden"}`}>
         <button
           className='btn-empty note-wrap note-part'
           onClick={handleToggleNestedNotes}

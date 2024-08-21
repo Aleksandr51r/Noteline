@@ -133,6 +133,28 @@ const contentSlice = createSlice({
       if (parentNote) {
         parentNote.nestedNotes.unshift({
           id: uuidv4(),
+          type: "note",
+          level,
+          title,
+          noteContent: "",
+          tags: [],
+          nestedNotes: [],
+          showNestedNotes: true,
+          additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
+        })
+      }
+    },
+    addNestedTodo: (state, action) => {
+      const { parentId, title } = action.payload
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+
+      const parentTodo = category.content.find((todo) => todo.id === parentId)
+      const level = parentTodo.level + 1
+      if (parentTodo) {
+        parentTodo.nestedTodos.unshift({
+          id: uuidv4(),
           type: "todo",
           isComplited: false,
           level,
