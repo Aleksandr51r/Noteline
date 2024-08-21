@@ -20,29 +20,24 @@ function ContentOfSelectedList() {
   const isAddingNewTodo = useSelector(selectIsAddingNewTodo)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [selectedNoteId, setSelectedNoteId] = useState(null)
-
-  const handleAddNestedNote = (noteId) => {
-    setSelectedNoteId(noteId)
-    console.log("hhhhhhhhhhhhhhh")
-  }
 
   return (
     <>
       {isAddingNewNote ? <NewNote /> : null}
       {isAddingNewTodo ? <NewTodo /> : null}
-      {selectedCategory.content.length > 0 ? (
-        selectedCategory.content.map((item) =>
-          item.type === "note" ? (
+
+      {Object.values(selectedCategory.content).length > 0 ? (
+        Object.values(selectedCategory.content).map((item) => {
+          return item.type === "note" ? (
             <Note
               id={item.id}
               key={item.id}
               level={item.level}
               title={item.title}
-              content={item.noteContent}
-              onClick={() => handleAddNestedNote(item.id)}
+              noteContent={item.noteContent}
               nestedNotes={item.nestedNotes}
               showNestedNotes={item.showNestedNotes}
+              path={item.path}
             />
           ) : (
             <Todo
@@ -53,7 +48,7 @@ function ContentOfSelectedList() {
               isComplited={item.isComplited}
             />
           )
-        )
+        })
       ) : selectedCategory.name === "trashcan" ? (
         <h3 style={{ marginTop: "40px" }}>Corbeille est vide</h3>
       ) : (

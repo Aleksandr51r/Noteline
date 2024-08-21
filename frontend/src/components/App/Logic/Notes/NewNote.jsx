@@ -20,7 +20,7 @@ import { GoBookmark } from "react-icons/go"
 import { IoMdOptions } from "react-icons/io"
 import { PiScrollThin } from "react-icons/pi"
 
-function NewNote({ parentId = null, onClose }) {
+function NewNote({ parentPath = null, onClose }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const selectedCategory = useSelector(selectSelectedCategory)
@@ -41,7 +41,7 @@ function NewNote({ parentId = null, onClose }) {
 
   const closeAndClear = () => {
     setInputText("")
-    if (parentId) {
+    if (parentPath) {
       dispatch(!toggleAddingNewNestedNote())
       onClose()
     } else {
@@ -51,11 +51,13 @@ function NewNote({ parentId = null, onClose }) {
 
   const handleAddNewNote = () => {
     if (inputText) {
-      if (parentId) {
-        dispatch(addNestedNote({ title: inputText, parentId }))
+      if (parentPath) {
+        dispatch(addNestedNote({ title: inputText, parentPath }))
         dispatch(toggleAddingNewNestedNote())
         onClose()
+        console.log('Nested Note')
       } else {
+        console.log('Main Note')
         dispatch(addNewNote(inputText))
         dispatch(toggleAddingNewNote())
       }

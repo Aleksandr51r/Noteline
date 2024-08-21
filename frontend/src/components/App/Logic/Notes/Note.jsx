@@ -27,6 +27,7 @@ function Note({
   nestedNotes,
   showNestedNotes,
   onClick,
+  path,
 }) {
   const dispatch = useDispatch()
   const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
@@ -49,7 +50,11 @@ function Note({
 
   return (
     <div className='note-main'>
-      <div className={`note note-static ${areNestedNotesVisible ? "expanded" : "note-hidden"}`}>
+      <div
+        className={`note note-static ${
+          areNestedNotesVisible ? "expanded" : "note-hidden"
+        }`}
+      >
         <button
           className='btn-empty note-wrap note-part'
           onClick={handleToggleNestedNotes}
@@ -95,22 +100,23 @@ function Note({
         className={`notes-nested ${areNestedNotesVisible ? "expanded" : ""}`}
       >
         {isAddingNewNestedNote && thatNoteSelected ? (
-          <NewNote parentId={id} onClose={onClose} />
+          <NewNote parentPath={path} onClose={onClose} />
         ) : null}
         <div
           className={`notes-list ${areNestedNotesVisible ? "expanded" : ""}`}
         >
-          {nestedNotes.length > 0 &&
+          {Object.values(nestedNotes).length > 0 &&
             areNestedNotesVisible &&
-            nestedNotes.map((nonested) => (
+            Object.values(nestedNotes).map((nonested) => (
               <Note
                 key={nonested.id}
                 id={nonested.id}
                 title={nonested.title}
-                content={nonested.content}
+                noteContent={nonested.noteContent}
                 level={nonested.level}
                 nestedNotes={nonested.nestedNotes}
                 showNestedNotes={nonested.showNestedNotes}
+                path={nonested.path}
               />
             ))}
         </div>
