@@ -20,22 +20,31 @@ import {
 import NewNote from "./NewNote"
 
 function Note({
-  id,
-  title,
-  content,
   level,
+  title,
+  noteContent,
   nestedNotes,
   showNestedNotes,
-  onClick,
   path,
 }) {
   const dispatch = useDispatch()
-  const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
-
-  const [thatNoteSelected, setThatNoteSelected] = useState(false)
   const [areNestedNotesVisible, setAreNestedNotesVisible] =
     useState(showNestedNotes)
-
+  const [thatNoteSelected, setThatNoteSelected] = useState(false)
+  const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
+  const romeDigitsLevel = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+    6: "VI",
+    7: "VII",
+    8: "VIII",
+    9: "IX",
+    10: "X",
+  }
+  // const nestedNotes = Object.values(nestedNotes)
   const onClose = () => {
     setThatNoteSelected(false)
   }
@@ -48,6 +57,8 @@ function Note({
     setAreNestedNotesVisible(!areNestedNotesVisible)
   }
 
+  const isHiddenTriangeOfWrapp = Object.values(nestedNotes).length > 0
+
   return (
     <div className='note-main'>
       <div
@@ -56,14 +67,22 @@ function Note({
         }`}
       >
         <button
-          className='btn-empty note-wrap note-part'
+          className={`btn-empty note-wrap note-part ${
+            isHiddenTriangeOfWrapp ? "wrap-expanded" : "wrap-hidden"
+          }`}
           onClick={handleToggleNestedNotes}
         >
-          <RxTriangleRight style={{ transform: "scale(1.5)" }} />
+          <RxTriangleRight
+            className={`note-wrap ${
+              areNestedNotesVisible ? "wrap-expanded" : "note-hidden"
+            }`}
+          />
         </button>
-        <div className='note-level note-part'>{level}</div>
+        <div className='note-level note-part'>{romeDigitsLevel[level]}</div>
 
-        <div className='note-btn-extend note-part'>
+        <div
+          className={`note-btn-extend note-part ${level <= 9 ? "" : "hidden"}`}
+        >
           <NoteForm
             additionalClassName='little-btn-tool-icon'
             onClick={handleNoteFormClick}
@@ -71,14 +90,19 @@ function Note({
           {/* <TodoForm additionalClassName='little-btn-tool-icon' /> */}
         </div>
         <div className='note-dummy note-part '></div>
-        <div className='note-title note-part'>
+
+        <div
+          className='note-title note-part '
+          onClick={handleToggleNestedNotes}
+        >
           <span className='note-title-span'>{title}</span>
         </div>
+
         <div className='note-text note-part'>
           <button className='btn-empty btn-note-open'>
             <PiScrollThin />
           </button>
-          <span className='note-text-span'>{content}</span>
+          <span className='note-text-span'>{noteContent}</span>
         </div>
 
         <div className='note-option note-part'>
@@ -96,6 +120,7 @@ function Note({
           </button>
         </div>
       </div>
+
       <div
         className={`notes-nested ${areNestedNotesVisible ? "expanded" : ""}`}
       >
@@ -107,16 +132,16 @@ function Note({
         >
           {Object.values(nestedNotes).length > 0 &&
             areNestedNotesVisible &&
-            Object.values(nestedNotes).map((nonested) => (
+            Object.values(nestedNotes).reverse().map((item) => (
               <Note
-                key={nonested.id}
-                id={nonested.id}
-                title={nonested.title}
-                noteContent={nonested.noteContent}
-                level={nonested.level}
-                nestedNotes={nonested.nestedNotes}
-                showNestedNotes={nonested.showNestedNotes}
-                path={nonested.path}
+                id={item.id}
+                key={item.id}
+                level={item.level}
+                title={item.title}
+                noteContent={item.noteContent}
+                nestedNotes={item.nestedNotes}
+                showNestedNotes={item.showNestedNotes}
+                path={item.path}
               />
             ))}
         </div>

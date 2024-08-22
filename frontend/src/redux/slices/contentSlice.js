@@ -18,14 +18,9 @@ import getFormattedDateTime from "../../utils/getFormattedDateTime"
 
 const getInitialSelectedCategoryId = () => {
   const savedName = localStorage.getItem("saved-category")
-  return savedName || "inbox"
+  return savedName || "unsorted"
 }
 
-// const findNestedObject = (obj, pathArray) => {
-//   return pathArray.reduce((acc, key) => {
-//     return acc && acc[key] ? acc[key] : null
-//   }, obj)
-// }
 const findNestedObject = (obj, path) => {
   return path.reduce((acc, key) => acc && acc[key], obj)
 }
@@ -42,25 +37,26 @@ const initialState = {
       id: uuidv4(),
       name: "favorites",
       icon: IoBookmarksSharp,
-      content: [],
+      content: {},
     },
     {
       id: uuidv4(),
       name: "kanban",
       icon: BsKanban,
-      content: [],
+      content: {},
     },
     {
       id: uuidv4(),
       name: "trashcan",
       icon: FaRegTrashCan,
-      content: [],
+      content: {},
     },
   ],
   selectedCategoryName: getInitialSelectedCategoryId(),
   isAddingNewNote: false,
   isAddingNewNestedNote: false,
   isAddingNewTodo: false,
+  isAddingNewNestedTodo: false,
 }
 
 const contentSlice = createSlice({
@@ -81,49 +77,51 @@ const contentSlice = createSlice({
     },
     addNewNote: (state, action) => {
       const title = action.payload
-      const name = action.payload
       const level = 1
+      const id = uuidv4()
 
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
       )
 
       const newNote = {
-        id: uuidv4(),
+        id,
         type: "note",
         level,
         title,
         noteContent: "",
-        path: [title],
+        path: [id],
         showNestedNotes: true,
         tags: [],
         nestedNotes: {},
         additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
       }
 
-      category.content[newNote.title] = newNote
+      category.content[newNote.id] = newNote
     },
 
     addNewTodo: (state, action) => {
       const title = action.payload
       const level = 1
+      const id = uuidv4()
 
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
       )
-
-      category.content.unshift({
-        id: uuidv4(),
+      const newTodo = {
+        id,
         type: "todo",
         isComplited: false,
         level,
         title,
+        path: [id],
         todoPresicion: "",
-        nestedNotes: {},
+        nestedTodos: {},
         showNestedTodo: false,
         tags: [],
         additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
-      })
+      }
+      category.content[newTodo.id] = newTodo
     },
 
     toggleAddingNewNote: (state) => {
@@ -131,6 +129,9 @@ const contentSlice = createSlice({
     },
     toggleAddingNewNestedNote: (state) => {
       state.isAddingNewNestedNote = !state.isAddingNewNestedNote
+    },
+    toggleAddingNewNestedTodo: (state) => {
+      state.isAddingNewNestedTodo = !state.isAddingNewNestedTodo
     },
     toggleAddingNewTodo: (state) => {
       state.isAddingNewTodo = !state.isAddingNewTodo
@@ -146,13 +147,13 @@ const contentSlice = createSlice({
 
       console.log("parentPath", parentPath)
       console.log("parentNote", parentNote)
+      const id = uuidv4()
 
       if (parentNote) {
         const level = parentNote.level + 1
-        const path = [...parentNote.path, "nestedNotes", title]
-
+        const path = [...parentNote.path, "nestedNotes", id]
         const newNestedNote = {
-          id: uuidv4(),
+          id,
           type: "note",
           level,
           title,
@@ -164,35 +165,41 @@ const contentSlice = createSlice({
           additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
         }
 
-        parentNote.nestedNotes[newNestedNote.title] = newNestedNote
-        // parentNote[newNestedNote.title] = newNestedNotea
+        parentNote.nestedNotes[newNestedNote.id] = newNestedNote
       }
     },
     addNestedTodo: (state, action) => {
-      const { parentId, title } = action.payload
+      const { parentPath, title } = action.payload
       const category = state.categories.find(
         (cat) => cat.name === state.selectedCategoryName
       )
+      const parentTodo = findNestedObject(category.content, parentPath)
+      const id = uuidv4()
 
-      const parentTodo = category.content.find((todo) => todo.id === parentId)
-      const level = parentTodo.level + 1
       if (parentTodo) {
-        parentTodo.nestedTodos.unshift({
-          id: uuidv4(),
+        const level = parentTodo.level + 1
+        const path = [...parentTodo.path, "nestedNotes", id]
+
+        const newNestedTodo = {
+          id,
           type: "todo",
           isComplited: false,
           level,
           title,
-          noteContent: "",
-          status: 0,
+          path,
+          todoPresicion: "",
+          nestedTodos: {},
+          showNestedTodos: false,
           tags: [],
-          nestedNotes: [],
-          additionalInfo: { timeOfCreation: getFormattedDateTime() },
-        })
+          additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
+        }
+
+        parentTodo.nestedTodos[newNestedTodo.id] = newNestedTodo
       }
     },
   },
 })
+
 export const {
   addNewContentList,
   setSelectedCategory,
@@ -201,7 +208,9 @@ export const {
   toggleAddingNewNestedNote,
   toggleAddingNewTodo,
   addNewTodo,
+  addNestedTodo,
   addNestedNote,
+  toggleAddingNewNestedTodo,
 } = contentSlice.actions
 
 export const selectContentList = (state) => state.content.categories
@@ -209,6 +218,9 @@ export const selectContentList = (state) => state.content.categories
 export const selectIsAddingNewNote = (state) => state.content.isAddingNewNote
 export const selectIsAddingNewNestedNote = (state) =>
   state.content.isAddingNewNestedNote
+
+export const selectIsAddingNewNestedTodo = (state) =>
+  state.content.isAddingNewNestedTodo
 
 export const selectIsAddingNewTodo = (state) => state.content.isAddingNewTodo
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "./Note-style.css"
 import { useDispatch, useSelector } from "react-redux"
 import {
-  selectSelectedCategory,
+
   selectIsAddingNewNote,
   selectIsAddingNewNestedNote,
   toggleAddingNewNote,
@@ -23,7 +23,6 @@ import { PiScrollThin } from "react-icons/pi"
 function NewNote({ parentPath = null, onClose }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const selectedCategory = useSelector(selectSelectedCategory)
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
   const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
 
@@ -42,7 +41,7 @@ function NewNote({ parentPath = null, onClose }) {
   const closeAndClear = () => {
     setInputText("")
     if (parentPath) {
-      dispatch(!toggleAddingNewNestedNote())
+      dispatch(toggleAddingNewNestedNote())
       onClose()
     } else {
       dispatch(toggleAddingNewNote())
@@ -55,9 +54,7 @@ function NewNote({ parentPath = null, onClose }) {
         dispatch(addNestedNote({ title: inputText, parentPath }))
         dispatch(toggleAddingNewNestedNote())
         onClose()
-        console.log('Nested Note')
       } else {
-        console.log('Main Note')
         dispatch(addNewNote(inputText))
         dispatch(toggleAddingNewNote())
       }

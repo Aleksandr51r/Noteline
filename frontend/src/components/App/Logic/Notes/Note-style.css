@@ -16,7 +16,10 @@
   justify-content: end;
   align-items: center;
   margin: 2px;
-  background-color: var(--background-color-for-items);
+
+  /* background-color: var(--background-color-for-items); */
+
+
   /* border: 1px solid rgb(0, 255, 136); */
   /* background: linear-gradient(
     #e6e6e6,
@@ -24,10 +27,12 @@
     #e6e6e6
   ); */
   border-radius: 2px;
-  box-shadow: 0px 0px 2px 0px #767676;
+  /* box-shadow: 0px 1px 3px #767676; */
   transition: backgroundColor 0.2s ease, box-shadow 0.2s ease,
-  transform 0.2s ease;
+    transform 0.2s ease;
   /* border: 1px solid rgb(0, 255, 13); */
+  border-left: 1px solid rgb(150, 150, 150);
+
 }
 
 .notes-nested {
@@ -49,6 +54,9 @@
   /* border: 1px solid rgb(0, 204, 255); */
 }
 
+.note-static {
+  filter: saturate(1.01);
+}
 .note-static:hover {
   background-color: var(--todo-onhover-background-color);
   border: 1px solid var(--todo-border);
@@ -58,7 +66,6 @@
     transform 0.2s ease;
 }
 
-
 .note-part {
   display: flex;
   flex-direction: row;
@@ -66,6 +73,7 @@
   align-items: center;
   margin: 0px 0px;
   padding: 0px 5px;
+  cursor: pointer;
   /* border-right: 1px solid grey; */
 }
 
@@ -107,6 +115,7 @@
 
 .note-text {
   width: 40%;
+  justify-content: end;
 }
 
 .note-text-span {
@@ -114,10 +123,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
 }
 
 .note-option {
   padding: 0px 5px;
+  
 }
 
 .note-tags {
@@ -127,3 +138,23 @@
 }
 
 /*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
+
+.note-wrap {
+  transform: scale(1.3);
+  transition: transform 0.2s ease;
+  
+}
+.wrap-expanded {
+  opacity: 1;
+  transition: transform 0.2s ease;
+  transform: rotateZ(90deg) scale(1.3);
+}
+
+.wrap-hidden {
+  opacity: 0;
+  cursor: cell;
+}
+
+.hidden{
+  display: none;
+}

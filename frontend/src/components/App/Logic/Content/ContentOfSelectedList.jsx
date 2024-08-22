@@ -27,7 +27,7 @@ function ContentOfSelectedList() {
       {isAddingNewTodo ? <NewTodo /> : null}
 
       {Object.values(selectedCategory.content).length > 0 ? (
-        Object.values(selectedCategory.content).map((item) => {
+        Object.values(selectedCategory.content).reverse().map((item) => {
           return item.type === "note" ? (
             <Note
               id={item.id}
@@ -41,11 +41,15 @@ function ContentOfSelectedList() {
             />
           ) : (
             <Todo
+              id={item.id}
               key={item.id}
               level={item.level}
               title={item.title}
-              content={item.noteContent}
+              todoPresicion={item.todoPresicion}
+              nestedTodos={item.nestedTodos}
               isComplited={item.isComplited}
+              showNestedTodos={item.showNestedTodos}
+              path={item.path}
             />
           )
         })

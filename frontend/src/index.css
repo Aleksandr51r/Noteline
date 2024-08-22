@@ -57,7 +57,7 @@ html[savedTheme="dark"] {
   --background-shadow: #757e80;
   --border-for-background-shadow: rgb(127, 132, 134);
 
-  --todo-done: #000000;
+  --todo-done: #313131;
   --todo-done-border: #000000;
   --todo-done-text: #f0f0f0;
   --todo-done-text-onhover: #a0a0a0;

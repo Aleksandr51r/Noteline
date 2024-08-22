@@ -13,17 +13,18 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  background-color: var(--background-color-for-items);
-  box-shadow: 0px 0px 2px 0px #767676;
+  /* background-color: var(--background-color-for-items); */
+  /* box-shadow: 0px 0px 2px 0px #767676; */
   border-radius: 2px;
   transition: backgroundColor 0.2s ease, box-shadow 0.2s ease,
-  transform 0.2s ease;
+    transform 0.2s ease;
   /* border: 1px solid red; */
   /* background: linear-gradient(
     #e6e6e6,
     var(--background-color-for-items),
     #e6e6e6
   ); */
+  border-left: 1px solid rgb(138, 138, 138);
 }
 
 .todo-nested {
@@ -124,7 +125,7 @@
   transition: background-color 0.2s ease, box-shadow 0.2s ease,
     transform 0.2s ease;
   transform: scale(0.99);
-  filter: contrast(0.3);
+  filter: contrast(0.45);
 }
 
 /* .todo-checkbox{
@@ -257,4 +258,25 @@
   transform: translate(0);
   opacity: 1;
   filter: none;
+}
+
+/*                                        */
+
+.todo-wrap {
+  transform: scale(1.3);
+  transition: transform 0.2s ease;
+}
+.wrap-expanded {
+  opacity: 1;
+  transition: transform 0.2s ease;
+  transform: rotateZ(90deg) scale(1.3);
+}
+
+.wrap-hidden {
+  opacity: 0;
+  cursor: cell;
+}
+
+.hidden {
+  display: none;
 }
