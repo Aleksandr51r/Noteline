@@ -5,7 +5,7 @@
 }
 
 .category-main {
-  top: 10%;
+  top: 5%;
   min-height: 40%;
   max-height: 90%;
   width: 100%;
@@ -130,5 +130,5 @@
   box-shadow: inset 0px 0px 15px 1px var(--background-shadow);
   border-radius: 2px;
   border: 1px solid var(--border-for-background-shadow);
-  text-shadow: 1px 0 1px var(--background-text-shadow);
+  text-shadow: 0px 0 1px var(--background-text-shadow);
 }

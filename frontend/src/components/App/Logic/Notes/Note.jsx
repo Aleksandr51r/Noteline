@@ -5,14 +5,14 @@ import { RxTriangleRight } from "react-icons/rx"
 import { GoBookmark } from "react-icons/go"
 import { IoMdOptions } from "react-icons/io"
 import { AiFillTags } from "react-icons/ai"
-import { ImPencil2 } from "react-icons/im";
+import { ImPencil2 } from "react-icons/im"
 import { useDispatch, useSelector } from "react-redux"
 import {
   toggleAddingNewNestedNote,
   selectIsAddingNewNestedNote,
 } from "../../../../redux/slices/contentSlice"
 import NewNote from "./NewNote"
-import ModalWindow from "../../../ModalWindow/ModalWindow"
+import ExtendedNote from "./ExtendedNote"
 
 function Note({
   level,
@@ -45,11 +45,11 @@ function Note({
   const onClose = () => {
     setThatNoteSelected(false)
   }
-  const noteContent = ""
   /*
-  const noteContent =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quos officia, rem eaque, praesentium explicabo ratione quis voluptate esse distinctio maiores facere, quo laborum tenetur dolorem odio a sapiente. Aspernatur repellendus necessitatibus minima laboriosam corrupti? Consequatur nulla, aperiam eius, a, hic sit adipisci aliquam nam aut labore praesentium facilis illum consectetur dolorum saepe dignissimos excepturi iusto debitis? Maiores, doloremque ullam. Veniam, sequi! Qui soluta nobis consequuntur possimus excepturi dignissimos tempora quod ipsum? Nisi facere unde a molestias, est illo saepe, iusto adipisci quia reprehenderit eius facilis architecto aliquid omnis placeat error repudiandae fuga quod dicta vitae rerum inventore similique quo? Iure nobis aut assumenda, voluptas non beatae rem pariatur excepturi exercitationem temporibus perferendis sit dolor enim, nulla ducimus quas, cum asperiores ut autem repellat eaque alias repudiandae maxime molestiae. Assumenda sequi facilis velit eveniet mollitia? Nemo maxime eos impedit totam cupiditate culpa ut minus, animi autem dignissimos iste molestiae, hic error vitae dolores tempore excepturi adipisci reprehenderit! Similique tempora, maxime illo omnis laudantium necessitatibus aliquid fuga ullam, consequatur alias praesentium culpa molestiae dolores vel rem vitae quidem delectus labore hic voluptas! Ducimus excepturi perspiciatis, eligendi eaque et, eveniet officiis repellendus, labore sit consequuntur doloribus dolores. Quam cupiditate magnam aliquid, quo dolor commodi quos animi dignissimos! Quia quas, temporibus ipsa praesentium adipisci cupiditate, esse repudiandae beatae laudantium expedita velit aliquid ipsum tempora explicabo corrupti odio obcaecati recusandae ducimus ea maxime odit eum placeat repellendus. Delectus culpa sit autem deleniti necessitatibus vitae fugiat praesentium? Illo, accusantium voluptatem! Vero consequuntur vitae sunt illum quae reprehenderit rerum nobis, laudantium porro quas amet itaque provident nemo inventore recusandae libero culpa perspiciatis? Libero, consequatur? Consequatur, esse ducimus aliquid consequuntur et iure fuga, ex pariatur quam earum excepturi dolores ipsum dolor facilis eum quod eaque error facere at! Perferendis repellat architecto cum similique optio. Sint, quod maiores."
+  const noteContent = ""
   */
+  const noteContent =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quos officia, rem eaque, praesentium explicabo ratione quis voluptate esse distinctio maiores facere, quo laborum tenetur dolorem odio a sapiente. Aspernatur repellendus necessitatibus minima laboriosam corrupti? Consequatur nulla, aperiam eius, a, hic sit adipisci aliquam nam aut labore praesentium facilis illum consectetur dolorum saepe dignissimos excepturi iusto debitis? Maiores, doloremque ullam. Veniam, sequi! Qui soluta nobis consequuntur possimus excepturi dignissimos tempora quod ipsum? Nisi facere unde a molestias, est illo saepe, iusto adipisci quia reprehenderit eius facilis architecto aliquid omnis placeat error repudiandae fuga quod dicta vitae rerum inventore similique quo? Iure nobis aut assumenda, voluptas non beatae rem pariatur excepturi exercitationem temporibus perferendis sit dolor enim, nulla ducimus quas, cum asperiores ut autem repellat eaque alias repudiandae maxime molestiae. Assumenda sequi facilis velit eveniet mollitia? Nemo maxime eos impedit totam cupiditate culpa ut minus, animi autem dignissimos iste molestiae, hic error vitae dolores tempore excepturi adipisci reprehenderit! Similique tempora, maxime illo omnis laudantium necessitatibus aliquid fuga ullam, consequatur alias praesentium culpa molestiae dolores vel rem vitae quidem delectus labore hic voluptas! Ducimus excepturi perspiciatis, eligendi eaque et, eveniet officiis repellendus, labore sit consequuntur doloribus dolores. Quam cupiditate magnam aliquid, quo dolor commodi quos animi dignissimos! Quia quas, temporibus ipsa praesentium adipisci cupiditate, esse repudiandae beatae laudantium expedita velit aliquid ipsum tempora explicabo corrupti odio obcaecati recusandae ducimus ea maxime odit eum placeat repellendus. Delectus culpa sit autem deleniti necessitatibus vitae fugiat praesentium? Illo, accusantium voluptatem! Vero consequuntur vitae sunt illum quae reprehenderit rerum nobis, laudantium porro quas amet itaque provident nemo inventore recusandae libero culpa perspiciatis? Libero, consequatur? Consequatur, esse ducimus aliquid consequuntur et iure fuga, ex pariatur quam earum excepturi dolores ipsum dolor facilis eum quod eaque error facere at! Perferendis repellat architecto cum similique optio. Sint, quod maiores."
 
   const handleNoteFormClick = () => {
     setThatNoteSelected(true)
@@ -70,12 +70,11 @@ function Note({
   return (
     <>
       {isNoteOpen && (
-        <div className='overlay ' onClick={closeAndClear}>
-          <div className='opened-note'>
-            <div>{title}</div>
-            <div>{noteContent}</div>
-          </div>
-        </div>
+        <ExtendedNote
+          onClick={closeAndClear}
+          title={title}
+          content={noteContent}
+        />
       )}
       <div className={`note-main ${className}`}>
         <div

@@ -21,6 +21,11 @@ function ContentOfSelectedList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
+  const exeptions = {
+    trashcan: "Corbeille est vide",
+    favorites: "Liste de favori est vide",
+  }
+
   return (
     <>
       {isAddingNewNote ? <NewNote /> : null}
@@ -55,8 +60,10 @@ function ContentOfSelectedList() {
               />
             )
           })
-      ) : selectedCategory.name === "trashcan" ? (
-        <h3 style={{ marginTop: "20px" }}>Corbeille est vide</h3>
+      ) : exeptions.hasOwnProperty(selectedCategory.name) ? (
+        <h3 style={{ marginTop: "20px" }}>
+          {exeptions[selectedCategory.name]}
+        </h3>
       ) : (
         <>
           <h3 style={{ marginTop: "20px" }}>

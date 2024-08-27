@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react"
 import "./Note-style.css"
 import { useDispatch, useSelector } from "react-redux"
 import {
-
   selectIsAddingNewNote,
   selectIsAddingNewNestedNote,
   toggleAddingNewNote,
@@ -50,12 +49,14 @@ function NewNote({ parentPath = null, onClose }) {
 
   const handleAddNewNote = () => {
     if (inputText) {
+      const text = inputText[0].toUpperCase() + inputText.slice(1)
+
       if (parentPath) {
-        dispatch(addNestedNote({ title: inputText, parentPath }))
+        dispatch(addNestedNote({ title: text, parentPath }))
         dispatch(toggleAddingNewNestedNote())
         onClose()
       } else {
-        dispatch(addNewNote(inputText))
+        dispatch(addNewNote(text))
         dispatch(toggleAddingNewNote())
       }
       setInputText("")
@@ -73,8 +74,7 @@ function NewNote({ parentPath = null, onClose }) {
   return (
     <div className='note new-note'>
       <div className='note-level note-part'></div>
-      <div className='note-btn-extend note-part'>
-      </div>
+      <div className='note-btn-extend note-part'></div>
       <div className='note-title note-part add-new-note'>
         <div
           className={`overlay ${
@@ -101,8 +101,7 @@ function NewNote({ parentPath = null, onClose }) {
         </button>
         <span className='note-text-span'></span>
       </div>
-      <div className='note-option note-part'>
-      </div>
+      <div className='note-option note-part'></div>
 
       <div className='note-tags note-part'></div>
     </div>

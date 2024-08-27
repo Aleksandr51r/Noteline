@@ -37,7 +37,7 @@ html[savedTheme="light"] {
   --navbar-toggler: #bfae8c;
 
   --background-shadow: #cfcfcfd5;
-  --background-text-shadow: #00acfc;
+  --background-text-shadow: #000000;
   --border-for-background-shadow: #6d6d6d;
 
   --todo-done: #ffffff;
@@ -54,7 +54,9 @@ html[savedTheme="light"] {
 html[savedTheme="dark"] {
   --background-color: #454547;
   /* --background-color: #2c2c2c;; */
+  --background-color-for-items:#183a49;;
   --background-color-for-items: #32323d;
+  --background-color-for-items: #3b3b3d;
   --background-color-for-items-lines: #454849;
 
   --background-color-onhover: #5c5c5c;
@@ -65,7 +67,7 @@ html[savedTheme="dark"] {
   --background-color-for-button: #025f6b;
   --background-color-for-button-onhover: #017180;
   --text-color: #e0e0e0;
-  --text-color-onhover: #4fb1db;
+  --text-color-onhover: #3699c4;;
   --text-for-button-color: #ffffff;
   --navbar-color: #454547;
   /* --navbar-color: #2c2c2c; */
@@ -75,7 +77,7 @@ html[savedTheme="dark"] {
   --background-shadow: #757e80;
   --background-shadow: #4a6570;
   --background-text-shadow: #183a49;
-  --background-text-shadow: #0000ff;
+  --background-text-shadow: #ffffff;
   --border-for-background-shadow: rgb(127, 132, 134);
 
   --todo-done: #313131;
@@ -84,6 +86,7 @@ html[savedTheme="dark"] {
   --todo-done-text-onhover: #a0a0a0;
   --todo-done-onhover-background-color: #26262b;
 
+  --todo-onhover-background-color: #32323d;
   --todo-onhover-background-color: #183a49;
   --todo-onhover-border: #979797;
 }

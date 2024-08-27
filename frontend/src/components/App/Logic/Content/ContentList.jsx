@@ -28,7 +28,9 @@ function ContentList() {
     <>
       <div className='category-main'>
         <div className='category-list-header'>
-          <span>{t("category")}</span>
+          <span>
+            {t("category")}
+            </span>
           <br />
           <br />
           {contentList.slice(0, 3).map((contentPart) => (
