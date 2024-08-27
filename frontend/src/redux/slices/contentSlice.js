@@ -97,7 +97,7 @@ const contentSlice = createSlice({
         additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
       }
 
-      category.content[newNote.id] = newNote
+      category.content = { ...category.content, [newNote.id]: newNote }
     },
 
     addNewTodo: (state, action) => {
@@ -115,13 +115,13 @@ const contentSlice = createSlice({
         level,
         title,
         path: [id],
-        todoPresicion: "",
+        todoDescription: "",
         nestedTodos: {},
-        showNestedTodo: false,
+        showNestedTodo: true,
         tags: [],
         additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
       }
-      category.content[newTodo.id] = newTodo
+      category.content = { ...category.content, [newTodo.id]: newTodo }
     },
 
     toggleAddingNewNote: (state) => {
@@ -178,7 +178,7 @@ const contentSlice = createSlice({
 
       if (parentTodo) {
         const level = parentTodo.level + 1
-        const path = [...parentTodo.path, "nestedNotes", id]
+        const path = [...parentTodo.path, "nestedTodos", id]
 
         const newNestedTodo = {
           id,

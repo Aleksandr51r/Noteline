@@ -3,65 +3,43 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  /* border: 3px solid rgb(140, 0, 255); */
   align-items: flex-end;
-  /* margin: 2px; */
+  justify-content: end;
 }
 
 .note {
   width: 100%;
-  height: 30px;
+  height: 26px;
   display: flex;
   flex-direction: row;
   justify-content: end;
-  align-items: center;
+  align-items: end;
   margin: 2px;
-
-  /* background-color: var(--background-color-for-items); */
-
-
-  /* border: 1px solid rgb(0, 255, 136); */
-  /* background: linear-gradient(
-    #e6e6e6,
-    var(--background-color-for-items),
-    #e6e6e6
-  ); */
   border-radius: 2px;
-  /* box-shadow: 0px 1px 3px #767676; */
-  transition: backgroundColor 0.2s ease, box-shadow 0.2s ease,
+  transition: background-color 0.1s ease, box-shadow 0.2s ease,
     transform 0.2s ease;
-  /* border: 1px solid rgb(0, 255, 13); */
-  border-left: 1px solid rgb(150, 150, 150);
-
+  /* border: 1px solid #0098be; */
+  position: relative;
 }
 
 .notes-nested {
-  width: 99%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  align-items: flex-end;
-  /* border: 2px solid rgb(255, 0, 0); */
-}
-
-.notes-list {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  /* border: 1px solid rgb(0, 204, 255); */
+  justify-content: start;
+  align-items: end;
+  /* border: 2px solid rgb(255, 0, 0); */
 }
 
-.note-static {
-  filter: saturate(1.01);
-}
-.note-static:hover {
+/* .notes-nested {
+  border-left: 1px solid #7c7c7c;
+} */
+
+.note-in-list:hover {
   background-color: var(--todo-onhover-background-color);
-  border: 1px solid var(--todo-border);
-  box-shadow: 0px 0px 1px var(--todo-onhover-shadow-inset);
-  transform: scale(1.01);
+  /* border: 1px solid var(--todo-onhover-border); */
+  transform: scale(1.005);
   transition: backgroundColor 0.2s ease, box-shadow 0.2s ease,
     transform 0.2s ease;
 }
@@ -71,51 +49,84 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 0px 0px;
-  padding: 0px 5px;
+
   cursor: pointer;
   /* border-right: 1px solid grey; */
 }
-
-.note-wrap {
-  border-right: none;
+.notes-list {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  padding-left: 10px;
 }
 
+.note-wrap {
+  height: inherit;
+  padding: 0px 0px;
+  /* width: 30px; */
+}
 .note-level {
-  width: 10px;
+  width: 3%;
+  height: inherit;
   font-family: "Times New Roman", Times, serif;
   font-size: 0.8em;
   color: grey;
 }
 
 .note-btn-extend {
-  width: 50px;
+  width: 5%;
+  height: inherit;
 }
 
 .note-dummy {
-  width: 50px;
+  width: 20px;
   border-right: none;
+  /* border: 1px solid red; */
 }
 
 .note-title {
-  width: 40%;
+  width: 45%;
+  height: inherit;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  justify-content: center;
 }
 
 .note-title-span {
   font-size: 1.5rem;
   font-weight: 900;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Times New Roman", Times, san-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* .note-title:hover {
+  transform: scale(1.01);
+  text-shadow: 0px 0px 1px #00fcfc, 0px 0 1em #ffffff, 0 0  1em #028b8b;
+  transition: transform 0.2s linear, text-shadow 0.3s linear;
+  border-radius: 3px;
+} */
+
 .note-text {
   width: 40%;
-  justify-content: end;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 5px;
+  height: 100%;
+  transition: transform 0.2s linear, text-shadow 0.3s linear;
+}
+
+.note-part-open:hover {
+  transform: scale(1.01);
+  text-shadow: 1px 1px 1px #028b8b, 1px 0 1em #ffffff, 0 0 1em #028b8b;
+  transition: transform 0.2s linear, text-shadow 0.3s linear;
+  border-radius: 3px;
 }
 
 .note-text-span {
@@ -123,31 +134,27 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
+}
+.note-part-open-span {
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
 .note-option {
   padding: 0px 5px;
-  
-}
-
-.note-tags {
-  width: 150px;
-  border-right: none;
-  /* border: 3px solid rgb(255, 0, 212); */
+  height: inherit;
 }
 
 /*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
 
 .note-wrap {
-  transform: scale(1.3);
   transition: transform 0.2s ease;
-  
 }
-.wrap-expanded {
+.wrap-note-expanded {
   opacity: 1;
+  transform: rotateZ(90deg);
   transition: transform 0.2s ease;
-  transform: rotateZ(90deg) scale(1.3);
 }
 
 .wrap-hidden {
@@ -155,6 +162,148 @@
   cursor: cell;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 1.3s linear, backdrop-filter 1.3s ease;
+}
+.opened-note {
+  padding: 10px 10px 10px 20px;
+  min-width: 265px;
+  width: 35%;
+  height: 85%;
+  border: 1px solid rgb(138, 138, 138);
+  position: absolute;
+  border-radius: 3px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: var(--background-color-for-items);
+  background-image: linear-gradient(
+      0deg,
+      transparent 24%,
+      var(--background-color-for-items-lines) 25%,
+      var(--background-color-for-items-lines) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--background-color-for-items-lines) 75%,
+      var(--background-color-for-items-lines) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      var(--background-color-for-items-lines) 25%,
+      var(--background-color-for-items-lines) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--background-color-for-items-lines) 75%,
+      var(--background-color-for-items-lines) 76%,
+      transparent 77%,
+      transparent
+    );
+  background-size: 25px 25px;
+
+  /* background:
+  radial-gradient(black 15%, transparent 16%) 0 0,
+  radial-gradient(black 15%, transparent 16%) 8px 8px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-color:#282828;
+  background-size:16px 16px; */
+
+  /* background-color: #414141;
+  background-image: linear-gradient(
+      90deg,
+      transparent 79px,
+      #696b6b 79px,
+      #757777 81px,
+      transparent 81px
+    ),
+    linear-gradient(#272727 0.1em, transparent 0.1em);
+  background-size: 100% 1.2em; */
+  /* 
+  background-color: rgb(71, 71, 71);
+  background-image: linear-gradient(rgb(99, 99, 99) 2px, transparent 2px),
+    linear-gradient(90deg, rgb(99, 99, 99) 2px, transparent 2px),
+    linear-gradient(rgba(150, 150, 150, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 150, 150, 0.3) 1px, transparent 1px);
+  background-size: 75px 75px, 75px 75px, 15px 15px, 15px 15px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */
+}
+
+/*LINES Trees*/
+
+/* .note-main {
+  position: relative;
+}
+
+.notes-nested .nestedItem {
+  border-left: 1px solid #7e7e7e;
+  position: relative;
+  border-left: 2px solid #ff0000;
+  padding-left: 10px;
+  }
+  
+  .notes-nested .nestedItem:last-child {
+    border-color: transparent;
+}
+
+.nestedItem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 20px;
+  height: 100%;
+  
+  border: solid #7e7e7e;
+  border-width: 0 0 1px 1px;
+  
+  } */
+
+/* .note-main {
+    position: relative;
+  }
+  
+  .notes-nested .nestedItem {
+    position: relative;
+    padding-left: 10px;
+    border-left: 1px solid #919191;
+  }
+
+  .notes-nested .nestedItem:last-child {
+    border-color: transparent;
+  }
+
+.nestedItem::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: -1px;
+  width: 40px;
+  height: 100%;
+  border: solid #7e7e7e;
+  border-width: 0 0 1px 1px;
+} */
+
+/* .notes-nested .nestedItem:last-child::before {
+  border-left-color: transparent; 
+} */
+
+/* .notes-list.expanded {
+  margin-left: 10px; 
+} */

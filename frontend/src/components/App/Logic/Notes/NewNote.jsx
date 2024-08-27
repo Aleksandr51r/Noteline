@@ -72,15 +72,9 @@ function NewNote({ parentPath = null, onClose }) {
 
   return (
     <div className='note new-note'>
-      <button className='btn-empty note-wrap note-part'>
-        <RxTriangleRight style={{ transform: "scale(1.5)" }} />
-      </button>
-      <div className='note-level note-part'>1</div>
-
+      <div className='note-level note-part'></div>
       <div className='note-btn-extend note-part'>
-        <NoteForm additionalClassName='little-btn-tool-icon' />
       </div>
-
       <div className='note-title note-part add-new-note'>
         <div
           className={`overlay ${
@@ -88,7 +82,6 @@ function NewNote({ parentPath = null, onClose }) {
           } overlay-for-note-title`}
           onClick={closeAndClear}
         ></div>
-
         <input
           ref={inputRef}
           type='text'
@@ -99,8 +92,7 @@ function NewNote({ parentPath = null, onClose }) {
           onKeyDown={handleKeyDown}
         />
       </div>
-
-      <div className='note-text note-part '>
+      <div className='note-text note-part note-text-btn'>
         <button
           className='btn-standart note-part btn-add-note'
           onClick={handleAddNewNote}
@@ -109,17 +101,10 @@ function NewNote({ parentPath = null, onClose }) {
         </button>
         <span className='note-text-span'></span>
       </div>
-
       <div className='note-option note-part'>
-        <button className='btn-empty  note-part'>
-          <GoBookmark />
-        </button>
-        <button className='btn-empty note-part'>
-          <IoMdOptions />
-        </button>
       </div>
 
-      <div className='note-tags note-part'>tags</div>
+      <div className='note-tags note-part'></div>
     </div>
   )
 }

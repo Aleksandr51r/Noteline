@@ -4,7 +4,8 @@ import "./Todo-style.css"
 import TodoForm from "../../Tools/TodoForm/TodoForm"
 import { GoBookmark } from "react-icons/go"
 import { IoMdOptions } from "react-icons/io"
-import { PiScrollThin } from "react-icons/pi"
+import { AiFillTags } from "react-icons/ai"
+import { ImPencil2 } from "react-icons/im"
 import { v4 as uuidv4 } from "uuid"
 import {
   toggleAddingNewNestedTodo,
@@ -16,7 +17,7 @@ import NewTodo from "./NewTodo"
 function Todo({
   level,
   title,
-  todoPresicion,
+  todoDescription,
   nestedTodos,
   showNestedTodos,
   path,
@@ -96,12 +97,14 @@ function Todo({
         <div className='todo-title todo-part' onClick={handleToggleNestedTodos}>
           <span className='todo-title-span'>{title}</span>
         </div>
-        <div className='todo-text note-part'>
-          {todoPresicion}
-          <button className='btn-empty btn-todo-open'>
-            <PiScrollThin />
-          </button>
-          <span className='todo-text-span'>status</span>
+        <div className='todo-text todo-part'>
+          <span className='todo-text-span'>
+            {todoDescription ? (
+              todoDescription.slice(0, 25) + "..."
+            ) : (
+              <ImPencil2 /> 
+            )}
+          </span>
         </div>
 
         <div className='todo-option todo-part'>
@@ -111,9 +114,10 @@ function Todo({
           <button className='btn-empty'>
             <IoMdOptions />
           </button>
+          <button className='btn-empty '>
+            <AiFillTags />
+          </button>
         </div>
-
-        <div className='todo-tags todo-part'>tags</div>
       </div>
 
       <div className={`todo-nested ${areNestedTodoVisible ? "expanded" : ""}`}>
@@ -131,9 +135,9 @@ function Todo({
                   key={item.id}
                   level={item.level}
                   title={item.title}
-                  todoPresicion={item.todoPresicion}
+                  todoDescription={item.todoDescription}
                   nestedTodos={item.nestedTodos}
-                  isComplited={item.isComplited}
+                  isComplited={isCompleted}
                   showNestedTodos={item.showNestedTodos}
                   path={item.path}
                 />

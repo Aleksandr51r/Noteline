@@ -13,7 +13,6 @@
   flex-direction: column;
   align-content: center;
   position: relative;
-  /* border: 5px solid #ffe600; */
 }
 
 .category-list {
@@ -24,14 +23,12 @@
   flex-direction: column;
   overflow: auto;
   position: relative;
-  /* border: 5px solid #00eeff; */
 }
 
 .category-list-header {
   position: static;
   top: 0px;
   left: 0px;
-  /* border: 5px solid #15ff00; */
 }
 
 .category {
@@ -57,16 +54,17 @@
 }
 
 .category:hover {
-  background-color: #a5a5a5;
+  background-color: #969696;
   color: #333;
   transition: background-color 0.3s, color 0.2s;
+  border-radius: 2px;
 }
 
 .category:active {
-  background-color: #222;
+  background-color: #c5c5c5;
   border: 1px solid rgb(196, 196, 196);
   box-shadow: -5px 0px 6px 1px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+  transition: background-color 0.1s, box-shadow 0.3s, color 0.3s;
 }
 
 .category span {
@@ -80,7 +78,7 @@
   transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 .category-btn:active {
-  color: aliceblue;
+  color: #0087fd;
   transition: color 0.7s;
 }
 
@@ -129,7 +127,8 @@
 }
 
 .choosen {
-  box-shadow: inset 0px 0px 10px 1px var(--background-shadow);
-  border-radius: 3px;
+  box-shadow: inset 0px 0px 15px 1px var(--background-shadow);
+  border-radius: 2px;
   border: 1px solid var(--border-for-background-shadow);
+  text-shadow: 1px 0 1px var(--background-text-shadow);
 }

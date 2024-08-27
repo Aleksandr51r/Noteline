@@ -77,8 +77,8 @@
 .button-broom:hover {
   background-color: transparent;
   transform: scale(1.1);
-  color: #00b3ca;
-  transition: transform 0.2s linear, color 0.2s ease-in;
+  color: var(--text-color-onhover);
+  transition: transform 0.2s linear, color 0.2s linear;
 }
 .button-broom.visible {
   display: block;
@@ -100,4 +100,9 @@
   .search-select {
     width: 60px;
   }
+}
+
+.name-of-selected-category h2 {
+  font-family: "comfort-bold";
+  text-shadow: var(--background-text-shadow) 1px 0 1px;
 }

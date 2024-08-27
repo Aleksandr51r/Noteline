@@ -72,14 +72,11 @@ function NewTodo({ parentPath = null, onClose }) {
   return (
     <div className='todo new-todo'>
       <button className='btn-empty todo-wrap todo-part'>
-        <RxTriangleRight style={{ transform: "scale(1.5)" }} />
       </button>
 
-      <div className='todo-level todo-part'>1</div>
+      <div className='todo-level todo-part'></div>
 
       <div className='todo-btn-extend todo-part'>
-        {/* <TodoForm additionalClassName='little-btn-tool-icon' /> */}
-        <TodoForm additionalClassName='little-btn-tool-icon' />
       </div>
       <div className='todo-check todo-part'>
         <input type='checkbox' />
@@ -114,15 +111,9 @@ function NewTodo({ parentPath = null, onClose }) {
       </div>
 
       <div className='todo-option todo-part'>
-        <button className='btn-empty'>
-          <GoBookmark />
-        </button>
-        <button className='btn-empty'>
-          <IoMdOptions />
-        </button>
       </div>
 
-      <div className='todo-tags todo-part'>tags</div>
+      <div className='todo-tags todo-part'></div>
     </div>
   )
 }

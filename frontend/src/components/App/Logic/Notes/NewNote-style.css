@@ -24,12 +24,17 @@
 }
 
 .btn-add-note {
-  z-index: 1002;
-  margin-left: 10px;
+  z-index: 1003;
+
   justify-content: flex-start;
 }
 
 .new-note {
   box-shadow: none;
-  width: 98%;
+  width: 99%;
+}
+
+
+.note-text-btn{
+  justify-content: start;
 }

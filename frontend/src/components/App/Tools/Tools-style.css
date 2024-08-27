@@ -1,13 +1,15 @@
 .tool-bar {
-  width: 100%;
+  width: 99%;
   max-width: auto;
-  height: 80px;
+  height: 85px;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   align-items: center;
+  padding: 10px 0px;
+  margin: 0px 5px;
+  border-bottom: 1px solid #6c6c6d;
 }
 
 .search-location {
