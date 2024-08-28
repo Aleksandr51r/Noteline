@@ -1,29 +1,16 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
-  z-index: 1000;
-  opacity: 1;
-  transition: opacity 1.3s linear, backdrop-filter 1.3s ease;
-}
 .opened-note {
+  z-index: 1002;
   min-width: 250px;
-  width: 40%;
+  width: 60%;
   height: 90%;
   border: 2px solid rgb(122, 122, 122);
-  position: absolute;
+  position: fixed;
   border-radius: 2px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
-
   background-color: var(--background-color-for-items);
   background-image: linear-gradient(
       0deg,
@@ -50,6 +37,7 @@
       transparent
     );
   background-size: 25px 25px;
+
   /* overflow: hidden;
   text-overflow: clip;
   white-space: nowrap; */
@@ -93,16 +81,17 @@
 }
 
 .extended-note-control-panel {
-  padding: 0px 10px;
+  padding: 0px 5px;
   height: auto;
   display: flex;
   flex-direction: row;
   justify-content: end;
+  height: 40px;
 }
 
 .extended-note-content {
   min-height: 200px;
-  max-height: auto;
+  max-height: 85%;
   padding: 5px 10px 5px 10px;
 
   overflow: auto;
@@ -113,8 +102,33 @@
 }
 
 .extended-note-tags {
+  background: rgba(122, 122, 122, 0.137);
+  background: linear-gradient(
+
+    rgba(0, 0, 0, 0.103),
+    var(--background-color-for-items)
+  );
+
+
   height: 80px;
   justify-self: end;
+  align-items: center;
   margin-top: auto;
-  background: rgba(121, 121, 121, 0.418);
+  padding: 5px 10px 5px 10px;
+}
+
+.extended-note-content-textarea {
+  min-height: 200px;
+  max-height: 95%;
+
+  background-color: transparent;
+  color: var(--text-color);
+  border: none;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.extended-note-content-textarea:focus {
+  outline: none !important;
 }

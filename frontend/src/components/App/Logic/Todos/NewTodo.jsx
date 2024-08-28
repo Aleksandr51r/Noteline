@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react"
-import { RxTriangleRight } from "react-icons/rx"
 import "./Todo-style.css"
 import {
   selectIsAddingNewTodo,
@@ -10,10 +9,9 @@ import {
   addNestedTodo,
 } from "../../../../redux/slices/contentSlice"
 import "./NewTodo-style.css"
-import TodoForm from "../../Tools/TodoForm/TodoForm"
-import { GoBookmark } from "react-icons/go"
-import { IoMdOptions } from "react-icons/io"
-import { PiScrollThin } from "react-icons/pi"
+import Overlay from "../../../Overlay"
+
+
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -83,12 +81,8 @@ function NewTodo({ parentPath = null, onClose }) {
       </div>
 
       <div className='todo-title todo-part add-new-todo'>
-        <div
-          className={`overlay ${
-            isAddingNewTodo ? "open" : "closed"
-          } overlay-for-todo-title`}
-          onClick={closeAndClear}
-        ></div>
+        <Overlay onClick={closeAndClear}/>
+      
 
         <input
           ref={inputRef}

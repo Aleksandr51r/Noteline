@@ -2,6 +2,7 @@ import React from "react"
 import "./ModalWindow_style.css"
 import { useTranslation } from "react-i18next"
 import CloseButton from "../../UI/closeButton/CloseButton"
+import Overlay from "../Overlay"
 
 function ModalWindow({ title, Component, isModalOpen, closeModal }) {
   const { t } = useTranslation()
@@ -9,10 +10,7 @@ function ModalWindow({ title, Component, isModalOpen, closeModal }) {
   if (!isModalOpen) return null
   return (
     <div className='modal-root'>
-      <div
-        className={`overlay ${isModalOpen ? "open" : "closed"}`}
-        onClick={closeModal}
-      />
+      <Overlay onClick={closeModal} />
       <div className={`modal-body-right ${isModalOpen ? "open" : "closed"}`}>
         <div className='header'>
           <CloseButton onClick={closeModal} />

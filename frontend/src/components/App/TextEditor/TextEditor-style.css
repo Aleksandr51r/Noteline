@@ -1,0 +1,36 @@
+/* styles.css */
+
+.ql-toolbar .ql-stroke {
+  stroke: var(--text-color); /* Цвет границы иконок */
+  border: none;
+}
+
+.ql-toolbar .ql-fill {
+  fill: var(--text-color); /* Цвет заливки иконок, если используется */
+}
+
+.ql-toolbar .ql-picker-label,
+.ql-toolbar .ql-picker-item {
+  color: var(--text-color); /* Цвет текста в селекторах */
+}
+
+.ql-container,
+.ql-toolbar {
+  border: none !important;
+}
+
+.ql-toolbar {
+  padding: 3px;
+}
+.ql-container {
+  font-size: 18px;
+}
+
+.ql-container p img {
+  width: 180px;
+  height: 120px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 5px 5px;
+  float: none;
+}

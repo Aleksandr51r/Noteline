@@ -5,21 +5,20 @@ import TodoForm from "../TodoForm/TodoForm"
 import "../Tools-style.css"
 import { useSelector } from "react-redux"
 import { selectSelectedCategory } from "../../../../redux/slices/contentSlice"
+
 function ControlPanel() {
+  const exeptionsList = ["trashcan", "favorites", "kanban"]
+
   const selectedCategory = useSelector(selectSelectedCategory)
 
   return (
     <div className='control-panel'>
-      <NoteForm
-        additionalClassName={
-          selectedCategory.name === "trashcan" ? "btn-disabled" : ""
-        }
-      />
-      <TodoForm
-        additionalClassName={
-          selectedCategory.name === "trashcan" ? "btn-disabled" : ""
-        }
-      />
+      {exeptionsList.includes(selectedCategory.name) ? null : (
+        <>
+          <NoteForm />
+          <TodoForm />
+        </>
+      )}
     </div>
   )
 }

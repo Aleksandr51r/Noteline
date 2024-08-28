@@ -8,7 +8,6 @@ function AppSettings() {
   return (
     <>
       <div className='commun-settings'>
-
         <LanguageSelect />
       </div>
       <hr />

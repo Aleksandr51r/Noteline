@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import { IoIosAddCircle } from "react-icons/io"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addNewContentList } from "../../../../../redux/slices/contentSlice"
 import { setError } from "../../../../../redux/slices/errorSlice"
 import "./NewCategoryInput-style.css"
+import Overlay from "../../../../Overlay"
 
 function NewCategoryInput() {
   const { t } = useTranslation()
@@ -51,10 +52,7 @@ function NewCategoryInput() {
     <>
       {isAddingCategory && (
         <>
-          <div
-            className={`overlay ${isAddingCategory ? "open" : "closed"}`}
-            onClick={closeAndClear}
-          ></div>
+          <Overlay onClick={closeAndClear} />
           <div className='new-category-input'>
             <input
               ref={inputRef}

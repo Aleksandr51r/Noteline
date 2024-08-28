@@ -100,6 +100,16 @@ const contentSlice = createSlice({
       category.content = { ...category.content, [newNote.id]: newNote }
     },
 
+    modifyNote: (state, action) => {
+      const { path, noteContent } = action.payload
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+      let thatNote = findNestedObject(category.content, path)
+      thatNote = { ...thatNote, noteContent }
+      category.content = { ...category.content, [thatNote.id]: thatNote };
+    },
+
     addNewTodo: (state, action) => {
       const title = action.payload
       const level = 1
@@ -211,6 +221,7 @@ export const {
   addNestedTodo,
   addNestedNote,
   toggleAddingNewNestedTodo,
+  modifyNote,
 } = contentSlice.actions
 
 export const selectContentList = (state) => state.content.categories

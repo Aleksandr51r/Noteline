@@ -10,14 +10,8 @@ import {
   addNestedNote,
 } from "../../../../redux/slices/contentSlice"
 import { useTranslation } from "react-i18next"
-import NoteForm from "../../Tools/NoteForm/NoteForm"
-import { RxTriangleRight } from "react-icons/rx"
-import TodoForm from "../../Tools/TodoForm/TodoForm"
 import "./NewNote-style.css"
-import { MdAddBox } from "react-icons/md"
-import { GoBookmark } from "react-icons/go"
-import { IoMdOptions } from "react-icons/io"
-import { PiScrollThin } from "react-icons/pi"
+import Overlay from "../../../Overlay"
 
 function NewNote({ parentPath = null, onClose }) {
   const { t } = useTranslation()
@@ -76,12 +70,12 @@ function NewNote({ parentPath = null, onClose }) {
       <div className='note-level note-part'></div>
       <div className='note-btn-extend note-part'></div>
       <div className='note-title note-part add-new-note'>
-        <div
+        <Overlay
           className={`overlay ${
             isAddingNewNote ? "open" : "closed"
           } overlay-for-note-title`}
           onClick={closeAndClear}
-        ></div>
+        />
         <input
           ref={inputRef}
           type='text'

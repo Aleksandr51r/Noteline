@@ -20,18 +20,6 @@
   z-index: 1002;
 }
 
-.overlay-for-todo-title {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(63, 63, 63, 0.452);
-  backdrop-filter: blur(1.5px);
-  z-index: 1000;
-  opacity: 1;
-  transition: opacity 1.3s linear, backdrop-filter 1.3s ease;
-}
 
 .btn-add-todo {
   z-index: 1002;
