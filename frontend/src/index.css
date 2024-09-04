@@ -22,12 +22,11 @@ html[savedTheme="light"] {
   --background-color-for-items: #d3d3d3;
   --background-color-for-items-lines: #b9cbcf;
 
-
   --background-color-onhover: #686561;
   --background-color-for-toggle-light-mode: #464444;
   --background-color-for-toggle-light-mode-onhover: #270180;
   --background-color-for-icon-light-mode: #e0e0e0;
-  --background-color-for-modul-window-settings: #E6E6E6;
+  --background-color-for-modul-window-settings: #e6e6e6;
   --background-color-for-button: #073e46;
   --background-color-for-button-onhover: #525252;
   --text-for-button-color: #ffffff;
@@ -54,7 +53,7 @@ html[savedTheme="light"] {
 html[savedTheme="dark"] {
   --background-color: #454547;
   /* --background-color: #2c2c2c;; */
-  --background-color-for-items:#183a49;;
+  --background-color-for-items: #183a49;
   --background-color-for-items: #32323d;
   --background-color-for-items: #3b3b3d;
   --background-color-for-items-lines: #454849;
@@ -67,7 +66,7 @@ html[savedTheme="dark"] {
   --background-color-for-button: #025f6b;
   --background-color-for-button-onhover: #017180;
   --text-color: #e0e0e0;
-  --text-color-onhover: #3699c4;;
+  --text-color-onhover: #3699c4;
   --text-for-button-color: #ffffff;
   --navbar-color: #454547;
   /* --navbar-color: #2c2c2c; */
@@ -94,7 +93,7 @@ html[savedTheme="dark"] {
 * {
   margin: 0;
   padding: 0;
-  font-family: "montserrat";
+  /* font-family: "comfort"; */
 }
 
 a {

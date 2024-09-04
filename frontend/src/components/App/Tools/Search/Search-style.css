@@ -22,6 +22,10 @@
   /* font-style: italic; */
 }
 
+.search-bar-filled {
+  width: 200px;
+}
+
 .search-bar:focus {
   width: 200px;
   background-color: rgba(255, 255, 255, 0.788);

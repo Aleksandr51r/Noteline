@@ -9,15 +9,24 @@ import {
   selectSelectedCategory,
 } from "../../../../redux/slices/contentSlice"
 import "./Category-style.css"
+import { addNewCategoryAsync } from "../../../../redux/slices/contentSlice"
+import { fetchCategories } from "../../../../redux/slices/contentSlice"
 
 function ContentList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const contentList = useSelector(selectContentList)
+
+  // const contentList = useSelector(selectContentList)
+  const contentList = useSelector((state) => state.content.categories)
   const choosenCategory = useSelector(selectSelectedCategory)
 
+  // useEffect(() => {
+  //   dispatch(fetchCategories())
+  // }, [dispatch])
+
   useEffect(() => {
-    console.log(contentList)
+    console.log("redux", contentList)
+    console.log("fetch", fetchCategories)
   }, [contentList])
 
   const handleChoseCategory = (name) => {
@@ -28,12 +37,10 @@ function ContentList() {
     <>
       <div className='category-main'>
         <div className='category-list-header'>
-          <span>
-            {t("category")}
-            </span>
+          <span>{t("category")}</span>
           <br />
           <br />
-          {contentList.slice(0, 3).map((contentPart) => (
+          {contentList.slice(0, 2).map((contentPart) => (
             <Category
               key={contentPart.id}
               name={t(contentPart.name)}

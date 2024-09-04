@@ -6,6 +6,8 @@ import { addNewContentList } from "../../../../../redux/slices/contentSlice"
 import { setError } from "../../../../../redux/slices/errorSlice"
 import "./NewCategoryInput-style.css"
 import Overlay from "../../../../Overlay"
+import { addNewCategoryAsync } from "../../../../../redux/slices/contentSlice"
+import { fetchCategories } from "../../../../../api"
 
 function NewCategoryInput() {
   const { t } = useTranslation()
@@ -34,7 +36,9 @@ function NewCategoryInput() {
   const handleAddNewCategory = () => {
     if (inputText) {
       dispatch(addNewContentList(inputText))
+      dispatch(addNewCategoryAsync({ name: inputText, userId: 111 }))
       setInputText("")
+      // console.log("fetchCategories", () => fetchCategories)
       setIsAddingCategory(false)
     } else {
       dispatch(setError("Complete the field!"))

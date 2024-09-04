@@ -7,7 +7,7 @@ import TextEditor from "../../TextEditor/TextEditor"
 import { useDispatch } from "react-redux"
 import { modifyNote } from "../../../../redux/slices/contentSlice"
 
-function ExtendedNote({ onClick, title, content, tags, path }) {
+function ExtendedNote({ onClick, title, content, tags, path, id }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -22,9 +22,9 @@ function ExtendedNote({ onClick, title, content, tags, path }) {
   const handleClickInRedactingMode = () => {
     isReducting(false)
     console.log("path", noteContent)
-    dispatch(modifyNote({ path, noteContent }))
+    console.log("path", path)
+    dispatch(modifyNote({ path, noteContent, id }))
   }
-  
 
   return (
     <>
@@ -49,9 +49,7 @@ function ExtendedNote({ onClick, title, content, tags, path }) {
           <div
             className='extended-note-content'
             dangerouslySetInnerHTML={{ __html: noteContent }}
-          >
-
-          </div>
+          ></div>
           <div className='extended-note-tags'>{tags}</div>
         </div>
       ) : (
