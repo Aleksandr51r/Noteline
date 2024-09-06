@@ -6,9 +6,19 @@ import AppSettings from "../AppSettings/AppSettings"
 import "./FixedHeader_style.css"
 import { useModal } from "../../ModalWindow/useModal"
 import LightSwitch from "../../../UI/LightSwitch/LightSwitch"
+import Overlay from "../../Overlay"
 
 function FixedHeader() {
-  const { isModalOpen, openModal, closeModal } = useModal()
+  // const { isModalOpen, openModal, closeModal } = useModal()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openSettings = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeAndClear = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <>
@@ -19,15 +29,20 @@ function FixedHeader() {
         <IoSettingsOutline
           size='25px'
           className='fixed-header-item'
-          onClick={openModal}
+          onClick={openSettings}
         />
       </div>
-      <ModalWindow
-        title='settings'
-        Component={AppSettings}
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
-      />
+      {isModalOpen && (
+        <>
+          <Overlay onClick={closeAndClear} />
+
+          <ModalWindow
+            title='settings'
+            Component={AppSettings}
+            closeModal={closeAndClear}
+          />
+        </>
+      )}
     </>
   )
 }

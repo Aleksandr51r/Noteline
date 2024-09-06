@@ -28,7 +28,7 @@ function ContentOfSelectedList() {
 
   return (
     <>
-      {isAddingNewNote ? <NewNote /> : null}
+      {/* {isAddingNewNote ? <NewNote /> : null}
       {isAddingNewTodo ? <NewTodo /> : null}
 
       {Object.values(selectedCategory.content).length > 0 ? (
@@ -81,7 +81,7 @@ function ContentOfSelectedList() {
             {t("to add a todo")}
           </h5>
         </>
-      )}
+      )} */}
     </>
   )
 }

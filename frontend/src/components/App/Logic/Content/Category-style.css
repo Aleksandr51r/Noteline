@@ -45,6 +45,8 @@
   text-decoration: none;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   /* border: 2px solid rgb(255, 0, 200); */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .category-icon {
   margin-right: 10px;

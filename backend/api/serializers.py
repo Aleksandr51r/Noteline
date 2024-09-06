@@ -21,6 +21,11 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "icon"]
         extra_kwargs = {"owner": {"read_only": True}}
 
+    def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['owner'] = user
+        return super().create(validated_data)
+
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:

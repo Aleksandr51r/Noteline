@@ -1,25 +1,34 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
+import SingUp from "./SignUp"
+import { GiArrowWings } from "react-icons/gi"
 
-function Registation() {
+function LogIn({ onChangeMode, handleSubmit }) {
   const { t } = useTranslation()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    handleSubmit(username.toLowerCase(), password)
+  }
 
   return (
     <>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div className='mb-3'>
-          <label htmlFor='exampleInputEmail1' className='form-label'>
-            Email address
+          <label htmlFor='exampleInputText' className='form-label'>
+            Username
           </label>
           <input
-            type='email'
+            type='text'
             className='form-control'
-            id='exampleInputEmail1'
-            aria-describedby='emailHelp'
+            id='exampleInputUsername'
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value)
+            }}
           />
-          <div id='emailHelp' className='form-text'>
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className='mb-3'>
           <label htmlFor='exampleInputPassword1' className='form-label'>
@@ -29,6 +38,10 @@ function Registation() {
             type='password'
             className='form-control'
             id='exampleInputPassword1'
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
           />
         </div>
         <div className='mb-3 form-check'>
@@ -47,11 +60,14 @@ function Registation() {
       </form>
       <div className='mt-3'>
         <p>
-          Don't have an account? <a href='/signup'>Create a new account</a>
+          Don't have an account?{" "}
+          <button className='btn-empty' onClick={onChangeMode}>
+            Create a new account
+          </button>
         </p>
       </div>
     </>
   )
 }
 
-export default Registation
+export default LogIn

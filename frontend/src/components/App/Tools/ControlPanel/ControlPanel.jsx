@@ -13,14 +13,24 @@ function ControlPanel() {
 
   return (
     <div className='control-panel'>
-      {exeptionsList.includes(selectedCategory.name) ? null : (
-        <>
-          <NoteForm />
-          <TodoForm />
-        </>
-      )}
+      <>
+        <NoteForm />
+        <TodoForm />
+      </>
     </div>
   )
 }
 
 export default ControlPanel
+
+// return (
+//   <div className='control-panel'>
+//     {exeptionsList.includes(selectedCategory.name) ? null : (
+//       <>
+//         <NoteForm />
+//         <TodoForm />
+//       </>
+//     )}
+//   </div>
+// )
+// }

@@ -11,23 +11,65 @@ import {
 import "./Category-style.css"
 import { addNewCategoryAsync } from "../../../../redux/slices/contentSlice"
 import { fetchCategories } from "../../../../redux/slices/contentSlice"
+import api from "../../../../api/api"
 
 function ContentList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const contentList = useSelector(selectContentList)
+  // const [contentList, setCategories] = useState([])
 
-  // const contentList = useSelector(selectContentList)
-  const contentList = useSelector((state) => state.content.categories)
+  useEffect(() => {
+    dispatch(fetchCategories())
+    console.log("sended")
+  }, [dispatch])
+
+  // const getCategories = () => {
+  //   api
+  //     .get("/api/categories/")
+  //     .then((res) => res.data)
+  //     .then((data) => {
+  //       setCategories(data)
+  //       console.log("data", data)
+  //     })
+  //     .catch((error) => alert(error))
+  // }
+
+  // Получение категорий через API
+  // const getCategories = async () => {
+  //   try {
+  //     const res = await api.get("/api/categories/")
+  //     setCategories(res.data)
+  //     console.log("data", res.data)
+  //   } catch (error) {
+  //     alert(error.message || "Failed to fetch categories")
+  //   }
+  // }
+
+  // const deleteCategory = (id) => {
+  //   api
+  //     .delete(`/api/categories/delete/${id}`)
+  //     .then((res) => {
+  //       if (res.status === 204) {
+  //         alert("Category was deleted")
+  //       } else {
+  //         alert("Faild to delete note!")
+  //       }
+  //       getCategories()
+  //     })
+  //     .catch((err) => alert(err))
+  // }
+
+  console.log("contentList", contentList)
+
   const choosenCategory = useSelector(selectSelectedCategory)
 
   // useEffect(() => {
-  //   dispatch(fetchCategories())
-  // }, [dispatch])
+  //   console.log("redux", contentList)
+  //   console.log("fetch", fetchCategories)
+  // }, [contentList])
 
-  useEffect(() => {
-    console.log("redux", contentList)
-    console.log("fetch", fetchCategories)
-  }, [contentList])
+  // console.log("contentList", contentList)
 
   const handleChoseCategory = (name) => {
     dispatch(setSelectedCategory(name))

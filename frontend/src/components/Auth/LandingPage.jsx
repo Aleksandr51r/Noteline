@@ -1,18 +1,30 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useModal } from "../ModalWindow/useModal"
+
 import { MdAccountCircle } from "react-icons/md"
 import { GiBlackBook } from "react-icons/gi"
 import { PiGraphThin } from "react-icons/pi"
 import LightSwitch from "../../UI/LightSwitch/LightSwitch"
 import LanguageSelect from "../../language/LanguageSelect"
 import ModalWindow from "../ModalWindow/ModalWindow"
-import Registation from "./Registration/Registation"
 import "./Starting-styles.css"
+import LogIn from "./Registration/LogIn"
+import SignUp from "./Registration/SignUp"
+import Overlay from "../Overlay"
 
-function Starting() {
+function LandingPage() {
   const { t } = useTranslation()
-  const { isModalOpen, openModal, closeModal } = useModal()
+  // const { isModalOpen, openModal, closeModal } = useModal()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isForSignUp, setIsForSignUp] = useState(false)
+
+  const handleMode = (value = !isForSignUp) => {
+    setIsForSignUp(value)
+  }
+  const closeAndClear = () => {
+    setIsModalOpen(false)
+    setIsForSignUp(false)
+  }
 
   return (
     <>
@@ -54,7 +66,9 @@ function Starting() {
                   <a
                     className='nav-link nav-link-text'
                     href='#'
-                    onClick={openModal}
+                    onClick={() => {
+                      setIsModalOpen(true)
+                    }}
                   >
                     {t("account")}
                     <MdAccountCircle className='nav-link-text' />
@@ -73,14 +87,32 @@ function Starting() {
           </div>
         </div>
       </nav>
-      <ModalWindow
-        title='registration'
-        Component={Registation}
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
-      />
+
+      {isModalOpen && (
+        <>
+          <Overlay onClick={closeAndClear} />
+          {isForSignUp ? (
+            <ModalWindow
+              title='SignUp'
+              Component={SignUp}
+              onChangeMode={handleMode}
+              closeModal={closeAndClear}
+              route='/api/user/register/'
+              method='signup'
+            />
+          ) : (
+            <ModalWindow
+              title='registration'
+              Component={LogIn}
+              onChangeMode={handleMode}
+              closeModal={closeAndClear}
+              route='/api/token/'
+              method='login'
+            />
+          )}
+        </>
+      )}
     </>
   )
 }
-
-export default Starting
+export default LandingPage

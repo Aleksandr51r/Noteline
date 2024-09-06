@@ -13,7 +13,9 @@ function SearchLocation() {
   return (
     <div className='search-location'>
       <div className='name-of-selected-category'>
-        <h2>{t(`${selectedCategory.name}`)}</h2>
+        <h2 className='category-name-selected'>
+          {/* {t(`${selectedCategory.name}`)} */}
+        </h2>
       </div>
       <Search />
     </div>

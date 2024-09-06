@@ -1,8 +1,26 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import Starting from "./components/Auth/Starting"
+import LandingPage from "./components/Auth/LandingPage"
 import Application from "./components/App/Application"
+import NotFound from "./components/Auth/NotFound"
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigation,
+  Navigate,
+} from "react-router-dom"
+import ProtectedRoute from "./components/ProtectedRoute"
 
+function LogOut() {
+  localStorage.clear()
+  return <LandingPage />
+}
+
+function RegisterAndLogout() {
+  localStorage.clear()
+  return <LandingPage />
+}
 
 function App() {
   useEffect(() => {
@@ -12,13 +30,41 @@ function App() {
     }
   }, [])
 
-  const [isLogged, setIsLogged] = useState(true)
   return (
     <div className='App'>
-      {isLogged ? <Application /> : <Starting />}
-
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <ProtectedRoute>
+                <Application />
+              </ProtectedRoute>
+            }
+          />
+          <Route path='/landing-page' element={<LandingPage />} />
+          {/* <Route path='/signup' element={<SingUp />} /> */}
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
 
 export default App
+
+// function App() {
+//   useEffect(() => {
+//     const savedTheme = localStorage.getItem("theme")
+//     if (savedTheme) {
+//       document.documentElement.setAttribute("savedTheme", savedTheme)
+//     }
+//   }, [])
+
+//   const [isLogged, setIsLogged] = useState(false)
+//   return (
+//     <div className='App'>{isLogged ? <Application /> : <LandingPage />}</div>
+//   )
+// }
+
+// export default App

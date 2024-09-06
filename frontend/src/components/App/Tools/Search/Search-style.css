@@ -110,3 +110,7 @@
   font-family: "comfort-bold";
   text-shadow: var(--background-text-shadow) 1px 0 1px;
 }
+
+.category-name-selected {
+  text-overflow: ellipsis;
+}

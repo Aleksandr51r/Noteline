@@ -7,7 +7,7 @@ import { setError } from "../../../../../redux/slices/errorSlice"
 import "./NewCategoryInput-style.css"
 import Overlay from "../../../../Overlay"
 import { addNewCategoryAsync } from "../../../../../redux/slices/contentSlice"
-import { fetchCategories } from "../../../../../api"
+import api from "../../../../../api/api"
 
 function NewCategoryInput() {
   const { t } = useTranslation()
@@ -17,6 +17,21 @@ function NewCategoryInput() {
   const [inputText, setInputText] = useState("")
 
   const inputRef = useRef(null)
+
+  const createCategory = (e) => {
+    e.preventDefault()
+    api
+      .post("/api/categories/", { inputText })
+      .then((res) => {
+        if (res.status === 201) {
+          alert("Category was created")
+        } else {
+          alert("Faild to create note!")
+        }
+        // getCategories()
+      })
+      .catch((err) => alert(err))
+  }
 
   useEffect(() => {
     if (isAddingCategory && inputRef.current) {
@@ -35,8 +50,9 @@ function NewCategoryInput() {
 
   const handleAddNewCategory = () => {
     if (inputText) {
-      dispatch(addNewContentList(inputText))
-      dispatch(addNewCategoryAsync({ name: inputText, userId: 111 }))
+      // dispatch(addNewContentList(inputText))
+      const name = inputText
+      dispatch(addNewCategoryAsync(name))
       setInputText("")
       // console.log("fetchCategories", () => fetchCategories)
       setIsAddingCategory(false)
@@ -57,7 +73,7 @@ function NewCategoryInput() {
       {isAddingCategory && (
         <>
           <Overlay onClick={closeAndClear} />
-          <div className='new-category-input'>
+          <form className='new-category-input' onSubmit={createCategory}>
             <input
               ref={inputRef}
               type='text'
@@ -69,12 +85,12 @@ function NewCategoryInput() {
             />
             <button
               className='btn-standart confirm-add-category'
-              type='button'
+              type='submit'
               onClick={handleAddNewCategory}
             >
               {t("add")}
             </button>
-          </div>
+          </form>
         </>
       )}
       {!isAddingCategory && (
