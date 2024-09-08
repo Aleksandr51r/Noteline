@@ -24,6 +24,11 @@ function ContentList() {
     console.log("sended")
   }, [dispatch])
 
+  const categoryListRefresh = () => {
+    dispatch(fetchCategories())
+    console.log("sended2")
+  }
+
   // const getCategories = () => {
   //   api
   //     .get("/api/categories/")
@@ -71,10 +76,10 @@ function ContentList() {
 
   // console.log("contentList", contentList)
 
-  const handleChoseCategory = (name) => {
-    dispatch(setSelectedCategory(name))
+  const handleChoseCategory = (id) => {
+    dispatch(setSelectedCategory(id))
+    console.log("choosenCategory", id)
   }
-  const categoriesArray = Object.values(contentList)
 
   return (
     <>
@@ -83,34 +88,40 @@ function ContentList() {
           <span>{t("category")}</span>
           <br />
           <br />
+          {/* {Object.values(contentList.content)} */}
           {contentList.slice(0, 2).map((contentPart) => (
             <Category
+              id={contentPart.id}
               key={contentPart.id}
               name={t(contentPart.name)}
-              Icon={contentPart.icon}
-              addedClassName={`static ${
-                choosenCategory && contentPart.name === choosenCategory.name
+              icon={contentPart.icon}
+              addedClassName={`${
+                choosenCategory && contentPart.id === choosenCategory.id
                   ? "choosen"
                   : ""
               }`}
               addedIconClassName={contentPart.name}
               onClick={() => {
-                handleChoseCategory(contentPart.name)
+                handleChoseCategory(contentPart.id)
               }}
+              categoryListRefresh={categoryListRefresh}
             />
           ))}
         </div>
         <div className='category-list'>
           {contentList.slice(4).map((contentPart) => (
             <Category
+              id={contentPart.id}
               key={contentPart.id}
-              name={t(contentPart.name)}
-              onClick={() => handleChoseCategory(contentPart.name)}
+              name={contentPart.name}
+              onClick={() => handleChoseCategory(contentPart.id)}
+              icon={contentPart.icon}
               addedClassName={`${
-                choosenCategory && contentPart.name === choosenCategory.name
+                choosenCategory && contentPart.id === choosenCategory.id
                   ? "choosen"
                   : ""
               }`}
+              categoryListRefresh={categoryListRefresh}
             />
           ))}
         </div>
@@ -120,18 +131,20 @@ function ContentList() {
         {contentList.length > 3 && (
           <div>
             <Category
+              id={contentList[3].id}
               key={contentList[3].id}
               name={t(contentList[3].name)}
-              Icon={contentList[3].icon}
-              addedClassName={`static ${
-                choosenCategory && contentList[3].name === choosenCategory.name
+              icon={contentList[3].icon}
+              addedClassName={`${
+                choosenCategory && contentList[3].id === choosenCategory.id
                   ? "choosen"
                   : ""
               }`}
               addedIconClassName={contentList[3].name}
               onClick={() => {
-                handleChoseCategory(contentList[3].name)
+                handleChoseCategory(contentList[3].id)
               }}
+              categoryListRefresh={categoryListRefresh}
             />
           </div>
         )}

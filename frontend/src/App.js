@@ -12,6 +12,7 @@ import {
 } from "react-router-dom"
 import ProtectedRoute from "./components/ProtectedRoute"
 
+
 function LogOut() {
   localStorage.clear()
   return <LandingPage />

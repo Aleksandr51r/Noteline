@@ -23,6 +23,16 @@ class CategoryListCreate(generics.ListCreateAPIView):
             print(serializer.errors)
 
 
+class CategoryDetailModify(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Category.objects.filter(owner=user)
+
+
 class CategoryDelete(generics.DestroyAPIView):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]

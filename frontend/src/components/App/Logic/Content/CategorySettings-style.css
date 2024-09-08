@@ -1,0 +1,70 @@
+.mb-center {
+  position: fixed;
+  border-radius: 3px;
+  top: 50%;
+  right: 0px;
+  width: 365px;
+  max-width: 50%;
+  height: 200px;
+  background: var(--background-color-for-modul-window-settings);
+  padding: 10px;
+  z-index: 1001;
+  /* transform: translateX(0px); */
+  transition: transform 0.3s ease-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  right: 50%;
+  transform: translate(50%, -50%);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.category-options-settings {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.btn-icon-settings {
+  width: 35px;
+  height: 35px;
+}
+.input-cat-name-settings {
+  border: none;
+  height: 25px;
+  width: 70%;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.616);
+  transition: width 0.2s linear, background-color 0.2s linear;
+}
+.input-cat-name-settings:focus {
+  width: 75%;
+  background-color: rgba(255, 255, 255, 0.829);
+  transition: width 0.2s linear, background-color 0.2s linear;
+  border: none;
+}
+
+.red-border {
+  /* border: 1px solid red; */
+  position: relative;
+  left: 0;
+}
+
+.btn-delete-settings {
+  position: relative;
+}
+
+.delete-cat-setings-btn {
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+.apply-setings-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+

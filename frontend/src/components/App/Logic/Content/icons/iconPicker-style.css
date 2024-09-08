@@ -1,0 +1,21 @@
+.icon-picker {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.icon-item {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.icon-item:hover {
+  border-color: #ddd;
+}
+
+.icon-item.selected {
+  border-color: blue;
+  background-color: lightblue;
+}

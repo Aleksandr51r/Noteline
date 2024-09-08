@@ -18,7 +18,6 @@ function ModalWindow({
 }) {
   const { t } = useTranslation()
 
-
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -44,7 +43,7 @@ function ModalWindow({
   }
 
   return (
-    <div className={`modal-body-right`}>
+    <div className='modal-body-right'>
       <div className='header'>
         <CloseButton onClick={closeModal} />
       </div>

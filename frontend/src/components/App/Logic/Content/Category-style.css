@@ -4,6 +4,7 @@
   }
 }
 
+
 .category-main {
   top: 5%;
   min-height: 40%;
@@ -34,8 +35,8 @@
 .category {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  text-align: center;
+  justify-content: space-between;
+
   width: 100%;
   min-height: 30px;
   max-height: auto;
@@ -45,14 +46,9 @@
   text-decoration: none;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   /* border: 2px solid rgb(255, 0, 200); */
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .category-icon {
-  margin-right: 10px;
-  margin-left: 5%;
-  height: 20px;
-  width: 20px;
+  margin: 0px 10px;
 }
 
 .category:hover {
@@ -61,7 +57,24 @@
   transition: background-color 0.3s, color 0.2s;
   border-radius: 2px;
 }
-
+.category:hover {
+  background-color: #969696;
+  color: #333;
+  transition: background-color 0.3s, color 0.2s;
+  border-radius: 2px;
+}
+.category-settings {
+  margin: 0px 3px;
+}
+.category-settings-icon {
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+}
+.settings-icon {
+  opacity: 1;
+  /* border: 1px solid rebeccapurple; */
+}
 .category:active {
   background-color: #c5c5c5;
   border: 1px solid rgb(196, 196, 196);
@@ -69,8 +82,8 @@
   transition: background-color 0.1s, box-shadow 0.3s, color 0.3s;
 }
 
-.category span {
-  display: inline-block;
+.category-span-name {
+  width: 80%;
 }
 
 .category-btn {
@@ -86,7 +99,6 @@
 
 .category-static {
   cursor: pointer;
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -94,10 +106,9 @@
   /* border: 1px solid red; */
 }
 
-.static {
-  justify-content: start;
-  width: 100%;
-  background-color: transparent;
+.category-span-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 
@@ -133,4 +144,5 @@
   border-radius: 2px;
   border: 1px solid var(--border-for-background-shadow);
   text-shadow: 0px 0 1px var(--background-text-shadow);
+  opacity: 1;
 }
