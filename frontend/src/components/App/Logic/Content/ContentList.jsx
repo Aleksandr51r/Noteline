@@ -74,6 +74,7 @@ function ContentList() {
   const handleChoseCategory = (name) => {
     dispatch(setSelectedCategory(name))
   }
+  const categoriesArray = Object.values(contentList)
 
   return (
     <>
