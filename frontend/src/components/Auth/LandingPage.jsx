@@ -14,7 +14,6 @@ import Overlay from "../Overlay"
 
 function LandingPage() {
   const { t } = useTranslation()
-  // const { isModalOpen, openModal, closeModal } = useModal()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isForSignUp, setIsForSignUp] = useState(false)
 

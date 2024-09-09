@@ -87,7 +87,7 @@ function NewTodo({ parentPath = null, onClose }) {
         <input
           ref={inputRef}
           type='text'
-          placeholder={t("Title")}
+          placeholder={t("title")}
           value={inputText}
           onChange={(e) => handleInputText(e)}
           className='input-title-todo'

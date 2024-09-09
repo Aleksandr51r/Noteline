@@ -2,11 +2,12 @@ import React, { useEffect } from "react"
 import "./ModalWindow_style.css"
 import { useTranslation } from "react-i18next"
 import CloseButton from "../../UI/closeButton/CloseButton"
-
 import api from "../../api/api"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../api/constants"
+import { useDispatch } from "react-redux"
+import { setError } from "../../redux/slices/errorSlice"
 
 function ModalWindow({
   title,
@@ -17,6 +18,7 @@ function ModalWindow({
   method,
 }) {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -36,7 +38,12 @@ function ModalWindow({
         navigate("/")
       }
     } catch (error) {
-      alert(error)
+      dispatch(
+        setError({
+          errorMessage: t("Wrong login or password"),
+          typeOfToast: "error",
+        })
+      )
     } finally {
       setLoading(false)
     }

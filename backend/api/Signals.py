@@ -8,18 +8,17 @@ from .models import Category
 @receiver(post_save, sender=User)
 def create_default_categories(sender, instance, created, **kwargs):
     if created:
-        default_categories = [
-            {"name": "unsorted", "icon": "GrSort",
-                "id": uuid.uuid4()},
-            {"name": "favorites", "icon": "IoBookmarksSharp", "id": uuid.uuid4()},
-            {"name": "kanban", "icon": "BsKanban", "id": uuid.uuid4()},
-            {"name": "trashcan", "icon": "FaRegTrashCan", "id": uuid.uuid4()},
-        ]
+        default_categories = {
+            str(uuid.uuid4()): {"name": "unsorted", "icon": "GrSort"},
+            str(uuid.uuid4()): {"name": "favorites", "icon": "IoBookmarksSharp"},
+            str(uuid.uuid4()): {"name": "kanban", "icon": "BsKanban"},
+            str(uuid.uuid4()): {"name": "trashcan", "icon": "FaRegTrashCan"},
+        }
 
-        for category_data in default_categories:
+        for category_id, category_data in default_categories.items():
             Category.objects.create(
                 owner=instance,
                 name=category_data["name"],
                 icon=category_data["icon"],
-                id=category_data["id"]
+                id=category_id
             )

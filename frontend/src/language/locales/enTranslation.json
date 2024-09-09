@@ -18,5 +18,9 @@
   "to add a note and": "to add a note and",
   "to add a todo": "to add a todo",
   "favorites": "Favorites",
-  "kanban": "Kanban"
+  "kanban": "Kanban",
+  "new category": null,
+  "title": null,
+  "Wrong login or password": null,
+  "Don't forget give a name of category": null
 }

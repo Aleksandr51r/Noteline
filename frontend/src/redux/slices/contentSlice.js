@@ -19,17 +19,18 @@ const findNestedObject = (obj, path, parent = true) => {
 export const addNewCategoryAsync = createAsyncThunk(
   "content/addNewCategoryAsync",
   async (name) => {
+    const id = uuidv4()
     const response = await api.post("/api/categories/", {
-      id: uuidv4(),
-      name,
+      id,
       icon: "default",
+      name,
     })
     return response.data
   }
 )
 export const modifyCategoryAsync = createAsyncThunk(
   "content/modifyCategoryAsync",
-  async ({ id, name, icon }) => {
+  async ({ id, icon, name }) => {
     const response = await api.patch(`/api/categories/${id}/`, {
       icon: icon,
       name: name,
@@ -37,11 +38,12 @@ export const modifyCategoryAsync = createAsyncThunk(
     return response.data
   }
 )
+
+
 export const deleteCategoryAsync = createAsyncThunk(
   "content/deleteCategoryAsync",
   async ({ id }) => {
     const response = await api.delete(`/api/categories/${id}/`)
-    // return response.data
     return id
   }
 )
@@ -50,12 +52,13 @@ export const fetchCategories = createAsyncThunk(
   "content/fetchCategories",
   async () => {
     const response = await api.get("/api/categories/")
+    console.log("get one category", response.data)
     return response.data
   }
 )
 
 const initialState = {
-  categories: [],
+  categories: {},
   selectedCategoryId: getInitialSelectedCategoryId(),
   isAddingNewNote: false,
   isAddingNewNestedNote: false,
@@ -67,18 +70,11 @@ const contentSlice = createSlice({
   name: "contents",
   initialState,
   reducers: {
-    addNewContentList: (state, action) => {
-      const name = action.payload
-      state.categories.push({
-        id: uuidv4(),
-        name,
-        content: {},
-      })
-    },
     setSelectedCategory: (state, action) => {
       state.selectedCategoryId = action.payload
       localStorage.setItem("saved-category", action.payload)
     },
+
     addNewNote: (state, action) => {
       const title = action.payload
       const level = 1
@@ -104,17 +100,6 @@ const contentSlice = createSlice({
 
       category.content = { ...category.content, [newNote.id]: newNote }
     },
-
-    modifyNote: (state, action) => {
-      const { path, noteContent } = action.payload
-      const category = state.categories.find(
-        (cat) => cat.name === state.selectedCategoryName
-      )
-
-      const note = findNestedObject(category.content, path)
-      note.noteContent = noteContent
-    },
-
     addNewTodo: (state, action) => {
       const title = action.payload
       const level = 1
@@ -137,6 +122,16 @@ const contentSlice = createSlice({
         additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
       }
       category.content = { ...category.content, [newTodo.id]: newTodo }
+    },
+
+    modifyNote: (state, action) => {
+      const { path, noteContent } = action.payload
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+
+      const note = findNestedObject(category.content, path)
+      note.noteContent = noteContent
     },
 
     toggleAddingNewNote: (state) => {
@@ -216,59 +211,48 @@ const contentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addNewCategoryAsync.fulfilled, (state, action) => {
-        state.categories.push(action.payload)
+        const id = uuidv4()
+        const { name, icon } = action.payload
+        state.categories[id] = { id, name, icon }
       })
-      .addCase(addNewCategoryAsync.pending, (state) => {
-        // Handle pending state
-      })
+
+      .addCase(addNewCategoryAsync.pending, (state) => {})
       .addCase(addNewCategoryAsync.rejected, (state, action) => {
         console.error("Failed to add category:", action.payload)
       })
       .addCase(modifyCategoryAsync.fulfilled, (state, action) => {
-        const { id, name, icon } = action.payload
-
-        const existingCategory = state.categories.find(
-          (category) => category.id === id
-        )
-
-        if (existingCategory) {
-          existingCategory.name = name
-          existingCategory.icon = icon
-        }
+        const { id, icon, name } = action.payload
+        state.categories[id].name = name
+        state.categories[id].icon = icon
       })
       .addCase(modifyCategoryAsync.pending, (state) => {
-        // Handle pending state
+        state.status = "loading"
       })
       .addCase(modifyCategoryAsync.rejected, (state, action) => {
         console.error("Failed to Modify category:", action.payload)
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
-        state.status = "succeeded"
-        state.categories = action.payload
+        state.categories = action.payload.reduce((acc, category) => {
+          acc[category.id] = { ...category, content: {} }
+          return acc
+        }, {})
       })
       .addCase(fetchCategories.pending, (state) => {
         state.status = "loading"
       })
       .addCase(fetchCategories.rejected, (state, action) => {
-        // Handle rejected state
         console.error("Failed to fetch categories:", action.payload)
       })
       .addCase(deleteCategoryAsync.fulfilled, (state, action) => {
-        state.status = "succeeded"
         const id = action.payload
-        state.categories = state.categories.filter(
-          (category) => category.id !== id
-        )
-        // state.categories = action.payload
+        delete state.categories[id]
       })
       .addCase(deleteCategoryAsync.pending, (state, action) => {
         state.status = "loading"
       })
       .addCase(deleteCategoryAsync.rejected, (state, action) => {
-        // Handle rejected state
         console.error("Failed to fetch categories:", action.payload)
       })
-    // обработка состояний ожидания и ошибок
   },
 })
 
@@ -288,45 +272,14 @@ export const {
 
 export const selectContentList = (state) => state.content.categories
 
+export const selectSelectedCategory = (state) =>
+  state.content.categories[state.content.selectedCategoryId]
+
 export const selectIsAddingNewNote = (state) => state.content.isAddingNewNote
 export const selectIsAddingNewNestedNote = (state) =>
   state.content.isAddingNewNestedNote
-
+export const selectIsAddingNewTodo = (state) => state.content.isAddingNewTodo
 export const selectIsAddingNewNestedTodo = (state) =>
   state.content.isAddingNewNestedTodo
 
-export const selectIsAddingNewTodo = (state) => state.content.isAddingNewTodo
-
-export const selectSelectedCategory = (state) =>
-  state.content.categories.find(
-    (category) => category.id === state.content.selectedCategoryId
-  )
-
 export default contentSlice.reducer
-
-// categories: [
-//   {
-//     id: "aaaa-1111-aaaa-1111-aaaa",
-//     name: "unsorted",
-//     icon: GrSort,
-//     content: {},
-//   },
-//   {
-//     id: uuidv4(),
-//     name: "favorites",
-//     icon: IoBookmarksSharp,
-//     content: {},
-//   },
-//   {
-//     id: uuidv4(),
-//     name: "kanban",
-//     icon: BsKanban,
-//     content: {},
-//   },
-//   {
-//     id: uuidv4(),
-//     name: "trashcan",
-//     icon: FaRegTrashCan,
-//     content: {},
-//   },
-// ],

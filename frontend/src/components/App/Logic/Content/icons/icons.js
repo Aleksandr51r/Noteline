@@ -41,14 +41,15 @@ import {
   GiSoccerBall,
 } from "react-icons/gi"
 
-export const Icon_stock = {
+export const Icon_standart_stock = {
   IoBookmarksSharp: <IoBookmarksSharp />,
   GrSort: <GrSort />,
   BsKanban: <BsKanban />,
-  default: <LuGanttChartSquare />,
   FaRegTrashCan: <GiTrashCan />,
   todelete: <MdOutlineDeleteForever />,
-
+}
+export const Icon_stock = {
+  default: <LuGanttChartSquare />,
   FaMusic: <FaMusic />,
   FaBicycle: <FaBicycle />,
   FaPlane: <FaPlane />,

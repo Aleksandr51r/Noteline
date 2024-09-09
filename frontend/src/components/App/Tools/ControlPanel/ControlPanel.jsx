@@ -8,20 +8,25 @@ import { selectSelectedCategory } from "../../../../redux/slices/contentSlice"
 
 function ControlPanel() {
   const exeptionsList = ["trashcan", "favorites", "kanban"]
-
   const selectedCategory = useSelector(selectSelectedCategory)
+  
+  // Checking for  undefined
+  const categoryName = selectedCategory ? selectedCategory.name : ""
 
   return (
     <div className='control-panel'>
-      <>
-        <NoteForm />
-        <TodoForm />
-      </>
+      {!exeptionsList.includes(categoryName) && (
+        <>
+          <NoteForm />
+          <TodoForm />
+        </>
+      )}
     </div>
   )
 }
 
 export default ControlPanel
+
 
 // return (
 //   <div className='control-panel'>

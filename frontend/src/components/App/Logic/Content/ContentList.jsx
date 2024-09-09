@@ -11,13 +11,15 @@ import {
 import "./Category-style.css"
 import { addNewCategoryAsync } from "../../../../redux/slices/contentSlice"
 import { fetchCategories } from "../../../../redux/slices/contentSlice"
-import api from "../../../../api/api"
 
 function ContentList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const contentList = useSelector(selectContentList)
-  // const [contentList, setCategories] = useState([])
+  const choosenCategory = useSelector(selectSelectedCategory)
+  const choosenCategoryId = useSelector(
+    (state) => state.content.selectedCategoryId
+  )
 
   useEffect(() => {
     dispatch(fetchCategories())
@@ -28,58 +30,11 @@ function ContentList() {
     dispatch(fetchCategories())
     console.log("sended2")
   }
-
-  // const getCategories = () => {
-  //   api
-  //     .get("/api/categories/")
-  //     .then((res) => res.data)
-  //     .then((data) => {
-  //       setCategories(data)
-  //       console.log("data", data)
-  //     })
-  //     .catch((error) => alert(error))
-  // }
-
-  // Получение категорий через API
-  // const getCategories = async () => {
-  //   try {
-  //     const res = await api.get("/api/categories/")
-  //     setCategories(res.data)
-  //     console.log("data", res.data)
-  //   } catch (error) {
-  //     alert(error.message || "Failed to fetch categories")
-  //   }
-  // }
-
-  // const deleteCategory = (id) => {
-  //   api
-  //     .delete(`/api/categories/delete/${id}`)
-  //     .then((res) => {
-  //       if (res.status === 204) {
-  //         alert("Category was deleted")
-  //       } else {
-  //         alert("Faild to delete note!")
-  //       }
-  //       getCategories()
-  //     })
-  //     .catch((err) => alert(err))
-  // }
-
-  console.log("contentList", contentList)
-
-  const choosenCategory = useSelector(selectSelectedCategory)
-
-  // useEffect(() => {
-  //   console.log("redux", contentList)
-  //   console.log("fetch", fetchCategories)
-  // }, [contentList])
-
-  // console.log("contentList", contentList)
-
   const handleChoseCategory = (id) => {
     dispatch(setSelectedCategory(id))
-    console.log("choosenCategory", id)
+    console.log("choosenCategory", choosenCategory)
   }
+  // console.log("choosenCategory", choosenCategory)
 
   return (
     <>
@@ -88,62 +43,65 @@ function ContentList() {
           <span>{t("category")}</span>
           <br />
           <br />
-          {/* {Object.values(contentList.content)} */}
-          {contentList.slice(0, 2).map((contentPart) => (
-            <Category
-              id={contentPart.id}
-              key={contentPart.id}
-              name={t(contentPart.name)}
-              icon={contentPart.icon}
-              addedClassName={`${
-                choosenCategory && contentPart.id === choosenCategory.id
-                  ? "choosen"
-                  : ""
-              }`}
-              addedIconClassName={contentPart.name}
-              onClick={() => {
-                handleChoseCategory(contentPart.id)
-              }}
-              categoryListRefresh={categoryListRefresh}
-            />
-          ))}
+          {Object.values(contentList)
+            .slice(0, 2)
+            .map((contentPart) => (
+              <Category
+                id={contentPart.id}
+                key={contentPart.id}
+                name={t(contentPart.name)}
+                icon={contentPart.icon}
+                addedClassName={`${
+                  choosenCategoryId && contentPart.id === choosenCategoryId
+                    ? "choosen"
+                    : ""
+                }`}
+                addedIconClassName={contentPart.name}
+                onClick={() => {
+                  handleChoseCategory(contentPart.id)
+                }}
+                categoryListRefresh={categoryListRefresh}
+              />
+            ))}
         </div>
         <div className='category-list'>
-          {contentList.slice(4).map((contentPart) => (
-            <Category
-              id={contentPart.id}
-              key={contentPart.id}
-              name={contentPart.name}
-              onClick={() => handleChoseCategory(contentPart.id)}
-              icon={contentPart.icon}
-              addedClassName={`${
-                choosenCategory && contentPart.id === choosenCategory.id
-                  ? "choosen"
-                  : ""
-              }`}
-              categoryListRefresh={categoryListRefresh}
-            />
-          ))}
+          {Object.values(contentList)
+            .slice(4)
+            .map((contentPart) => (
+              <Category
+                id={contentPart.id}
+                key={contentPart.id}
+                name={contentPart.name}
+                onClick={() => handleChoseCategory(contentPart.id)}
+                icon={contentPart.icon}
+                addedClassName={`${
+                  choosenCategoryId && contentPart.id === choosenCategoryId
+                    ? "choosen"
+                    : ""
+                }`}
+                categoryListRefresh={categoryListRefresh}
+              />
+            ))}
         </div>
 
         <NewCategoryInput />
-
-        {contentList.length > 3 && (
+        {Object.values(contentList).length > 3 && (
           <div>
             <Category
-              id={contentList[3].id}
-              key={contentList[3].id}
-              name={t(contentList[3].name)}
-              icon={contentList[3].icon}
+              id={Object.values(contentList)[3].id}
+              key={Object.values(contentList)[3].id}
+              name={t(Object.values(contentList)[3].name)}
+              icon={Object.values(contentList)[3].icon}
               addedClassName={`${
-                choosenCategory && contentList[3].id === choosenCategory.id
+                choosenCategoryId &&
+                Object.values(contentList)[3].id === choosenCategoryId
                   ? "choosen"
                   : ""
               }`}
-              addedIconClassName={contentList[3].name}
-              onClick={() => {
-                handleChoseCategory(contentList[3].id)
-              }}
+              addedIconClassName={Object.values(contentList)[3].name}
+              onClick={() =>
+                handleChoseCategory(Object.values(contentList)[3].id)
+              }
               categoryListRefresh={categoryListRefresh}
             />
           </div>

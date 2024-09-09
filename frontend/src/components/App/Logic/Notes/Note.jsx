@@ -41,7 +41,6 @@ function Note({
     9: "IX",
     10: "X",
   }
-  // const nestedNotes = Object.values(nestedNotes)
   const onClose = () => {
     setThatNoteSelected(false)
   }

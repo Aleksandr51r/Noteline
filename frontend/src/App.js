@@ -11,7 +11,7 @@ import {
   Navigate,
 } from "react-router-dom"
 import ProtectedRoute from "./components/ProtectedRoute"
-
+import Error from "./components/Error/Error"
 
 function LogOut() {
   localStorage.clear()
@@ -48,6 +48,7 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <Error />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./Category-style.css"
 import { RiToolsFill } from "react-icons/ri"
-import { Icon_stock } from "./icons/icons"
+import { Icon_stock, Icon_standart_stock } from "./icons/icons"
 import Overlay from "../../../Overlay"
 import IconPicker from "./icons/IconPicker"
 import "./CategorySettings-style.css"
@@ -27,9 +27,10 @@ function Category({
   const [selectedName, setSelectedName] = useState(name)
   const dispatch = useDispatch()
 
+  const exeptions = ["FaRegTrashCan", "BsKanban", "GrSort", "IoBookmarksSharp"]
+
   useEffect(() => {
     dispatch(fetchCategories())
-    console.log("sended2")
   }, [dispatch])
 
   const handleIconSelect = (iconName) => {
@@ -42,11 +43,10 @@ function Category({
   }
 
   const confirmDeleteCategory = (id) => {
-    console.log("id", id)
     dispatch(deleteCategoryAsync({ id }))
+    categoryListRefresh()
     onClose()
     setIsSettingsOpen(false)
-    categoryListRefresh()
   }
 
   const cancelDeleteCategory = () => {
@@ -55,7 +55,6 @@ function Category({
 
   const handleModifyName = (e) => {
     setSelectedName(e.target.value)
-    console.log("selectedName", selectedName)
   }
   const handleSettingOfCategory = () => {
     setIsSettingsOpen(true)
@@ -64,23 +63,13 @@ function Category({
   const handleSettingOfIcon = () => {
     setIsChoosingIcon(true)
   }
-
   const handleSubmiteModifyCategory = (id, selectedIcon, selectedName) => {
-    console.log("selectedName", selectedName)
-    console.log("{ id, name: selectedName, icon: selectedIcon }", {
-      id,
-      name: selectedName,
-      icon: selectedIcon,
-    })
-
     dispatch(
-      modifyCategoryAsync({ id, name: selectedName, icon: selectedIcon })
+      modifyCategoryAsync({ id, icon: selectedIcon, name: selectedName })
     )
-
     onClose()
     categoryListRefresh()
   }
-
   const onClose = () => {
     if (isChoosingIcon) {
       setIsChoosingIcon(false)
@@ -95,7 +84,6 @@ function Category({
     setSelectedName(name)
     onClose()
   }
-
   const addedIconClassName = addedClassName ? "settings-icon" : null
   return (
     <>
@@ -130,7 +118,7 @@ function Category({
                   onClick={handleSettingOfIcon}
                   className='btn-empty btn-icon-settings'
                 >
-                  {Icon_stock[selectedIcon] || Icon_stock["default"]}
+                  {Icon_stock[selectedIcon]}
                 </button>
                 <input
                   value={selectedName}
@@ -141,7 +129,7 @@ function Category({
                   className='btn-empty btn-delete-settings'
                   onClick={handleDeleteCategory}
                 >
-                  {Icon_stock[`todelete`]}
+                  {Icon_standart_stock[`todelete`]}
                 </button>
               </div>
               <div className='red-border delete-cat-setings-btn'></div>
@@ -164,17 +152,23 @@ function Category({
       ) : null}
       <a className={`category ${addedClassName}`} onClick={onClick}>
         <div className='category-icon'>
-          {Icon_stock[selectedIcon] || Icon_stock["default"]}
+          {Icon_standart_stock[selectedIcon]
+            ? Icon_standart_stock[selectedIcon]
+            : Icon_stock[selectedIcon]}
         </div>
         <span className='category-span-name'>{selectedName}</span>
-        <button
-          className={`btn-empty  category-settings`}
-          onClick={handleSettingOfCategory}
-        >
-          <RiToolsFill
-            className={`category-settings-icon ${addedIconClassName}`}
-          />
-        </button>
+        {exeptions.includes(icon) ? (
+          <div className='dummy-empty' />
+        ) : (
+          <button
+            className={`btn-empty  category-settings`}
+            onClick={handleSettingOfCategory}
+          >
+            <RiToolsFill
+              className={`category-settings-icon ${addedIconClassName}`}
+            />
+          </button>
+        )}
       </a>
     </>
   )

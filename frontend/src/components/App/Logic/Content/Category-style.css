@@ -4,7 +4,6 @@
   }
 }
 
-
 .category-main {
   top: 5%;
   min-height: 40%;
@@ -145,4 +144,8 @@
   border: 1px solid var(--border-for-background-shadow);
   text-shadow: 0px 0 1px var(--background-text-shadow);
   opacity: 1;
+}
+
+.dummy-empty {
+  width: 25px;
 }
