@@ -8,6 +8,22 @@ from .models import Category, Note, Todo, Tag
 # Create your views here.
 
 
+
+class NoteListCreate(generics.ListCreateAPIView):
+    serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(owner=user)
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            serializer.save(owner=self.request.user)
+        else:
+            print(serializer.errors)
+
+
 class CategoryListCreate(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]

@@ -1,9 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from "uuid"
-
 import getFormattedDateTime from "../../utils/getFormattedDateTime"
-import axios from "axios"
-import api from "../../api/api"
+import {
+  addNewCategoryAsync,
+  modifyCategoryAsync,
+  deleteCategoryAsync,
+  fetchCategories,
+} from "../ExtraReducers/ContentSliceExtraReducers"
+import {
+  fetchNotes,
+  addNewNoteExtra,
+} from "../ExtraReducers/NoteSliceExtraReducer"
 
 const API_BASE_URL = "http://127.0.0.1:8000/api/"
 
@@ -16,49 +23,9 @@ const findNestedObject = (obj, path, parent = true) => {
   return path.reduce((acc, key) => acc && acc[key], obj)
 }
 
-export const addNewCategoryAsync = createAsyncThunk(
-  "content/addNewCategoryAsync",
-  async (name) => {
-    const id = uuidv4()
-    const response = await api.post("/api/categories/", {
-      id,
-      icon: "default",
-      name,
-    })
-    return response.data
-  }
-)
-export const modifyCategoryAsync = createAsyncThunk(
-  "content/modifyCategoryAsync",
-  async ({ id, icon, name }) => {
-    const response = await api.patch(`/api/categories/${id}/`, {
-      icon: icon,
-      name: name,
-    })
-    return response.data
-  }
-)
-
-
-export const deleteCategoryAsync = createAsyncThunk(
-  "content/deleteCategoryAsync",
-  async ({ id }) => {
-    const response = await api.delete(`/api/categories/${id}/`)
-    return id
-  }
-)
-
-export const fetchCategories = createAsyncThunk(
-  "content/fetchCategories",
-  async () => {
-    const response = await api.get("/api/categories/")
-    console.log("get one category", response.data)
-    return response.data
-  }
-)
-
 const initialState = {
   categories: {},
+  notes: {},
   selectedCategoryId: getInitialSelectedCategoryId(),
   isAddingNewNote: false,
   isAddingNewNestedNote: false,
@@ -81,7 +48,7 @@ const contentSlice = createSlice({
       const id = uuidv4()
 
       const category = state.categories.find(
-        (cat) => cat.name === state.selectedCategoryName
+        (cat) => cat.name === state.selectedCategoryId
       )
 
       const newNote = {
@@ -100,29 +67,6 @@ const contentSlice = createSlice({
 
       category.content = { ...category.content, [newNote.id]: newNote }
     },
-    addNewTodo: (state, action) => {
-      const title = action.payload
-      const level = 1
-      const id = uuidv4()
-
-      const category = state.categories.find(
-        (cat) => cat.name === state.selectedCategoryName
-      )
-      const newTodo = {
-        id,
-        type: "todo",
-        isComplited: false,
-        level,
-        title,
-        path: [id],
-        todoDescription: "",
-        nestedTodos: {},
-        showNestedTodo: true,
-        tags: [],
-        additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
-      }
-      category.content = { ...category.content, [newTodo.id]: newTodo }
-    },
 
     modifyNote: (state, action) => {
       const { path, noteContent } = action.payload
@@ -132,19 +76,6 @@ const contentSlice = createSlice({
 
       const note = findNestedObject(category.content, path)
       note.noteContent = noteContent
-    },
-
-    toggleAddingNewNote: (state) => {
-      state.isAddingNewNote = !state.isAddingNewNote
-    },
-    toggleAddingNewNestedNote: (state) => {
-      state.isAddingNewNestedNote = !state.isAddingNewNestedNote
-    },
-    toggleAddingNewNestedTodo: (state) => {
-      state.isAddingNewNestedTodo = !state.isAddingNewNestedTodo
-    },
-    toggleAddingNewTodo: (state) => {
-      state.isAddingNewTodo = !state.isAddingNewTodo
     },
 
     addNestedNote: (state, action) => {
@@ -178,10 +109,50 @@ const contentSlice = createSlice({
         parentNote.nestedNotes[newNestedNote.id] = newNestedNote
       }
     },
+    toggleAddingNewNote: (state) => {
+      state.isAddingNewNote = !state.isAddingNewNote
+    },
+    toggleAddingNewNestedNote: (state) => {
+      state.isAddingNewNestedNote = !state.isAddingNewNestedNote
+    },
+
+    addNewTodo: (state, action) => {
+      const title = action.payload
+      const level = 1
+      const id = uuidv4()
+
+      const category = state.categories.find(
+        (cat) => cat.name === state.selectedCategoryName
+      )
+      const newTodo = {
+        id,
+        type: "todo",
+        isComplited: false,
+        level,
+        title,
+        path: [id],
+        todoDescription: "",
+        nestedTodos: {},
+        showNestedTodo: true,
+        tags: [],
+        additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
+      }
+      category.content = { ...category.content, [newTodo.id]: newTodo }
+    },
+    toggleAddingNewNestedTodo: (state) => {
+      state.isAddingNewNestedTodo = !state.isAddingNewNestedTodo
+    },
+    toggleAddingNewTodo: (state) => {
+      state.isAddingNewTodo = !state.isAddingNewTodo
+    },
+    handleAllNotesForNestedNote: (state) => {
+      console.log("handleAllNotesForNestedNote", state.notes)
+    },
+
     addNestedTodo: (state, action) => {
       const { parentPath, title } = action.payload
       const category = state.categories.find(
-        (cat) => cat.name === state.selectedCategoryName
+        (cat) => cat.name === state.selectedCategoryId
       )
       const parentTodo = findNestedObject(category.content, parentPath)
       const id = uuidv4()
@@ -211,8 +182,7 @@ const contentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addNewCategoryAsync.fulfilled, (state, action) => {
-        const id = uuidv4()
-        const { name, icon } = action.payload
+        const { id, name, icon } = action.payload
         state.categories[id] = { id, name, icon }
       })
 
@@ -253,6 +223,45 @@ const contentSlice = createSlice({
       .addCase(deleteCategoryAsync.rejected, (state, action) => {
         console.error("Failed to fetch categories:", action.payload)
       })
+      .addCase(fetchNotes.fulfilled, (state, action) => {
+        console.log("FETCH ALL NOTES IN SLICE", action.payload)
+        state.notes = action.payload.reduce((acc, note) => {
+          acc[note.id] = note
+          console.log("acc[note.id]", acc[note.id].category)
+          state.categories[acc[note.id].category].content[note.id] = note
+          return acc
+        }, {})
+        console.log("*****NOTES after****", state.notes)
+      })
+
+      // .addCase(addNewNoteExtra.fulfilled, (state, action) => {
+      //   const { id, title, category } = action.payload
+      //   state.notes[id] = { id, title, category }
+      // })
+      .addCase(addNewNoteExtra.fulfilled, (state, action) => {
+        // const { id, title, category, content, created_at, tags } =
+        //   action.payload
+        // const Note = {
+        //   category,
+        //   id,
+        //   type: "note",
+        //   level,
+        //   title,
+        //   content,
+        //   is_favorite,
+        //   show_nested_notes,
+        //   tags,
+        //   parent_note,og
+        //   additionalInfo: { created_at, last_modified_at, status },
+        // }
+      })
+
+      .addCase(addNewNoteExtra.pending, (state, action) => {
+        console.log("lading")
+      })
+      .addCase(addNewNoteExtra.rejected, (state, action) => {
+        console.error("Failed to add category:", action.payload)
+      })
   },
 })
 
@@ -268,9 +277,11 @@ export const {
   addNestedNote,
   toggleAddingNewNestedTodo,
   modifyNote,
+  handleAllNotesForNestedNote,
 } = contentSlice.actions
 
 export const selectContentList = (state) => state.content.categories
+export const selectNotes = (state) => state.content.notes
 
 export const selectSelectedCategory = (state) =>
   state.content.categories[state.content.selectedCategoryId]

@@ -29,7 +29,16 @@ const Error = () => {
   }, [errorMessage, dispatch])
 
   return (
-    <ToastContainer theme={color} position='bottom-center' autoClose={2000} />
+    <ToastContainer
+      theme={color}
+      position='top-center'
+      autoClose={2000}
+      toastStyle={{
+        backgroundColor: "var(--background-color-toast)",
+        border: "1px solid #073e46",
+        borderRadius: "4px",
+      }}
+    />
   )
 }
 

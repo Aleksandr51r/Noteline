@@ -10,7 +10,7 @@ import {
 } from "../../../../redux/slices/contentSlice"
 import "./Category-style.css"
 import { addNewCategoryAsync } from "../../../../redux/slices/contentSlice"
-import { fetchCategories } from "../../../../redux/slices/contentSlice"
+import { fetchCategories } from "../../../../redux/ExtraReducers/ContentSliceExtraReducers"
 
 function ContentList() {
   const { t } = useTranslation()
@@ -23,12 +23,12 @@ function ContentList() {
 
   useEffect(() => {
     dispatch(fetchCategories())
-    console.log("sended")
+    console.log("first time look for categories list")
   }, [dispatch])
 
   const categoryListRefresh = () => {
     dispatch(fetchCategories())
-    console.log("sended2")
+    console.log("**refresh the list of categories")
   }
   const handleChoseCategory = (id) => {
     dispatch(setSelectedCategory(id))

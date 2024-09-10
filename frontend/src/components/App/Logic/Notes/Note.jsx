@@ -15,6 +15,7 @@ import NewNote from "./NewNote"
 import ExtendedNote from "./ExtendedNote"
 
 function Note({
+  id,
   level,
   title,
   noteContent,
@@ -29,6 +30,7 @@ function Note({
   const [isNoteOpen, setIsNoteOpen] = useState(false)
   const [thatNoteSelected, setThatNoteSelected] = useState(false)
   const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
+
   const romeDigitsLevel = {
     1: "I",
     2: "II",
@@ -147,7 +149,7 @@ function Note({
           className={`notes-nested ${areNestedNotesVisible ? "expanded" : ""}`}
         >
           {isAddingNewNestedNote && thatNoteSelected ? (
-            <NewNote parentPath={path} onClose={onClose} />
+            <NewNote onClose={onClose} parentId={id} level={level} />
           ) : null}
           <div
             className={`notes-list ${areNestedNotesVisible ? "expanded" : ""}`}

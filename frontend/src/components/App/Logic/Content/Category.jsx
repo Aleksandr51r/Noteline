@@ -10,7 +10,7 @@ import {
   deleteCategoryAsync,
   fetchCategories,
   modifyCategoryAsync,
-} from "../../../../redux/slices/contentSlice"
+} from "../../../../redux/ExtraReducers/ContentSliceExtraReducers"
 
 function Category({
   id,
@@ -29,9 +29,9 @@ function Category({
 
   const exeptions = ["FaRegTrashCan", "BsKanban", "GrSort", "IoBookmarksSharp"]
 
-  useEffect(() => {
-    dispatch(fetchCategories())
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(fetchCategories())
+  // }, [dispatch])
 
   const handleIconSelect = (iconName) => {
     setSelectedIcon(iconName)

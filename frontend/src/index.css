@@ -21,6 +21,7 @@ html[savedTheme="light"] {
   --background-color: #e6e6e6;
   --background-color-for-items: #d3d3d3;
   --background-color-for-items-lines: #b9cbcf;
+  --background-color-toast: #ffffff;
 
   --background-color-onhover: #686561;
   --background-color-for-toggle-light-mode: #464444;
@@ -57,6 +58,7 @@ html[savedTheme="dark"] {
   --background-color-for-items: #32323d;
   --background-color-for-items: #3b3b3d;
   --background-color-for-items-lines: #454849;
+  --background-color-toast: #747474;
 
   --background-color-onhover: #5c5c5c;
   --background-color-for-toggle-light-mode: #f5eadd;
@@ -67,6 +69,7 @@ html[savedTheme="dark"] {
   --background-color-for-button-onhover: #017180;
   --text-color: #e0e0e0;
   --text-color-onhover: #3699c4;
+  --text-color-onhover: #91ffed;
   --text-for-button-color: #ffffff;
   --navbar-color: #454547;
   /* --navbar-color: #2c2c2c; */

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux"
 import { setError } from "../../../../../redux/slices/errorSlice"
 import "./NewCategoryInput-style.css"
 import Overlay from "../../../../Overlay"
-import { addNewCategoryAsync } from "../../../../../redux/slices/contentSlice"
+import { addNewCategoryAsync } from "../../../../../redux/ExtraReducers/ContentSliceExtraReducers"
 
 function NewCategoryInput() {
   const { t } = useTranslation()
