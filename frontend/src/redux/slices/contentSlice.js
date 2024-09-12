@@ -19,8 +19,8 @@ const getInitialSelectedCategoryId = () => {
   return savedName
 }
 
-const findNestedObject = (obj, path, parent = true) => {
-  return path.reduce((acc, key) => acc && acc[key], obj)
+const findNestedObject = (obj, path) => {
+  return path.reduce((acc, key) => acc && acc[key].nestedNotes, obj)
 }
 
 const initialState = {
@@ -183,7 +183,7 @@ const contentSlice = createSlice({
     builder
       .addCase(addNewCategoryAsync.fulfilled, (state, action) => {
         const { id, name, icon } = action.payload
-        state.categories[id] = { id, name, icon }
+        state.categories[id] = { id, name, icon, content: {} }
       })
 
       .addCase(addNewCategoryAsync.pending, (state) => {})
@@ -206,6 +206,8 @@ const contentSlice = createSlice({
           acc[category.id] = { ...category, content: {} }
           return acc
         }, {})
+
+        console.log("fetched category", state.categories)
       })
       .addCase(fetchCategories.pending, (state) => {
         state.status = "loading"
@@ -223,44 +225,97 @@ const contentSlice = createSlice({
       .addCase(deleteCategoryAsync.rejected, (state, action) => {
         console.error("Failed to fetch categories:", action.payload)
       })
+
       .addCase(fetchNotes.fulfilled, (state, action) => {
         console.log("FETCH ALL NOTES IN SLICE", action.payload)
-        state.notes = action.payload.reduce((acc, note) => {
-          acc[note.id] = note
-          console.log("acc[note.id]", acc[note.id].category)
-          state.categories[acc[note.id].category].content[note.id] = note
+
+        const notes = action.payload
+        console.log("notes", notes)
+        notes.sort((a, b) => a.level - b.level)
+        notes.reduce((acc, note) => {
+          acc[note.id] = { ...note, nestedNotes: {} }
+
+          if (note.path.length === 0) {
+            state.categories[note.category].content[note.id] = acc[note.id]
+          } else {
+            const parentNotes = findNestedObject(
+              state.categories[note.category].content,
+              note.path
+            )
+            parentNotes[note.id] = acc[note.id]
+          }
           return acc
         }, {})
-        console.log("*****NOTES after****", state.notes)
+        state.notes = notes
+
+        console.log("*NOTES after work with it*", notes)
       })
 
-      // .addCase(addNewNoteExtra.fulfilled, (state, action) => {
-      //   const { id, title, category } = action.payload
-      //   state.notes[id] = { id, title, category }
-      // })
       .addCase(addNewNoteExtra.fulfilled, (state, action) => {
-        // const { id, title, category, content, created_at, tags } =
-        //   action.payload
-        // const Note = {
-        //   category,
-        //   id,
-        //   type: "note",
-        //   level,
-        //   title,
-        //   content,
-        //   is_favorite,
-        //   show_nested_notes,
-        //   tags,
-        //   parent_note,og
-        //   additionalInfo: { created_at, last_modified_at, status },
-        // }
+        const {
+          category,
+          id,
+          level,
+          title,
+          content,
+          is_favorite,
+          show_nested_notes,
+          tags,
+          created_at,
+          last_modified_at,
+          status,
+          parent_note,
+          path,
+        } = action.payload
+        if (!path) {
+          state.categories[category].content[id] = {
+            category,
+            id,
+            level,
+            title,
+            content,
+            is_favorite,
+            show_nested_notes,
+            tags,
+            created_at,
+            last_modified_at,
+            status,
+            parent_note,
+            path,
+            nestedNotes: {},
+          }
+        } else {
+          const parentNote = findNestedObject(
+            state.categories[category].content,
+            path
+          )
+
+          parentNote[id] = {
+            category,
+            id,
+            level,
+            title,
+            content,
+            is_favorite,
+            show_nested_notes,
+            tags,
+            created_at,
+            last_modified_at,
+            status,
+            parent_note,
+            path,
+            nestedNotes: {},
+          }
+        }
       })
 
       .addCase(addNewNoteExtra.pending, (state, action) => {
-        console.log("lading")
+        console.log("loading")
       })
       .addCase(addNewNoteExtra.rejected, (state, action) => {
         console.error("Failed to add category:", action.payload)
+        const error = action.payload
+        console.log(error)
       })
   },
 })

@@ -12,9 +12,12 @@ import {
 import { useTranslation } from "react-i18next"
 import "./NewNote-style.css"
 import Overlay from "../../../Overlay"
-import { addNewNoteExtra } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
+import {
+  addNewNoteExtra,
+  fetchNotes,
+} from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
 
-function NewNote({ parentId = null, onClose, level }) {
+function NewNote({ parentId, onClose, level, path }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
@@ -23,6 +26,14 @@ function NewNote({ parentId = null, onClose, level }) {
     (state) => state.content.selectedCategoryId
   )
 
+  // path = [...path, parentId]
+  // const upgradedPath = [...path, parentId]
+  // console.log("upgradedPath", path)
+
+  console.log("typeof", typeof path)
+
+  console.log("path", path)
+  console.log("parentId", parentId)
   const [inputText, setInputText] = useState("")
   const inputRef = useRef(null)
   useEffect(() => {
@@ -48,7 +59,7 @@ function NewNote({ parentId = null, onClose, level }) {
   const handleAddNewNote = () => {
     if (inputText) {
       const text = inputText[0].toUpperCase() + inputText.slice(1)
-
+      console.log(`path ${inputText}`, path)
       if (parentId) {
         dispatch(
           addNewNoteExtra({
@@ -56,13 +67,15 @@ function NewNote({ parentId = null, onClose, level }) {
             category: choosenCategoryId,
             parentId,
             level: ++level,
+            path: path,
           })
         )
         dispatch(toggleAddingNewNestedNote())
         onClose()
       } else {
-        // dispatch(addNewNote(text))
-        dispatch(addNewNoteExtra({ title: text, category: choosenCategoryId }))
+        dispatch(
+          addNewNoteExtra({ title: text, category: choosenCategoryId, path })
+        )
         dispatch(toggleAddingNewNote())
       }
       setInputText("")

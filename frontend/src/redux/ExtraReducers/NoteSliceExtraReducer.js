@@ -9,7 +9,7 @@ export const fetchNotes = createAsyncThunk("note/fetchNotes", async () => {
 
 export const addNewNoteExtra = createAsyncThunk(
   "note/addNewNote",
-  async ({ title, category, parent_note, level }) => {
+  async ({ title, category, parent_note, level, path }) => {
     const id = uuidv4()
     const content = "Empty note"
     const response = await api.post("/api/notes/", {
@@ -19,6 +19,7 @@ export const addNewNoteExtra = createAsyncThunk(
       content,
       category,
       parent_note,
+      path,
     })
     return response.data
   }

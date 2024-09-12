@@ -35,15 +35,6 @@ function ContentOfSelectedList() {
     favorites: "Liste de favori est vide",
   }
   const selectedCategory = useSelector(selectSelectedCategory)
-  const choosenCategory = useSelector(selectSelectedCategory)
-  console.log("selectedCategory", selectedCategory)
-  console.log("choosenCategory", choosenCategory)
-  console.log("allCategories", allCategories)
-  console.log("choosenCategoryId", choosenCategoryId)
-  console.log(
-    "allCategories[choosenCategoryId]",
-    allCategories[choosenCategoryId]
-  )
 
   useEffect(() => {
     dispatch(fetchNotes())
@@ -55,8 +46,9 @@ function ContentOfSelectedList() {
       {isAddingNewNote ? <NewNote /> : null}
       {isAddingNewTodo ? <NewTodo /> : null}
 
-      {selectedCategory && Object.keys(selectedCategory.content).length > 0 ? (
-        Object.keys(selectedCategory.content)
+      {selectedCategory &&
+      Object.values(selectedCategory.content).length > 0 ? (
+        Object.values(selectedCategory.content)
           .reverse()
           .map((item) => {
             return (
@@ -69,6 +61,7 @@ function ContentOfSelectedList() {
                 nestedNotes={item.nestedNotes}
                 showNestedNotes={item.showNestedNotes}
                 path={item.path}
+                parentId={item.id}
               />
             )
           })

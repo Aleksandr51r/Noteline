@@ -23,6 +23,7 @@ function Note({
   showNestedNotes,
   path,
   className,
+  parentId,
 }) {
   const dispatch = useDispatch()
   const [areNestedNotesVisible, setAreNestedNotesVisible] =
@@ -63,7 +64,7 @@ function Note({
     setIsNoteOpen(true)
   }
 
-  const isHiddenTriangeOfWrapp = Object.values(nestedNotes).length > 0
+  const isHiddenTriangeOfWrapp = Object.keys(nestedNotes).length > 0
   const closeAndClear = () => {
     setIsNoteOpen(false)
   }
@@ -78,7 +79,7 @@ function Note({
           path={path}
         />
       )}
-      <div className={`note-main ${className}`}>
+      <div className={`note-main ${className ? className : ""}`}>
         <div
           className={`note note-in-list ${
             areNestedNotesVisible ? "expanded" : "note-hidden"
@@ -149,12 +150,17 @@ function Note({
           className={`notes-nested ${areNestedNotesVisible ? "expanded" : ""}`}
         >
           {isAddingNewNestedNote && thatNoteSelected ? (
-            <NewNote onClose={onClose} parentId={id} level={level} />
+            <NewNote
+              onClose={onClose}
+              parentId={id}
+              level={level}
+              path={[...path, id]}
+            />
           ) : null}
           <div
             className={`notes-list ${areNestedNotesVisible ? "expanded" : ""}`}
           >
-            {Object.values(nestedNotes).length > 0 &&
+            {Object.keys(nestedNotes).length > 0 &&
               areNestedNotesVisible &&
               Object.values(nestedNotes)
                 .reverse()
@@ -169,6 +175,7 @@ function Note({
                     nestedNotes={item.nestedNotes}
                     showNestedNotes={item.showNestedNotes}
                     path={item.path}
+                    parentId={item.id}
                   />
                 ))}
           </div>

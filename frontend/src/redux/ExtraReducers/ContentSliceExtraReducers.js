@@ -6,7 +6,6 @@ export const fetchCategories = createAsyncThunk(
   "content/fetchCategories",
   async () => {
     const response = await api.get("/api/categories/")
-    console.log("fetched category", response.data)
     return response.data
   }
 )

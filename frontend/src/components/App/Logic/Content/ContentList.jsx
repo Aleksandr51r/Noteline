@@ -15,26 +15,30 @@ import { fetchCategories } from "../../../../redux/ExtraReducers/ContentSliceExt
 function ContentList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+
   const contentList = useSelector(selectContentList)
-  const choosenCategory = useSelector(selectSelectedCategory)
+  const selectedCategory = useSelector(selectSelectedCategory)
+
   const choosenCategoryId = useSelector(
     (state) => state.content.selectedCategoryId
   )
 
   useEffect(() => {
     dispatch(fetchCategories())
-    console.log("first time look for categories list")
+    // console.log("first time look for categories list")
   }, [dispatch])
-
+  
   const categoryListRefresh = () => {
     dispatch(fetchCategories())
-    console.log("**refresh the list of categories")
+    // console.log("**refresh the list of categories")
   }
+
   const handleChoseCategory = (id) => {
     dispatch(setSelectedCategory(id))
-    console.log("choosenCategory", choosenCategory)
   }
-  // console.log("choosenCategory", choosenCategory)
+
+  console.log("selectedCategory", selectedCategory)
+  console.log("contentList", contentList)
 
   return (
     <>

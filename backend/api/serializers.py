@@ -37,14 +37,42 @@ class TagSerializer(serializers.ModelSerializer):
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ["category", "id", "level", "title", "content", "is_favorite",
-                  "show_nested_notes", "tags", "created_at", "last_modified_at", "status", "parent_note"]
+        fields = [
+            "category",
+            "id",
+            "level",
+            "title",
+            "content",
+            "is_favorite",
+            "show_nested_notes",
+            "tags",
+            "created_at",
+            "last_modified_at",
+            "status",
+            "parent_note",
+            "path"
+        ]
+
         extra_kwargs = {"owner": {"read_only": True}}
 
 
 class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Todo
-        fields = ["category", "id", "level", "title", "todo_description", "is_completed ",
-                  "show_nested_todos", "tags", "created_at", "last_modified_at", "status", "parent_note"]
+        fields = [
+            "category",
+            "id",
+            "level",
+            "title",
+            "todo_description",
+            "is_completed",
+            "show_nested_todos",
+            "tags",
+            "created_at",
+            "last_modified_at",
+            "status",
+            "parent_todo",
+            "path"
+        ]
+
         extra_kwargs = {"owner": {"read_only": True}}

@@ -5,7 +5,10 @@ import { useDispatch } from "react-redux"
 import { setError } from "../../../../../redux/slices/errorSlice"
 import "./NewCategoryInput-style.css"
 import Overlay from "../../../../Overlay"
-import { addNewCategoryAsync } from "../../../../../redux/ExtraReducers/ContentSliceExtraReducers"
+import {
+  addNewCategoryAsync,
+  fetchCategories,
+} from "../../../../../redux/ExtraReducers/ContentSliceExtraReducers"
 
 function NewCategoryInput() {
   const { t } = useTranslation()
@@ -44,7 +47,7 @@ function NewCategoryInput() {
     }
     setIsAddingCategory(false)
   }
-  
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleAddNewCategory()
