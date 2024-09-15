@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import "./Note-style.css"
 import NoteForm from "../../Tools/NoteForm/NoteForm"
 import { RxTriangleRight } from "react-icons/rx"
-import { GoBookmark } from "react-icons/go"
+import { FaBookmark } from "react-icons/fa6"
+import { FaRegBookmark } from "react-icons/fa6"
 import { IoMdOptions } from "react-icons/io"
 import { AiFillTags } from "react-icons/ai"
 import { ImPencil2 } from "react-icons/im"
@@ -13,6 +14,10 @@ import {
 } from "../../../../redux/slices/contentSlice"
 import NewNote from "./NewNote"
 import ExtendedNote from "./ExtendedNote"
+import {
+  toggleShowNestedAsync,
+  addNoteToFavoriteAsync,
+} from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
 
 function Note({
   id,
@@ -20,15 +25,18 @@ function Note({
   title,
   noteContent,
   nestedNotes,
-  showNestedNotes,
+  show_nested_notes,
   path,
   className,
+  is_favorite,
   parentId,
+  isFavoriteNote = false,
 }) {
   const dispatch = useDispatch()
   const [areNestedNotesVisible, setAreNestedNotesVisible] =
-    useState(showNestedNotes)
+    useState(show_nested_notes)
   const [isNoteOpen, setIsNoteOpen] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(is_favorite)
   const [thatNoteSelected, setThatNoteSelected] = useState(false)
   const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
 
@@ -47,11 +55,6 @@ function Note({
   const onClose = () => {
     setThatNoteSelected(false)
   }
-  /*
-  const noteContent = ""
-  const noteContent =
-  "C’est sur les instances de M. le chevalier Trelawney, du docteur Livesey et de tous ces messieurs en général, que je me suis décidé à mettre par écrit tout ce que je sais concernant l’île au trésor, depuis A jusqu’à Z, sans rien excepter que la position de l’île, et cela uniquement parce qu’il s’y trouve toujours une partie du trésor. Je prends donc la plume en cet an de grâce 17..., et commence mon récit à l’époque où mon père tenait l’auberge de l’Amiral Benbow, en ce jour où le vieux marin, au visage basané et balafré d’un coup de sabre, vint prendre gîte sous notre toit. "
-  */
 
   const handleNoteFormClick = () => {
     setThatNoteSelected(true)
@@ -59,12 +62,25 @@ function Note({
   }
   const handleToggleNestedNotes = () => {
     setAreNestedNotesVisible(!areNestedNotesVisible)
+
+    dispatch(
+      toggleShowNestedAsync({ id, show_nested_notes: !areNestedNotesVisible })
+    )
   }
   const handleAddNoteContent = () => {
     setIsNoteOpen(true)
   }
+  const handleAddNoteInFavorite = () => {
+    dispatch(addNoteToFavoriteAsync({ id, is_favorite: !isFavorite }))
+    console.log(`note ${title}`, isFavorite)
+    setIsFavorite(!isFavorite)
+    console.log(`note ${title}`, isFavorite)
+  }
+  // console.log(`note ${title}`, isFavorite)
 
-  const isHiddenTriangeOfWrapp = Object.keys(nestedNotes).length > 0
+  const isHiddenTriangeOfWrapp =
+    !is_favorite && nestedNotes && Object.keys(nestedNotes).length > 0
+
   const closeAndClear = () => {
     setIsNoteOpen(false)
   }
@@ -129,13 +145,17 @@ function Note({
             onClick={handleAddNoteContent}
           >
             <span className='note-part-open-span'>
-              {noteContent ? noteContent.slice(0, 25) + "..." : <ImPencil2 />}
+              {noteContent ? noteContent.slice(0, 15) + "..." : <ImPencil2 />}
             </span>
           </div>
 
           <div className='note-option note-part'>
-            <button className='btn-empty '>
-              <GoBookmark />
+            <button className='btn-empty ' onClick={handleAddNoteInFavorite}>
+              {isFavorite ? (
+                <FaBookmark className='isFavorite-filled' />
+              ) : (
+                <FaRegBookmark />
+              )}
             </button>
             <button className='btn-empty '>
               <IoMdOptions />
@@ -157,28 +177,34 @@ function Note({
               path={[...path, id]}
             />
           ) : null}
-          <div
-            className={`notes-list ${areNestedNotesVisible ? "expanded" : ""}`}
-          >
-            {Object.keys(nestedNotes).length > 0 &&
-              areNestedNotesVisible &&
-              Object.values(nestedNotes)
-                .reverse()
-                .map((item) => (
-                  <Note
-                    className='nestedItem'
-                    id={item.id}
-                    key={item.id}
-                    level={item.level}
-                    title={item.title}
-                    noteContent={item.noteContent}
-                    nestedNotes={item.nestedNotes}
-                    showNestedNotes={item.showNestedNotes}
-                    path={item.path}
-                    parentId={item.id}
-                  />
-                ))}
-          </div>
+          {!isFavoriteNote && (
+            <div
+              className={`notes-list ${
+                areNestedNotesVisible ? "expanded" : ""
+              }`}
+            >
+              {nestedNotes &&
+                Object.keys(nestedNotes).length > 0 &&
+                areNestedNotesVisible &&
+                Object.values(nestedNotes)
+                  .reverse()
+                  .map((item) => (
+                    <Note
+                      className='nestedItem'
+                      id={item.id}
+                      key={item.id}
+                      level={item.level}
+                      title={item.title}
+                      noteContent={item.noteContent}
+                      nestedNotes={item.nestedNotes}
+                      show_nested_notes={item.show_nested_notes}
+                      path={item.path}
+                      parentId={item.id}
+                      is_favorite={item.is_favorite}
+                    />
+                  ))}
+            </div>
+          )}
         </div>
       </div>
     </>

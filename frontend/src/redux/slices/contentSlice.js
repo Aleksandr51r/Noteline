@@ -9,7 +9,9 @@ import {
 } from "../ExtraReducers/ContentSliceExtraReducers"
 import {
   fetchNotes,
-  addNewNoteExtra,
+  addNewNoteAsync,
+  addNoteToFavoriteAsync,
+  toggleShowNestedAsync,
 } from "../ExtraReducers/NoteSliceExtraReducer"
 
 const API_BASE_URL = "http://127.0.0.1:8000/api/"
@@ -17,6 +19,13 @@ const API_BASE_URL = "http://127.0.0.1:8000/api/"
 const getInitialSelectedCategoryId = () => {
   const savedName = localStorage.getItem("saved-category")
   return savedName
+}
+
+const getInitialFavoriteCategoryId = (categories) => {
+  const favoriteCategory = Object.values(categories).find(
+    (item) => item.name === "favorites"
+  )
+  return favoriteCategory ? favoriteCategory.id : null
 }
 
 const findNestedObject = (obj, path) => {
@@ -27,6 +36,7 @@ const initialState = {
   categories: {},
   notes: {},
   selectedCategoryId: getInitialSelectedCategoryId(),
+  favoriteCategoryId: null,
   isAddingNewNote: false,
   isAddingNewNestedNote: false,
   isAddingNewTodo: false,
@@ -42,32 +52,6 @@ const contentSlice = createSlice({
       localStorage.setItem("saved-category", action.payload)
     },
 
-    addNewNote: (state, action) => {
-      const title = action.payload
-      const level = 1
-      const id = uuidv4()
-
-      const category = state.categories.find(
-        (cat) => cat.name === state.selectedCategoryId
-      )
-
-      const newNote = {
-        id,
-        type: "note",
-        level,
-        title,
-        noteContent: "",
-        path: [id],
-        isFavorites: false,
-        showNestedNotes: true,
-        tags: [],
-        nestedNotes: {},
-        additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
-      }
-
-      category.content = { ...category.content, [newNote.id]: newNote }
-    },
-
     modifyNote: (state, action) => {
       const { path, noteContent } = action.payload
       const category = state.categories.find(
@@ -78,37 +62,6 @@ const contentSlice = createSlice({
       note.noteContent = noteContent
     },
 
-    addNestedNote: (state, action) => {
-      const { parentPath, title } = action.payload
-      const category = state.categories.find(
-        (cat) => cat.name === state.selectedCategoryName
-      )
-
-      const parentNote = findNestedObject(category.content, parentPath)
-
-      console.log("parentPath", parentPath)
-      console.log("parentNote", parentNote)
-      const id = uuidv4()
-
-      if (parentNote) {
-        const level = parentNote.level + 1
-        const path = [...parentNote.path, "nestedNotes", id]
-        const newNestedNote = {
-          id,
-          type: "note",
-          level,
-          title,
-          noteContent: "",
-          tags: [],
-          nestedNotes: {},
-          showNestedNotes: true,
-          path,
-          additionalInfo: { timeOfCreation: getFormattedDateTime(), status: 0 },
-        }
-
-        parentNote.nestedNotes[newNestedNote.id] = newNestedNote
-      }
-    },
     toggleAddingNewNote: (state) => {
       state.isAddingNewNote = !state.isAddingNewNote
     },
@@ -191,6 +144,7 @@ const contentSlice = createSlice({
         console.error("Failed to add category:", action.payload)
       })
       .addCase(modifyCategoryAsync.fulfilled, (state, action) => {
+        
         const { id, icon, name } = action.payload
         state.categories[id].name = name
         state.categories[id].icon = icon
@@ -206,6 +160,9 @@ const contentSlice = createSlice({
           acc[category.id] = { ...category, content: {} }
           return acc
         }, {})
+        state.favoriteCategoryId = getInitialFavoriteCategoryId(
+          state.categories
+        )
 
         console.log("fetched category", state.categories)
       })
@@ -228,12 +185,18 @@ const contentSlice = createSlice({
 
       .addCase(fetchNotes.fulfilled, (state, action) => {
         console.log("FETCH ALL NOTES IN SLICE", action.payload)
-
         const notes = action.payload
-        console.log("notes", notes)
+
         notes.sort((a, b) => a.level - b.level)
-        notes.reduce((acc, note) => {
+        const updatedNotes = notes.reduce((acc, note) => {
           acc[note.id] = { ...note, nestedNotes: {} }
+
+          if (note.is_favorite) {
+            state.categories[state.favoriteCategoryId].content[note.id] = {
+              ...note,
+              nestedNotes: null,
+            }
+          }
 
           if (note.path.length === 0) {
             state.categories[note.category].content[note.id] = acc[note.id]
@@ -246,12 +209,12 @@ const contentSlice = createSlice({
           }
           return acc
         }, {})
-        state.notes = notes
 
-        console.log("*NOTES after work with it*", notes)
+        state.notes = updatedNotes
+        console.log("*NOTES after work with it*", state.notes)
       })
 
-      .addCase(addNewNoteExtra.fulfilled, (state, action) => {
+      .addCase(addNewNoteAsync.fulfilled, (state, action) => {
         const {
           category,
           id,
@@ -309,21 +272,58 @@ const contentSlice = createSlice({
         }
       })
 
-      .addCase(addNewNoteExtra.pending, (state, action) => {
+      .addCase(addNewNoteAsync.pending, (state, action) => {
         console.log("loading")
       })
-      .addCase(addNewNoteExtra.rejected, (state, action) => {
+      .addCase(addNewNoteAsync.rejected, (state, action) => {
         console.error("Failed to add category:", action.payload)
         const error = action.payload
         console.log(error)
       })
+
+      .addCase(addNoteToFavoriteAsync.fulfilled, (state, action) => {
+        const { id, is_favorite } = action.payload
+        const note = state.notes[id]
+        const categoryContent = state.categories[note.category].content
+
+        state.notes[id] = { ...note, is_favorite }
+
+        if (note.path.length === 0) {
+          categoryContent[note.id] = { ...note, is_favorite }
+        } else {
+          const parentNotes = findNestedObject(categoryContent, note.path)
+          parentNotes[note.id] = { ...note, is_favorite }
+        }
+
+        if (is_favorite) {
+          state.categories[state.favoriteCategoryId].content[id] = {
+            ...note,
+            is_favorite,
+            nestedNotes: null,
+          }
+        } else {
+          delete state.categories[state.favoriteCategoryId].content[id]
+        }
+      })
+
+      .addCase(addNoteToFavoriteAsync.pending, (state, action) => {})
+      .addCase(addNoteToFavoriteAsync.rejected, (state, action) => {})
+
+      .addCase(toggleShowNestedAsync.fulfilled, (state, action) => {
+        const { id, show_nested_notes } = action.payload
+        state.notes[id] = {
+          ...state.notes[id],
+          show_nested_notes,
+        }
+      })
+      .addCase(toggleShowNestedAsync.pending, (state, action) => {})
+      .addCase(toggleShowNestedAsync.rejected, (state, action) => {})
   },
 })
 
 export const {
   addNewContentList,
   setSelectedCategory,
-  addNewNote,
   toggleAddingNewNote,
   toggleAddingNewNestedNote,
   toggleAddingNewTodo,
@@ -337,6 +337,7 @@ export const {
 
 export const selectContentList = (state) => state.content.categories
 export const selectNotes = (state) => state.content.notes
+export const selectFavoritesNotes = (state) => state.content.favoritesNotes
 
 export const selectSelectedCategory = (state) =>
   state.content.categories[state.content.selectedCategoryId]

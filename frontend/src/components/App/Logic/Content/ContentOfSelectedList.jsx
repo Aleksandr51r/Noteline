@@ -17,18 +17,16 @@ import NewNote from "../Notes/NewNote"
 import Todo from "../Todos/Todo"
 import NewTodo from "../Todos/NewTodo"
 import { fetchNotes } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
+import ContentOfFavorites from "./ContentOfFavorites"
+import { selectFavoritesNotes } from "../../../../redux/slices/contentSlice"
+import ContentOfUsialList from "./ContentOfUsialList"
 
 function ContentOfSelectedList() {
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
   const isAddingNewTodo = useSelector(selectIsAddingNewTodo)
+  const favorites = useSelector(selectFavoritesNotes)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const allCategories = useSelector(selectContentList)
-  const choosenCategoryId = useSelector(
-    (state) => state.content.selectedCategoryId
-  )
-  const Notes = useSelector(selectNotes)
-  // console.log("Notes", Notes)
 
   const exeptions = {
     trashcan: "Corbeille est vide",
@@ -46,7 +44,7 @@ function ContentOfSelectedList() {
       {isAddingNewNote ? <NewNote /> : null}
       {isAddingNewTodo ? <NewTodo /> : null}
 
-      {selectedCategory &&
+      {selectedCategory && 
       Object.values(selectedCategory.content).length > 0 ? (
         Object.values(selectedCategory.content)
           .reverse()
@@ -57,11 +55,12 @@ function ContentOfSelectedList() {
                 key={item.id}
                 level={item.level}
                 title={item.title}
-                noteContent={item.noteContent}
+                noteContent={item.content}
                 nestedNotes={item.nestedNotes}
-                showNestedNotes={item.showNestedNotes}
+                show_nested_notes={item.show_nested_notes}
                 path={item.path}
                 parentId={item.id}
+                is_favorite={item.is_favorite}
               />
             )
           })
@@ -103,7 +102,7 @@ export default ContentOfSelectedList
 //     title={item.title}
 //     noteContent={item.noteContent}
 //     nestedNotes={item.nestedNotes}
-//     showNestedNotes={item.showNestedNotes}
+//     show_nested_notes={item.show_nested_notes}
 //     path={item.path}
 //   />
 // ) : (

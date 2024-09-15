@@ -11,6 +11,7 @@ def create_default_categories(sender, instance, created, **kwargs):
         default_categories = {
             str(uuid.uuid4()): {"name": "unsorted", "icon": "GrSort"},
             str(uuid.uuid4()): {"name": "favorites", "icon": "IoBookmarksSharp"},
+            # str(uuid.uuid4()): {"name": "search-category", "icon": "IoBookmarksSharp"},
             str(uuid.uuid4()): {"name": "kanban", "icon": "BsKanban"},
             str(uuid.uuid4()): {"name": "trashcan", "icon": "FaRegTrashCan"},
         }

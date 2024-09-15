@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: noteline_db
+      DB_USER: Aleksandr
+      DB_PWD: sasha51r
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app  
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: noteline_db
+      POSTGRES_USER: Aleksandr
+      POSTGRES_PASSWORD: sasha51r
+    ports:
+      - "5432:5432"

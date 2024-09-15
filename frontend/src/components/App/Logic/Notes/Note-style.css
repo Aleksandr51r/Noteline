@@ -228,3 +228,7 @@
 /* .notes-list.expanded {
   margin-left: 10px; 
 } */
+.isFavorite-filled {
+  fill: #ff0000;
+  transition: fill 5.3s ease-in-out;
+}

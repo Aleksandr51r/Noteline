@@ -9,4 +9,6 @@ urlpatterns = [
     path("categories/<uuid:pk>/", views.CategoryDetailModify.as_view(),
          name="category-detail-modify"),
     path("notes/", views.NoteListCreate.as_view(), name="note-list"),
+    path("notes/<uuid:pk>/", views.NoteDetailModify.as_view(),
+         name="note-detail-modify"),
 ]

@@ -6,8 +6,27 @@ export const fetchNotes = createAsyncThunk("note/fetchNotes", async () => {
   const response = await api.get("api/notes/")
   return response.data
 })
+export const toggleShowNestedAsync = createAsyncThunk(
+  "content/toggleShowNestedAsync",
+  async ({ id, show_nested_notes }) => {
+    const response = await api.patch(`/api/notes/${id}/`, {
+      show_nested_notes: show_nested_notes,
+    })
+    return response.data
+  }
+)
 
-export const addNewNoteExtra = createAsyncThunk(
+export const addNoteToFavoriteAsync = createAsyncThunk(
+  "content/addNoteToFavorites",
+  async ({ id, is_favorite }) => {
+    const response = await api.patch(`/api/notes/${id}/`, {
+      is_favorite,
+    })
+    return response.data
+  }
+)
+
+export const addNewNoteAsync = createAsyncThunk(
   "note/addNewNote",
   async ({ title, category, parent_note, level, path }) => {
     const id = uuidv4()

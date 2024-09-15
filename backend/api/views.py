@@ -8,7 +8,6 @@ from .models import Category, Note, Todo, Tag
 # Create your views here.
 
 
-
 class NoteListCreate(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
@@ -22,6 +21,25 @@ class NoteListCreate(generics.ListCreateAPIView):
             serializer.save(owner=self.request.user)
         else:
             print(serializer.errors)
+
+
+class NoteDetailModify(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(owner=user)
+
+
+class NoteDelete(generics.DestroyAPIView):
+    serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(owner=user)
 
 
 class CategoryListCreate(generics.ListCreateAPIView):

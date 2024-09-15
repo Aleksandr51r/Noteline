@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next"
 import "./NewNote-style.css"
 import Overlay from "../../../Overlay"
 import {
-  addNewNoteExtra,
+  addNewNoteAsync,
   fetchNotes,
 } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
 
@@ -26,9 +26,6 @@ function NewNote({ parentId, onClose, level, path }) {
     (state) => state.content.selectedCategoryId
   )
 
-  // path = [...path, parentId]
-  // const upgradedPath = [...path, parentId]
-  // console.log("upgradedPath", path)
 
   console.log("typeof", typeof path)
 
@@ -62,7 +59,7 @@ function NewNote({ parentId, onClose, level, path }) {
       console.log(`path ${inputText}`, path)
       if (parentId) {
         dispatch(
-          addNewNoteExtra({
+          addNewNoteAsync({
             title: text,
             category: choosenCategoryId,
             parentId,
@@ -74,7 +71,7 @@ function NewNote({ parentId, onClose, level, path }) {
         onClose()
       } else {
         dispatch(
-          addNewNoteExtra({ title: text, category: choosenCategoryId, path })
+          addNewNoteAsync({ title: text, category: choosenCategoryId, path })
         )
         dispatch(toggleAddingNewNote())
       }

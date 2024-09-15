@@ -27,9 +27,9 @@ function ContentList() {
     dispatch(fetchCategories())
     // console.log("first time look for categories list")
   }, [dispatch])
-  
+
   const categoryListRefresh = () => {
-    dispatch(fetchCategories())
+    // dispatch(fetchCategories())
     // console.log("**refresh the list of categories")
   }
 
