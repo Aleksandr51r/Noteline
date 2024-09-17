@@ -22,7 +22,6 @@ html[savedTheme="light"] {
   --background-color-for-items: #d3d3d3;
   --background-color-for-items-lines: #b9cbcf;
   --background-color-toast: #ffffff;
-
   --background-color-onhover: #686561;
   --background-color-for-toggle-light-mode: #464444;
   --background-color-for-toggle-light-mode-onhover: #270180;
@@ -35,32 +34,27 @@ html[savedTheme="light"] {
   --text-color-onhover: #005b77;
   --navbar-color: #e6e6e6;
   --navbar-toggler: #bfae8c;
-
   --background-shadow: #cfcfcfd5;
   --background-text-shadow: #000000;
   --border-for-background-shadow: #6d6d6d;
-
   --todo-done: #ffffff;
   --todo-done-border: #ececec;
   --todo-done-text: #2c2c2c;
   --todo-done-text-onhover: #2c2c2c;
   --todo-done-onhover-background-color: #ffffff;
   --todo-done-shadow-onhover: #b5b8b9;
-
-  --todo-onhover-background-color: #7894978a;
+  --todo-onhover-background-color: #ffffff;
   --todo-onhover-border: #616161;
 }
 
 html[savedTheme="dark"] {
   --background-color: #454547;
   --background-color: #2c2c2c;;
-
   --background-color-for-items: #183a49;
   --background-color-for-items: #32323d;
   --background-color-for-items: #3b3b3d;
   --background-color-for-items-lines: #454849;
   --background-color-toast: #747474;
-
   --background-color-onhover: #5c5c5c;
   --background-color-for-toggle-light-mode: #f5eadd;
   --background-color-for-toggle-light-mode-onhover: #fde786;
@@ -74,24 +68,20 @@ html[savedTheme="dark"] {
   --text-for-button-color: #ffffff;
   --navbar-color: #454547;
   --navbar-color: #2c2c2c;
-  
   /* --navbar-color: #454547; */
   --navbar-toggler: #777777;
-
   --background-shadow: #757e80;
   --background-shadow: #4a6570;
   --background-text-shadow: #183a49;
   --background-text-shadow: #ffffff;
   --border-for-background-shadow: rgb(127, 132, 134);
-
   --todo-done: #313131;
   --todo-done-border: #000000;
   --todo-done-text: #f0f0f0;
   --todo-done-text-onhover: #a0a0a0;
   --todo-done-onhover-background-color: #26262b;
-
   --todo-onhover-background-color: #32323d;
-  --todo-onhover-background-color: #183a49;
+  --todo-onhover-background-color: #494949;
   --todo-onhover-border: #979797;
 }
 
@@ -134,7 +124,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease-in-out,
     transform 0.3s ease-in-out;
 }
-ы .btn-standart:hover {
+.btn-standart:hover {
   background-color: #017180;
   color: aliceblue;
   transform: scale(1.03);

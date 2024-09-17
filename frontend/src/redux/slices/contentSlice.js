@@ -144,7 +144,6 @@ const contentSlice = createSlice({
         console.error("Failed to add category:", action.payload)
       })
       .addCase(modifyCategoryAsync.fulfilled, (state, action) => {
-        
         const { id, icon, name } = action.payload
         state.categories[id].name = name
         state.categories[id].icon = icon
@@ -188,8 +187,10 @@ const contentSlice = createSlice({
         const notes = action.payload
 
         notes.sort((a, b) => a.level - b.level)
+
         const updatedNotes = notes.reduce((acc, note) => {
           acc[note.id] = { ...note, nestedNotes: {} }
+          state.notes[note.id] = note
 
           if (note.is_favorite) {
             state.categories[state.favoriteCategoryId].content[note.id] = {
@@ -210,7 +211,7 @@ const contentSlice = createSlice({
           return acc
         }, {})
 
-        state.notes = updatedNotes
+        // state.notes = updatedNotes
         console.log("*NOTES after work with it*", state.notes)
       })
 
@@ -270,6 +271,21 @@ const contentSlice = createSlice({
             nestedNotes: {},
           }
         }
+        state.notes[id] = {
+          category,
+          id,
+          level,
+          title,
+          content,
+          is_favorite,
+          show_nested_notes,
+          tags,
+          created_at,
+          last_modified_at,
+          status,
+          parent_note,
+          path,
+        }
       })
 
       .addCase(addNewNoteAsync.pending, (state, action) => {
@@ -283,16 +299,17 @@ const contentSlice = createSlice({
 
       .addCase(addNoteToFavoriteAsync.fulfilled, (state, action) => {
         const { id, is_favorite } = action.payload
+
         const note = state.notes[id]
         const categoryContent = state.categories[note.category].content
 
         state.notes[id] = { ...note, is_favorite }
 
         if (note.path.length === 0) {
-          categoryContent[note.id] = { ...note, is_favorite }
+          categoryContent[note.id].is_favorite = is_favorite
         } else {
           const parentNotes = findNestedObject(categoryContent, note.path)
-          parentNotes[note.id] = { ...note, is_favorite }
+          parentNotes[note.id].is_favorite = is_favorite
         }
 
         if (is_favorite) {

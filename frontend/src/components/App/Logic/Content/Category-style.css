@@ -40,11 +40,9 @@
   min-height: 30px;
   max-height: auto;
   color: var(--text-color);
-  background-color: transparent;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  /* border: 2px solid rgb(255, 0, 200); */
 }
 .category-icon {
   margin: 0px 10px;
@@ -93,7 +91,7 @@
 }
 .category-btn:active {
   color: #0087fd;
-  transition: color 0.7s;
+  transition: color 0.2s;
 }
 
 .category-static {
@@ -109,17 +107,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-/* 
-.inbox {
-  fill: rgb(84, 229, 255);
-}
-.doneList {
-  fill: rgb(81, 255, 0);
-}
-.trashcan {
-  fill: rgb(255, 255, 255);
-} */
 
 ::-webkit-scrollbar {
   width: 5px;

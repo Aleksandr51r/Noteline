@@ -18,7 +18,7 @@ function ControlPanel() {
       {!exeptionsList.includes(categoryName) && (
         <>
           <NoteForm />
-          <TodoForm />
+          {/* <TodoForm /> */}
         </>
       )}
     </div>

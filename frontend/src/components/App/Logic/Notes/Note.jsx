@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   toggleAddingNewNestedNote,
   selectIsAddingNewNestedNote,
+  selectSelectedCategory,
 } from "../../../../redux/slices/contentSlice"
 import NewNote from "./NewNote"
 import ExtendedNote from "./ExtendedNote"
@@ -18,6 +19,15 @@ import {
   toggleShowNestedAsync,
   addNoteToFavoriteAsync,
 } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
+import Overlay from "../../../Overlay"
+
+function NoteSettings({ title }) {
+  return (
+    <div className='test-note-settings'>
+      <div>{title}</div>
+    </div>
+  )
+}
 
 function Note({
   id,
@@ -37,8 +47,10 @@ function Note({
     useState(show_nested_notes)
   const [isNoteOpen, setIsNoteOpen] = useState(false)
   const [isFavorite, setIsFavorite] = useState(is_favorite)
+  const [isSettingsNoteOpen, setIsSettingsNoteOpen] = useState(false)
   const [thatNoteSelected, setThatNoteSelected] = useState(false)
   const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
+  const selectedCategory = useSelector(selectSelectedCategory)
 
   const romeDigitsLevel = {
     1: "I",
@@ -79,10 +91,18 @@ function Note({
   // console.log(`note ${title}`, isFavorite)
 
   const isHiddenTriangeOfWrapp =
-    !is_favorite && nestedNotes && Object.keys(nestedNotes).length > 0
+    nestedNotes && Object.keys(nestedNotes).length > 0
 
   const closeAndClear = () => {
     setIsNoteOpen(false)
+  }
+
+  const handleNoteOpen = () => {
+    setIsSettingsNoteOpen(true)
+  }
+
+  const closeOverlaySettings = () => {
+    setIsSettingsNoteOpen(false)
   }
 
   return (
@@ -96,75 +116,90 @@ function Note({
         />
       )}
       <div className={`note-main ${className ? className : ""}`}>
-        <div
-          className={`note note-in-list ${
-            areNestedNotesVisible ? "expanded" : "note-hidden"
-          }`}
-        >
-          <div className='note-wrap note-part'>
-            <div className='note-dummy note-part '></div>
-            <button
-              className={`btn-empty note-wrap note-part ${
-                isHiddenTriangeOfWrapp ? "wrap-note-expanded" : "wrap-hidden"
-              }`}
-              onClick={handleToggleNestedNotes}
-            >
-              <RxTriangleRight
-                className={` ${
-                  areNestedNotesVisible ? "wrap-expanded" : "note-hidden"
-                }`}
-              />
-            </button>
-          </div>
+        {isSettingsNoteOpen ? (
+          <>
+            <Overlay onClick={closeOverlaySettings} />
+            <NoteSettings title={title} />
+          </>
+        ) : (
           <div
-            className='note-level note-part'
-            onClick={handleToggleNestedNotes}
-          >
-            {romeDigitsLevel[level]}
-          </div>
-
-          <div
-            className={`note-btn-extend note-part ${
-              level <= 9 ? "" : "hidden"
+            className={`note note-in-list ${
+              areNestedNotesVisible ? "expanded" : "note-hidden"
             }`}
           >
-            <NoteForm
-              additionalClassName='little-btn-tool-icon'
-              onClick={handleNoteFormClick}
-            />
-            {/* <TodoForm additionalClassName='little-btn-tool-icon' /> */}
-          </div>
-          {/* <div className='note-dummy note-part '></div> */}
+            <div className='note-wrap note-part'>
+              <div className='note-dummy note-part '></div>
+              <button
+                className={`btn-empty note-wrap note-part ${
+                  isHiddenTriangeOfWrapp ? "wrap-note-expanded" : "wrap-hidden"
+                }`}
+                onClick={handleToggleNestedNotes}
+              >
+                <RxTriangleRight
+                  className={` ${
+                    areNestedNotesVisible ? "wrap-expanded" : "note-hidden"
+                  }`}
+                />
+              </button>
+            </div>
+            <div
+              className='note-level note-part'
+              onClick={handleToggleNestedNotes}
+            >
+              {is_favorite && selectedCategory.name === "favorites"
+                ? null
+                : romeDigitsLevel[level]}
+            </div>
 
-          <div className='note-title note-part '>
-            <span className='note-title-span'>{title}</span>
-          </div>
-
-          <div
-            className='note-text note-part note-part-open'
-            onClick={handleAddNoteContent}
-          >
-            <span className='note-part-open-span'>
-              {noteContent ? noteContent.slice(0, 15) + "..." : <ImPencil2 />}
-            </span>
-          </div>
-
-          <div className='note-option note-part'>
-            <button className='btn-empty ' onClick={handleAddNoteInFavorite}>
-              {isFavorite ? (
-                <FaBookmark className='isFavorite-filled' />
-              ) : (
-                <FaRegBookmark />
+            <div
+              className={`note-btn-extend note-part ${
+                level <= 9 ? "" : "hidden"
+              }`}
+            >
+              {is_favorite && selectedCategory.name === "favorites" ? null : (
+                <NoteForm
+                  additionalClassName='little-btn-tool-icon'
+                  onClick={handleNoteFormClick}
+                />
               )}
-            </button>
-            <button className='btn-empty '>
-              <IoMdOptions />
-            </button>
-            <button className='btn-empty '>
-              <AiFillTags />
-            </button>
+              {/* <TodoForm additionalClassName='little-btn-tool-icon' /> */}
+            </div>
+            {/* <div className='note-dummy note-part '></div> */}
+
+            <div className='note-title note-part '>
+              <span className='note-title-span'>{title}</span>
+            </div>
+
+            <div
+              className='note-text note-part note-part-open'
+              onClick={handleAddNoteContent}
+            >
+              <span className='note-part-open-span'>
+                {noteContent ? noteContent.slice(0, 15) + "..." : <ImPencil2 />}
+              </span>
+            </div>
+
+            <div className='note-option note-part'>
+              <button className='btn-empty ' onClick={handleAddNoteInFavorite}>
+                {isFavorite ? (
+                  <FaBookmark className='isFavorite-filled' />
+                ) : (
+                  <FaRegBookmark />
+                )}
+              </button>
+              <button className='btn-empty ' onClick={handleNoteOpen}>
+                {is_favorite && selectedCategory.name === "favorites" ? null : (
+                  <IoMdOptions />
+                )}
+              </button>
+              <button className='btn-empty '>
+                {is_favorite && selectedCategory.name === "favorites" ? null : (
+                  <AiFillTags />
+                )}
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <div
           className={`notes-nested ${areNestedNotesVisible ? "expanded" : ""}`}

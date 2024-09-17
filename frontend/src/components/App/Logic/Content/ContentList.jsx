@@ -25,12 +25,10 @@ function ContentList() {
 
   useEffect(() => {
     dispatch(fetchCategories())
-    // console.log("first time look for categories list")
   }, [dispatch])
 
   const categoryListRefresh = () => {
-    // dispatch(fetchCategories())
-    // console.log("**refresh the list of categories")
+
   }
 
   const handleChoseCategory = (id) => {
@@ -89,7 +87,7 @@ function ContentList() {
         </div>
 
         <NewCategoryInput />
-        {Object.values(contentList).length > 3 && (
+        {/* {Object.values(contentList).length > 3 && (
           <div>
             <Category
               id={Object.values(contentList)[3].id}
@@ -109,7 +107,7 @@ function ContentList() {
               categoryListRefresh={categoryListRefresh}
             />
           </div>
-        )}
+        )} */}
       </div>
     </>
   )

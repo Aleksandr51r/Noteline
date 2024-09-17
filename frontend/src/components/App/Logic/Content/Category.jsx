@@ -29,10 +29,6 @@ function Category({
 
   const exeptions = ["FaRegTrashCan", "BsKanban", "GrSort", "IoBookmarksSharp"]
 
-  // useEffect(() => {
-  //   dispatch(fetchCategories())
-  // }, [dispatch])
-
   const handleIconSelect = (iconName) => {
     setSelectedIcon(iconName)
     onClose()
