@@ -11,6 +11,7 @@ import {
   fetchCategories,
   modifyCategoryAsync,
 } from "../../../../redux/ExtraReducers/ContentSliceExtraReducers"
+import { useTranslation } from "react-i18next"
 
 function Category({
   id,
@@ -26,6 +27,7 @@ function Category({
   const [selectedIcon, setSelectedIcon] = useState(icon)
   const [selectedName, setSelectedName] = useState(name)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const exeptions = ["FaRegTrashCan", "BsKanban", "GrSort", "IoBookmarksSharp"]
 
@@ -97,15 +99,21 @@ function Category({
             </div>
           ) : isWeDeleteCategory ? (
             <div className='mb-center'>
-              <button
-                className='btn-empty '
-                onClick={() => confirmDeleteCategory(id)}
-              >
-                ok
-              </button>
-              <button className='btn-empty ' onClick={cancelDeleteCategory}>
-                no
-              </button>
+              <span className='delete-note-warning delete-cat-warning'>
+  
+                {t("Attention it will delet all notes of this category")}
+              </span>
+              <div className='delete-btns'>
+                <button
+                  className='btn-empty delete-button'
+                  onClick={() => confirmDeleteCategory(id)}
+                >
+                  {t("apply")}
+                </button>
+                <button className='btn-empty ' onClick={cancelDeleteCategory}>
+                  {t("cancel")}
+                </button>
+              </div>
             </div>
           ) : (
             <div className='mb-center'>
@@ -136,10 +144,10 @@ function Category({
                     handleSubmiteModifyCategory(id, selectedIcon, selectedName)
                   }
                 >
-                  Apply
+                  {t("apply")}
                 </button>
                 <button className='btn-empty ' onClick={cancelAndClose}>
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             </div>

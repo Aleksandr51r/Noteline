@@ -1,5 +1,4 @@
 import React from "react"
-import LightSwitch from "../../../UI/LightSwitch/LightSwitch"
 import LanguageSelect from "../../../language/LanguageSelect"
 import { useTranslation } from "react-i18next"
 

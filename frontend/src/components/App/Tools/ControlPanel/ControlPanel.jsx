@@ -27,15 +27,3 @@ function ControlPanel() {
 
 export default ControlPanel
 
-
-// return (
-//   <div className='control-panel'>
-//     {exeptionsList.includes(selectedCategory.name) ? null : (
-//       <>
-//         <NoteForm />
-//         <TodoForm />
-//       </>
-//     )}
-//   </div>
-// )
-// }

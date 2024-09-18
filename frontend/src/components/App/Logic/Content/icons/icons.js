@@ -40,6 +40,20 @@ import {
   GiHamburger,
   GiSoccerBall,
 } from "react-icons/gi"
+import { BsAlarmFill } from "react-icons/bs"
+import { BsBasket2Fill } from "react-icons/bs"
+import { BsCalendar2HeartFill } from "react-icons/bs"
+import { BsCake2Fill } from "react-icons/bs"
+import { BsCapsule } from "react-icons/bs"
+import { BsChatHeart } from "react-icons/bs"
+import { BsClipboard2PulseFill } from "react-icons/bs"
+import { BsCpuFill } from "react-icons/bs"
+import { BsCreditCardFill } from "react-icons/bs"
+import { BsFillGeoFill } from "react-icons/bs"
+import { IoSchoolSharp } from "react-icons/io5"
+import { FaBook } from "react-icons/fa"
+import { SiBookstack } from "react-icons/si"
+import { ImBooks } from "react-icons/im"
 
 export const Icon_standart_stock = {
   IoBookmarksSharp: <IoBookmarksSharp />,
@@ -48,10 +62,10 @@ export const Icon_standart_stock = {
   FaRegTrashCan: <GiTrashCan />,
   todelete: <MdOutlineDeleteForever />,
 }
+
 export const Icon_stock = {
   default: <LuGanttChartSquare />,
   FaMusic: <FaMusic />,
-  FaBicycle: <FaBicycle />,
   FaPlane: <FaPlane />,
   FaMapMarkerAlt: <FaMapMarkerAlt />,
   FaTrophy: <FaTrophy />,
@@ -59,7 +73,6 @@ export const Icon_stock = {
   IoMdWalk: <IoMdWalk />,
   IoMdPizza: <IoMdPizza />,
   IoMdSunny: <IoMdSunny />,
-  IoIosBed: <IoIosBed />,
   IoIosTime: <IoIosTime />,
 
   GrDocumentText: <GrDocumentText />,
@@ -76,15 +89,20 @@ export const Icon_stock = {
 
   GiElectric: <GiElectric />,
   GiHouse: <GiHouse />,
-  GiGameConsole: <GiGameConsole />,
-  GiHamburger: <GiHamburger />,
   GiSoccerBall: <GiSoccerBall />,
-}
+  BsAlarmFill: <BsAlarmFill />,
+  BsBasket2Fill: <BsBasket2Fill />,
+  BsCalendar2HeartFill: <BsCalendar2HeartFill />,
+  BsCake2Fill: <BsCake2Fill />,
+  BsCapsule: <BsCapsule />,
+  BsChatHeart: <BsChatHeart />,
+  BsClipboard2PulseFill: <BsClipboard2PulseFill />,
+  BsCpuFill: <BsCpuFill />,
+  BsCreditCardFill: <BsCreditCardFill />,
+  BsFillGeoFill: <BsFillGeoFill />,
 
-// import { FaRegTrashCan } from "react-icons/fa6"
-// import { IoBookmarksSharp } from "react-icons/io5"
-// import { GrSort } from "react-icons/gr"
-// import { BsKanban } from "react-icons/bs"
-// import { LuGanttChartSquare } from "react-icons/lu"
-// import { GiTrashCan } from "react-icons/gi"
-// import { FaRegTrashCan } from "react-icons/fa6";
+  IoSchoolSharp: <IoSchoolSharp />,
+  FaBook: <FaBook />,
+  SiBookstack: <SiBookstack />,
+  ImBooks: <ImBooks />,
+}

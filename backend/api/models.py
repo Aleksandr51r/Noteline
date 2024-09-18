@@ -60,11 +60,8 @@ class Note(models.Model):
 
     def delete(self, *args, **kwargs):
         for child in self.children.all():
+            print(child)
             child.delete()
-        if self.parent_note:
-            self.parent_note.children.remove(self)
-            self.parent_note.save()
-
         super().delete(*args, **kwargs)
 
 

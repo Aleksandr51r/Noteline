@@ -9,13 +9,11 @@ import "./Search-style.css"
 function SearchLocation() {
   const { t } = useTranslation()
   const selectedCategory = useSelector(selectSelectedCategory)
-
+  const categoryName = selectedCategory ? selectedCategory.name : ""
   return (
     <div className='search-location'>
       <div className='name-of-selected-category'>
-        <h2 className='category-name-selected'>
-          {/* {t(`${selectedCategory.name}`)} */}
-        </h2>
+        <h2 className='category-name-selected'>{t(`${categoryName}`)}</h2>
       </div>
       <Search />
     </div>

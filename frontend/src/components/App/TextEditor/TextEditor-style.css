@@ -1,19 +1,21 @@
-/* styles.css */
-
+/* icons 
+*/
 .ql-toolbar .ql-stroke {
-  stroke: var(--text-color); /* Цвет границы иконок */
+  stroke: var(--text-color);
   border: none;
 }
-
+/* icons */
 .ql-toolbar .ql-fill {
-  fill: var(--text-color); /* Цвет заливки иконок, если используется */
+  fill: var(--text-color);
 }
 
+/* text in selectors */
 .ql-toolbar .ql-picker-label,
 .ql-toolbar .ql-picker-item {
-  color: var(--text-color); /* Цвет текста в селекторах */
+  color: var(--text-color);
 }
 
+/* ugly border none */
 .ql-container,
 .ql-toolbar {
   border: none !important;
@@ -33,4 +35,62 @@
   border-radius: 5px;
   margin: 5px 5px;
   float: none;
+}
+
+/* Основной контейнер редактора */
+.text-editor {
+  border: 1px solid #ddd; /* Граница вокруг редактора */
+  border-radius: 4px; /* Закругленные углы */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+  margin: 10px 0; /* Отступы вокруг редактора */
+  padding: 10px; /* Внутренние отступы */
+  background-color: transparent;
+}
+
+/* Стиль для тулбара редактора */
+.text-editor .editor-toolbar {
+  background-color: transparent;
+}
+
+/* Стиль для области редактора */
+.text-editor .editor-preview {
+  background-color: transparent;
+}
+
+
+.text-editor .editor-toolbar button {
+  color: var(--text-color);
+
+  background-color: transparent;
+  border: none; 
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 1px;
+}
+
+.text-editor .editor-toolbar button:hover {
+  background-color: #707070; /* Фоновый цвет кнопок при наведении */
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+/* Стиль для области ввода текста */
+.text-editor .editor-preview-active {
+  background-color: transparent;
+}
+
+.text-editor .CodeMirror {
+  background-color: transparent;
+  color: var(--text-color);
+}
+.text-editor pre {
+  white-space: pre-wrap;
+}
+.text-editor .CodeMirror::selection {
+  background-color: #0073ff; 
+  color: #000; 
+}
+.text-editor ::-webkit-selection {
+  background-color: #b3d4fc;
+  color: #000;
 }

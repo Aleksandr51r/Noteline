@@ -70,7 +70,6 @@
 }
 .settings-icon {
   opacity: 1;
-  /* border: 1px solid rebeccapurple; */
 }
 .category:active {
   background-color: #c5c5c5;
@@ -81,6 +80,9 @@
 
 .category-span-name {
   width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .category-btn {

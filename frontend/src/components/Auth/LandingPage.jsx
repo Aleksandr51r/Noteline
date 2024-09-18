@@ -11,6 +11,7 @@ import "./Starting-styles.css"
 import LogIn from "./Registration/LogIn"
 import SignUp from "./Registration/SignUp"
 import Overlay from "../Overlay"
+import { IoCreateSharp } from "react-icons/io5"
 
 function LandingPage() {
   const { t } = useTranslation()
@@ -32,7 +33,7 @@ function LandingPage() {
           <div>
             <div>
               <a className='navbar-brand nav-link-text ' href='#'>
-                <PiGraphThin /> Note line
+                <h3 className='text-landing-page'>Noteline</h3>
               </a>
             </div>
           </div>
@@ -52,13 +53,13 @@ function LandingPage() {
             <div className='collapse navbar-collapse' id='navbarNav'>
               <ul className='navbar-nav'>
                 <li className='nav-item'>
-                  <a
+                  {/* <a
                     className='nav-link nav-link-text'
                     aria-current='page'
                     href='#'
                   >
                     {t("guide")} <GiBlackBook className='nav-link-text' />
-                  </a>
+                  </a> */}
                 </li>
 
                 <li className='nav-item nav-link-text'>
@@ -69,7 +70,8 @@ function LandingPage() {
                       setIsModalOpen(true)
                     }}
                   >
-                    {t("account")}
+                    <span className='text-landing-page'>{t("account")}</span>
+
                     <MdAccountCircle className='nav-link-text' />
                   </a>
                 </li>
@@ -86,6 +88,12 @@ function LandingPage() {
           </div>
         </div>
       </nav>
+      <div className='landing-discription'>
+        <h3>{t("Create your personal base of knowledge")}</h3>
+        <div>
+          <IoCreateSharp style={{ width: "40px", height: "90px" }} />
+        </div>
+      </div>
 
       {isModalOpen && (
         <>

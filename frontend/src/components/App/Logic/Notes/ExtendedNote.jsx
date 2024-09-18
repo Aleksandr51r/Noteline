@@ -5,7 +5,8 @@ import { HiPencilSquare } from "react-icons/hi2"
 import Overlay from "../../../Overlay"
 import TextEditor from "../../TextEditor/TextEditor"
 import { useDispatch } from "react-redux"
-import { modifyNote } from "../../../../redux/slices/contentSlice"
+import { modifyContentNoteAsync } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
+import ReactMarkdown from "react-markdown"
 
 function ExtendedNote({ onClick, title, content, tags, path, id }) {
   const { t } = useTranslation()
@@ -20,10 +21,8 @@ function ExtendedNote({ onClick, title, content, tags, path, id }) {
   }
 
   const handleClickInRedactingMode = () => {
+    dispatch(modifyContentNoteAsync({ id, content: noteContent, path }))
     isReducting(false)
-    console.log("path", noteContent)
-    console.log("path", path)
-    dispatch(modifyNote({ path, noteContent, id }))
   }
 
   return (
@@ -45,11 +44,10 @@ function ExtendedNote({ onClick, title, content, tags, path, id }) {
               />
             </button>
           </div>
+          <ReactMarkdown className='extended-note-content'>
+            {noteContent}
+          </ReactMarkdown>
 
-          <div
-            className='extended-note-content'
-            dangerouslySetInnerHTML={{ __html: noteContent }}
-          ></div>
           <div className='extended-note-tags'>{tags}</div>
         </div>
       ) : (
@@ -61,10 +59,10 @@ function ExtendedNote({ onClick, title, content, tags, path, id }) {
             onChange={setNoteContent}
           />
 
-          <div className='extended-note-tags'>
+          {/* <div className='extended-note-tags'>
             {tags}
             <button className='btn-empty'></button>
-          </div>
+          </div> */}
         </div>
       )}
     </>

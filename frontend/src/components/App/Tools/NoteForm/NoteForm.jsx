@@ -1,11 +1,8 @@
 import React from "react"
 import { GiNotebook } from "react-icons/gi"
 import "../Tools-style.css"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  selectSelectedCategory,
-  toggleAddingNewNote,
-} from "../../../../redux/slices/contentSlice"
+import { useDispatch } from "react-redux"
+import { toggleAddingNewNote } from "../../../../redux/slices/contentSlice"
 
 function NoteForm({ additionalClassName = "", onClick = null }) {
   const dispatch = useDispatch()

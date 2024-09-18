@@ -10,8 +10,10 @@ import { ImPencil2 } from "react-icons/im"
 import { useDispatch, useSelector } from "react-redux"
 import {
   toggleAddingNewNestedNote,
+  toggleAddingNewNote,
   selectIsAddingNewNestedNote,
   selectSelectedCategory,
+  selectIsAddingNewNote,
 } from "../../../../redux/slices/contentSlice"
 import NewNote from "./NewNote"
 import ExtendedNote from "./ExtendedNote"
@@ -19,15 +21,9 @@ import {
   toggleShowNestedAsync,
   addNoteToFavoriteAsync,
 } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
-import Overlay from "../../../Overlay"
-
-function NoteSettings({ title }) {
-  return (
-    <div className='test-note-settings'>
-      <div>{title}</div>
-    </div>
-  )
-}
+import NoteSettings from "./NoteSettings"
+import { selectFilterContent } from "../../../../redux/slices/filterSlice"
+import ReactMarkdown from "react-markdown"
 
 function Note({
   id,
@@ -51,6 +47,7 @@ function Note({
   const [thatNoteSelected, setThatNoteSelected] = useState(false)
   const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
   const selectedCategory = useSelector(selectSelectedCategory)
+  const filterContent = useSelector(selectFilterContent)
 
   const romeDigitsLevel = {
     1: "I",
@@ -67,14 +64,31 @@ function Note({
   const onClose = () => {
     setThatNoteSelected(false)
   }
+  const highlightMatch = (text, filter) => {
+    if (!filter) return text
+    const regex = new RegExp(`(${filter})`, "gi")
+
+    console.log("text.split(regex)", text.split(regex))
+
+    return text.split(regex).map((substring, i) => {
+      if (substring.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={i} className='highlight'>
+            {substring}
+          </span>
+        )
+      }
+      return substring
+    })
+  }
 
   const handleNoteFormClick = () => {
     setThatNoteSelected(true)
     dispatch(toggleAddingNewNestedNote())
   }
+
   const handleToggleNestedNotes = () => {
     setAreNestedNotesVisible(!areNestedNotesVisible)
-
     dispatch(
       toggleShowNestedAsync({ id, show_nested_notes: !areNestedNotesVisible })
     )
@@ -84,11 +98,8 @@ function Note({
   }
   const handleAddNoteInFavorite = () => {
     dispatch(addNoteToFavoriteAsync({ id, is_favorite: !isFavorite }))
-    console.log(`note ${title}`, isFavorite)
     setIsFavorite(!isFavorite)
-    console.log(`note ${title}`, isFavorite)
   }
-  // console.log(`note ${title}`, isFavorite)
 
   const isHiddenTriangeOfWrapp =
     nestedNotes && Object.keys(nestedNotes).length > 0
@@ -107,20 +118,26 @@ function Note({
 
   return (
     <>
+      {/* EXTENDED NOTE */}
       {isNoteOpen && (
         <ExtendedNote
           onClick={closeAndClear}
           title={title}
           content={noteContent}
           path={path}
+          id={id}
         />
       )}
+
+      {/*  NOTE LINE */}
       <div className={`note-main ${className ? className : ""}`}>
         {isSettingsNoteOpen ? (
-          <>
-            <Overlay onClick={closeOverlaySettings} />
-            <NoteSettings title={title} />
-          </>
+          <NoteSettings
+            title={title}
+            id={id}
+            path={path}
+            closeOverlaySettings={closeOverlaySettings}
+          />
         ) : (
           <div
             className={`note note-in-list ${
@@ -128,7 +145,7 @@ function Note({
             }`}
           >
             <div className='note-wrap note-part'>
-              <div className='note-dummy note-part '></div>
+              {/* <div className={`note-part ${is_favorite ? 'note-dummy'  : null}`}></div> */}
               <button
                 className={`btn-empty note-wrap note-part ${
                   isHiddenTriangeOfWrapp ? "wrap-note-expanded" : "wrap-hidden"
@@ -167,16 +184,18 @@ function Note({
             {/* <div className='note-dummy note-part '></div> */}
 
             <div className='note-title note-part '>
-              <span className='note-title-span'>{title}</span>
+              <span className='note-title-span'>
+                {highlightMatch(title, filterContent)}
+              </span>
             </div>
 
             <div
               className='note-text note-part note-part-open'
               onClick={handleAddNoteContent}
             >
-              <span className='note-part-open-span'>
-                {noteContent ? noteContent.slice(0, 15) + "..." : <ImPencil2 />}
-              </span>
+              <ReactMarkdown className='markdown'>
+                {noteContent ? noteContent.slice(0, 15) + "..." : ""}
+              </ReactMarkdown>
             </div>
 
             <div className='note-option note-part'>
@@ -192,11 +211,11 @@ function Note({
                   <IoMdOptions />
                 )}
               </button>
-              <button className='btn-empty '>
+              {/* <button className='btn-empty '>
                 {is_favorite && selectedCategory.name === "favorites" ? null : (
                   <AiFillTags />
                 )}
-              </button>
+              </button> */}
             </div>
           </div>
         )}
@@ -209,7 +228,7 @@ function Note({
               onClose={onClose}
               parentId={id}
               level={level}
-              path={[...path, id]}
+              path={[...path, id]} //     ADDING A NEW PATH TO NOTE PATH DIRECTION
             />
           ) : null}
           {!isFavoriteNote && (
@@ -230,7 +249,7 @@ function Note({
                       key={item.id}
                       level={item.level}
                       title={item.title}
-                      noteContent={item.noteContent}
+                      noteContent={item.content}
                       nestedNotes={item.nestedNotes}
                       show_nested_notes={item.show_nested_notes}
                       path={item.path}

@@ -36,8 +36,6 @@ function Search() {
     dispatch(setOnlySelectedCategotyFilter(selectedValue))
   }
 
-
-
   return (
     <div className='search'>
       {filterContent && (
@@ -55,7 +53,7 @@ function Search() {
         onChange={handleInputText}
         className={`search-bar${filterContent ? "search-bar-filled" : ""}`}
       />
-
+      {/* 
       <select
         className='search-select'
         value={searchPlace}
@@ -67,7 +65,7 @@ function Search() {
         <option className='search-option' value={false}>
           {t("global")}
         </option>
-      </select>
+      </select> */}
     </div>
   )
 }

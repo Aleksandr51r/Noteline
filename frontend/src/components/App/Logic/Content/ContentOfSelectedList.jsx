@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import {
   selectSelectedCategory,
   selectIsAddingNewNote,
   selectIsAddingNewTodo,
-  toggleAddingNewNote,
-  selectContentList,
-  selectNotes,
-  handleAllNotesForNestedNote,
+
 } from "../../../../redux/slices/contentSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
@@ -17,9 +14,8 @@ import NewNote from "../Notes/NewNote"
 import Todo from "../Todos/Todo"
 import NewTodo from "../Todos/NewTodo"
 import { fetchNotes } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
-import ContentOfFavorites from "./ContentOfFavorites"
 import { selectFavoritesNotes } from "../../../../redux/slices/contentSlice"
-import ContentOfUsialList from "./ContentOfUsialList"
+
 
 function ContentOfSelectedList() {
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
@@ -27,6 +23,7 @@ function ContentOfSelectedList() {
   const favorites = useSelector(selectFavoritesNotes)
   const { t } = useTranslation()
   const dispatch = useDispatch()
+
 
   const exeptions = {
     trashcan: "Corbeille est vide",
@@ -36,7 +33,6 @@ function ContentOfSelectedList() {
 
   useEffect(() => {
     dispatch(fetchNotes())
-    dispatch(handleAllNotesForNestedNote())
   }, [dispatch])
 
   return (
@@ -81,10 +77,10 @@ function ContentOfSelectedList() {
           <h5>
             <hr />
             <NoteForm />
-            {t("to add a note and")}
-            <hr />
+            {t("to add a note")}
+            {/* <hr />
             <TodoForm />
-            {t("to add a todo")}
+            {t("to add a todo")} */}
           </h5>
         </>
       )}

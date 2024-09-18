@@ -35,8 +35,6 @@ function ContentList() {
     dispatch(setSelectedCategory(id))
   }
 
-  console.log("selectedCategory", selectedCategory)
-  console.log("contentList", contentList)
 
   return (
     <>

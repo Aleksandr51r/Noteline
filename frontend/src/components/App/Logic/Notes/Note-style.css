@@ -102,7 +102,6 @@
   font-family: "Times New Roman", Times, san-serif;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /* .note-title:hover {
@@ -114,12 +113,22 @@
 
 .note-text {
   width: 40%;
-  justify-content: center;
+
+  align-content: center;
+  text-align: end;
+  /* border: 1px solid red; */
   overflow: hidden;
   text-overflow: ellipsis;
   padding-left: 5px;
   height: 100%;
   transition: transform 0.2s linear, text-shadow 0.3s linear;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.markdown {
+  height: inherit;
 }
 
 .note-part-open:hover {
@@ -145,8 +154,6 @@
   padding: 0px 5px;
   height: inherit;
 }
-
-/*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
 
 .note-wrap {
   transition: transform 0.2s ease;
@@ -228,16 +235,8 @@
 /* .notes-list.expanded {
   margin-left: 10px; 
 } */
-.isFavorite-filled {
-  fill: #ff0000;
-  transition: fill 5.3s ease-in-out;
-}
 
-.test-note-settings {
-  width: 100%;
-  height: 26px;
-  border: 1px solid rgb(126, 126, 126);
-  background-color: var(--background-color-onhover);
-  color: var(--text-for-button-color);
-  z-index: 1001;
+.highlight {
+  background-color: #ff0;
+  color: black;
 }

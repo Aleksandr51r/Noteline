@@ -1,7 +1,5 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import SingUp from "./SignUp"
-import { GiArrowWings } from "react-icons/gi"
 
 function LogIn({ onChangeMode, handleSubmit }) {
   const { t } = useTranslation()
@@ -16,13 +14,12 @@ function LogIn({ onChangeMode, handleSubmit }) {
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <div className='mb-3'>
-          <label htmlFor='exampleInputText' className='form-label'>
-            Username
-          </label>
+        <div className='login-form'>
+          <label htmlFor='exampleInputText' className='form-label'></label>
           <input
             type='text'
-            className='form-control'
+            className='login-forms-inputs'
+            placeholder={t("username")}
             id='exampleInputUsername'
             value={username}
             onChange={(e) => {
@@ -30,21 +27,20 @@ function LogIn({ onChangeMode, handleSubmit }) {
             }}
           />
         </div>
-        <div className='mb-3'>
-          <label htmlFor='exampleInputPassword1' className='form-label'>
-            Password
-          </label>
+        <div className=''>
+          <label htmlFor='exampleInputPassword1' className='form-label'></label>
           <input
             type='password'
-            className='form-control'
+            className='login-forms-inputs'
             id='exampleInputPassword1'
+            placeholder={t("password")}
             value={password}
             onChange={(e) => {
               setPassword(e.target.value)
             }}
           />
         </div>
-        <div className='mb-3 form-check'>
+        {/* <div className=' form-check'>
           <input
             type='checkbox'
             className='form-check-input'
@@ -53,16 +49,18 @@ function LogIn({ onChangeMode, handleSubmit }) {
           <label className='form-check-label' htmlFor='exampleCheck1'>
             Check me out
           </label>
-        </div>
-        <button type='submit' className='btn btn-primary'>
+        </div> */}
+        <button type='submit' className='btn-login-submit btn-standart'>
           Submit
         </button>
       </form>
       <div className='mt-3'>
         <p>
-          Don't have an account?{" "}
-          <button className='btn-empty' onClick={onChangeMode}>
-            Create a new account
+          {t("Don't have an account?")}{" "}
+          <button className='btn-empty ' onClick={onChangeMode}>
+            <span className='btn-create-new-acc'>
+              {t("Create a new account")}
+            </span>
           </button>
         </p>
       </div>

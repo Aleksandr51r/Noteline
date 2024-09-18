@@ -32,7 +32,7 @@ const Error = () => {
     <ToastContainer
       theme={color}
       position='top-center'
-      autoClose={2000}
+      autoClose={2500}
       toastStyle={{
         backgroundColor: "var(--background-color-toast)",
         border: "1px solid #073e46",

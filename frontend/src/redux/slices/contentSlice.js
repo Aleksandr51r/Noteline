@@ -12,9 +12,10 @@ import {
   addNewNoteAsync,
   addNoteToFavoriteAsync,
   toggleShowNestedAsync,
+  modifyNameNoteAsync,
+  modifyContentNoteAsync,
+  deleteNoteAsync,
 } from "../ExtraReducers/NoteSliceExtraReducer"
-
-const API_BASE_URL = "http://127.0.0.1:8000/api/"
 
 const getInitialSelectedCategoryId = () => {
   const savedName = localStorage.getItem("saved-category")
@@ -30,6 +31,17 @@ const getInitialFavoriteCategoryId = (categories) => {
 
 const findNestedObject = (obj, path) => {
   return path.reduce((acc, key) => acc && acc[key].nestedNotes, obj)
+}
+
+// RECURSE for delete notes
+const deleteNestedNotesByParent = (notes, parentId) => {
+  const childNotes = Object.values(notes).filter(
+    (note) => note.parent_note === parentId
+  )
+  childNotes.forEach((childNote) => {
+    deleteNestedNotesByParent(notes, childNote.id)
+  })
+  delete notes[parentId]
 }
 
 const initialState = {
@@ -98,9 +110,6 @@ const contentSlice = createSlice({
     toggleAddingNewTodo: (state) => {
       state.isAddingNewTodo = !state.isAddingNewTodo
     },
-    handleAllNotesForNestedNote: (state) => {
-      console.log("handleAllNotesForNestedNote", state.notes)
-    },
 
     addNestedTodo: (state, action) => {
       const { parentPath, title } = action.payload
@@ -134,6 +143,8 @@ const contentSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // CATEGORY REDUCERS
+
       .addCase(addNewCategoryAsync.fulfilled, (state, action) => {
         const { id, name, icon } = action.payload
         state.categories[id] = { id, name, icon, content: {} }
@@ -182,6 +193,8 @@ const contentSlice = createSlice({
         console.error("Failed to fetch categories:", action.payload)
       })
 
+      // NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES
+      // FETCH NOTES
       .addCase(fetchNotes.fulfilled, (state, action) => {
         console.log("FETCH ALL NOTES IN SLICE", action.payload)
         const notes = action.payload
@@ -200,21 +213,28 @@ const contentSlice = createSlice({
           }
 
           if (note.path.length === 0) {
-            state.categories[note.category].content[note.id] = acc[note.id]
+            const category = state.categories[note.category]
+            if (category) {
+              category.content[note.id] = acc[note.id]
+            }
           } else {
             const parentNotes = findNestedObject(
-              state.categories[note.category].content,
+              state.categories[note.category]?.content || {},
               note.path
             )
-            parentNotes[note.id] = acc[note.id]
+            if (parentNotes) {
+              parentNotes[note.id] = acc[note.id]
+            }
           }
+
           return acc
         }, {})
 
-        // state.notes = updatedNotes
+        // state.notes = updatedNotes;
         console.log("*NOTES after work with it*", state.notes)
       })
 
+      // ADD NEW NOTES
       .addCase(addNewNoteAsync.fulfilled, (state, action) => {
         const {
           category,
@@ -297,6 +317,8 @@ const contentSlice = createSlice({
         console.log(error)
       })
 
+      // FAVORITE
+
       .addCase(addNoteToFavoriteAsync.fulfilled, (state, action) => {
         const { id, is_favorite } = action.payload
 
@@ -322,9 +344,10 @@ const contentSlice = createSlice({
           delete state.categories[state.favoriteCategoryId].content[id]
         }
       })
-
       .addCase(addNoteToFavoriteAsync.pending, (state, action) => {})
       .addCase(addNoteToFavoriteAsync.rejected, (state, action) => {})
+
+      // NESTED
 
       .addCase(toggleShowNestedAsync.fulfilled, (state, action) => {
         const { id, show_nested_notes } = action.payload
@@ -335,6 +358,97 @@ const contentSlice = createSlice({
       })
       .addCase(toggleShowNestedAsync.pending, (state, action) => {})
       .addCase(toggleShowNestedAsync.rejected, (state, action) => {})
+
+      // MODIFY TITLE
+
+      .addCase(modifyNameNoteAsync.fulfilled, (state, action) => {
+        const { id, path, title } = action.payload
+        state.notes[id].title = title
+        let parentNote
+
+        if (path && path.length > 0) {
+          parentNote = findNestedObject(
+            state.categories[state.notes[id].category].content,
+            path
+          )
+        } else {
+          parentNote = state.categories[state.notes[id].category].content
+        }
+        parentNote[id].title = title
+
+        if (state.categories[state.favoriteCategoryId].content[id]) {
+          state.categories[state.favoriteCategoryId].content[id].title = title
+        }
+      })
+
+      .addCase(modifyNameNoteAsync.pending, (state) => {
+        state.status = "loading"
+      })
+      .addCase(modifyNameNoteAsync.rejected, (state, action) => {
+        console.error("Failed to Modify Note:", action.payload)
+      })
+      // MODIFY CONTENT OF NOTE                                                                                                MODIFY CONTENT OF NOTE
+
+      .addCase(modifyContentNoteAsync.fulfilled, (state, action) => {
+        const { id, path, content } = action.payload
+        state.notes[id].content = content
+        let parentNote
+
+        if (path && path.length > 0) {
+          parentNote = findNestedObject(
+            state.categories[state.notes[id].category].content,
+            path
+          )
+        } else {
+          parentNote = state.categories[state.notes[id].category].content
+        }
+        parentNote[id].content = content
+
+        if (state.categories[state.favoriteCategoryId].content[id]) {
+          state.categories[state.favoriteCategoryId].content[id].content =
+            content
+        }
+      })
+
+      .addCase(modifyContentNoteAsync.pending, (state) => {
+        state.status = "loading"
+      })
+      .addCase(modifyContentNoteAsync.rejected, (state, action) => {
+        console.error("Failed to Modify Note:", action.payload)
+      })
+
+      // DELETE
+
+      .addCase(deleteNoteAsync.fulfilled, (state, action) => {
+        const { id, path } = action.payload
+
+        let parentNote
+        if (path.length > 0) {
+          parentNote = findNestedObject(
+            state.categories[state.notes[id].category].content,
+            path
+          )
+        } else {
+          parentNote = state.categories[state.notes[id].category].content
+        }
+        delete parentNote[id]
+
+        // delete from notes state
+        Object.values(state.notes).forEach((item) => {
+          if (item.parentNote === id) {
+            delete state.notes[item.id]
+          }
+        })
+        deleteNestedNotesByParent(state.notes, id)
+        delete state.notes[id]
+      })
+
+      .addCase(deleteNoteAsync.pending, (state, action) => {
+        state.status = "loading"
+      })
+      .addCase(deleteNoteAsync.rejected, (state, action) => {
+        console.error("Failed to fetch categories:", action.payload)
+      })
   },
 })
 
@@ -346,11 +460,11 @@ export const {
   toggleAddingNewTodo,
   addNewTodo,
   addNestedTodo,
-  addNestedNote,
   toggleAddingNewNestedTodo,
   modifyNote,
-  handleAllNotesForNestedNote,
 } = contentSlice.actions
+
+export const selectAllNotes = (state) => Object.values(state.notes.notes)
 
 export const selectContentList = (state) => state.content.categories
 export const selectNotes = (state) => state.content.notes

@@ -3,41 +3,29 @@ import "./Note-style.css"
 import { useDispatch, useSelector } from "react-redux"
 import {
   selectIsAddingNewNote,
-  selectIsAddingNewNestedNote,
-  toggleAddingNewNote,
   toggleAddingNewNestedNote,
-  addNewNote,
-  addNestedNote,
+  toggleAddingNewNote,
 } from "../../../../redux/slices/contentSlice"
 import { useTranslation } from "react-i18next"
 import "./NewNote-style.css"
 import Overlay from "../../../Overlay"
-import {
-  addNewNoteAsync,
-  fetchNotes,
-} from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
+import { addNewNoteAsync } from "../../../../redux/ExtraReducers/NoteSliceExtraReducer"
 
 function NewNote({ parentId, onClose, level, path }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
-  const isAddingNewNestedNote = useSelector(selectIsAddingNewNestedNote)
+
   const choosenCategoryId = useSelector(
     (state) => state.content.selectedCategoryId
   )
 
-
-  console.log("typeof", typeof path)
-
-  console.log("path", path)
-  console.log("parentId", parentId)
   const [inputText, setInputText] = useState("")
   const inputRef = useRef(null)
+
   useEffect(() => {
-    if (isAddingNewNote || (isAddingNewNestedNote && inputRef.current)) {
-      inputRef.current.focus()
-    }
-  }, [isAddingNewNote])
+    inputRef.current.focus()
+  }, [])
 
   const handleInputText = (e) => {
     setInputText(e.target.value)
@@ -65,13 +53,20 @@ function NewNote({ parentId, onClose, level, path }) {
             parentId,
             level: ++level,
             path: path,
+            parent_note: parentId,
+            content: t("empty note"),
           })
         )
         dispatch(toggleAddingNewNestedNote())
         onClose()
       } else {
         dispatch(
-          addNewNoteAsync({ title: text, category: choosenCategoryId, path })
+          addNewNoteAsync({
+            title: text,
+            category: choosenCategoryId,
+            path,
+            content: t("empty note"),
+          })
         )
         dispatch(toggleAddingNewNote())
       }
@@ -92,12 +87,7 @@ function NewNote({ parentId, onClose, level, path }) {
       <div className='note-level note-part'></div>
       <div className='note-btn-extend note-part'></div>
       <div className='note-title note-part add-new-note'>
-        <Overlay
-          className={`overlay ${
-            isAddingNewNote ? "open" : "closed"
-          } overlay-for-note-title`}
-          onClick={closeAndClear}
-        />
+        <Overlay className={`overlay `} onClick={closeAndClear} />
         <input
           ref={inputRef}
           type='text'
