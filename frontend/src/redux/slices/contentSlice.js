@@ -196,7 +196,7 @@ const contentSlice = createSlice({
       // NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES NOTES
       // FETCH NOTES
       .addCase(fetchNotes.fulfilled, (state, action) => {
-        console.log("FETCH ALL NOTES IN SLICE", action.payload)
+
         const notes = action.payload
 
         notes.sort((a, b) => a.level - b.level)
@@ -229,9 +229,6 @@ const contentSlice = createSlice({
 
           return acc
         }, {})
-
-        // state.notes = updatedNotes;
-        console.log("*NOTES after work with it*", state.notes)
       })
 
       // ADD NEW NOTES

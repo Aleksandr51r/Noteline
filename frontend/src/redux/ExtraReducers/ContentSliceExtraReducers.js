@@ -22,6 +22,7 @@ export const addNewCategoryAsync = createAsyncThunk(
     return response.data
   }
 )
+
 export const modifyCategoryAsync = createAsyncThunk(
   "content/modifyCategoryAsync",
   async ({ id, icon, name }) => {

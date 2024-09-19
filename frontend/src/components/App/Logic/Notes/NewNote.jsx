@@ -44,7 +44,6 @@ function NewNote({ parentId, onClose, level, path }) {
   const handleAddNewNote = () => {
     if (inputText) {
       const text = inputText[0].toUpperCase() + inputText.slice(1)
-      console.log(`path ${inputText}`, path)
       if (parentId) {
         dispatch(
           addNewNoteAsync({

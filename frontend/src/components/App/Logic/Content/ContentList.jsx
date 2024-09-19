@@ -15,9 +15,7 @@ import { fetchCategories } from "../../../../redux/ExtraReducers/ContentSliceExt
 function ContentList() {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-
   const contentList = useSelector(selectContentList)
-  const selectedCategory = useSelector(selectSelectedCategory)
 
   const choosenCategoryId = useSelector(
     (state) => state.content.selectedCategoryId

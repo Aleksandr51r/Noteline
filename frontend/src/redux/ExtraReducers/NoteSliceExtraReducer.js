@@ -53,6 +53,7 @@ export const modifyNameNoteAsync = createAsyncThunk(
     return response.data
   }
 )
+
 export const modifyContentNoteAsync = createAsyncThunk(
   "note/modifyContentNoteAsync",
   async ({ id, content, path }) => {
