@@ -9,7 +9,7 @@ const store = configureStore({
     error: errorReducer,
     content: contentReducer,
     filter: filterSlice,
-    note: noteSlice,
+    // note: noteSlice,
   },
 })
 

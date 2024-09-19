@@ -4,7 +4,6 @@ from .models import Category, Note, Todo, Tag
 
 
 class UserSerialaizer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ["id", 'username', "password", "email"]
@@ -27,12 +26,6 @@ class CategorySerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = ["id", "name"]
-        extra_kwargs = {"owner": {"read_only": True}}
-
 
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,6 +46,12 @@ class NoteSerializer(serializers.ModelSerializer):
             "path"
         ]
 
+        extra_kwargs = {"owner": {"read_only": True}}
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ["id", "name"]
         extra_kwargs = {"owner": {"read_only": True}}
 
 
