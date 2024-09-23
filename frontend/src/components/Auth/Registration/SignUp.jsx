@@ -123,7 +123,6 @@ function SignUp({ handleSubmit }) {
               required
             />
             <p className='help-block'>
-              {t("Username can contain any letters or numbers, without spaces")}
             </p>
           </div>
         </div>

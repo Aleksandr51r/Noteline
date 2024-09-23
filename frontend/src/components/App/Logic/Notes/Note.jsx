@@ -145,7 +145,6 @@ function Note({
             }`}
           >
             <div className='note-wrap note-part'>
-              {/* <div className={`note-part ${is_favorite ? 'note-dummy'  : null}`}></div> */}
               <button
                 className={`btn-empty note-wrap note-part ${
                   isHiddenTriangeOfWrapp ? "wrap-note-expanded" : "wrap-hidden"
@@ -179,10 +178,7 @@ function Note({
                   onClick={handleNoteFormClick}
                 />
               )}
-              {/* <TodoForm additionalClassName='little-btn-tool-icon' /> */}
             </div>
-            {/* <div className='note-dummy note-part '></div> */}
-
             <div className='note-title note-part '>
               <span className='note-title-span'>
                 {highlightMatch(title, filterContent)}
@@ -211,11 +207,7 @@ function Note({
                   <IoMdOptions />
                 )}
               </button>
-              {/* <button className='btn-empty '>
-                {is_favorite && selectedCategory.name === "favorites" ? null : (
-                  <AiFillTags />
-                )}
-              </button> */}
+
             </div>
           </div>
         )}

@@ -20,10 +20,8 @@ import { selectFavoritesNotes } from "../../../../redux/slices/contentSlice"
 function ContentOfSelectedList() {
   const isAddingNewNote = useSelector(selectIsAddingNewNote)
   const isAddingNewTodo = useSelector(selectIsAddingNewTodo)
-  const favorites = useSelector(selectFavoritesNotes)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-
 
   const exeptions = {
     trashcan: "Corbeille est vide",

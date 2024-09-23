@@ -44,7 +44,6 @@ function App() {
             }
           />
           <Route path='/landing-page' element={<LandingPage />} />
-          {/* <Route path='/signup' element={<SingUp />} /> */}
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
