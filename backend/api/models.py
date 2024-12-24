@@ -29,24 +29,16 @@ class Category(models.Model):
 
 
 class Note(models.Model):
-    owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="notes"
-    )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notes")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name='notes', null=True, blank=True
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='notes', null=True, blank=True)
     level = models.IntegerField(default=1)
     title = models.CharField(max_length=100)
     content = models.TextField()
     is_favorite = models.BooleanField(default=False)
-
     path = ArrayField(models.UUIDField(), default=list, blank=True)
-    parent_note = models.ForeignKey(
-        'self', on_delete=models.CASCADE, null=True, blank=True, related_name='children'
-    )
+    parent_note = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     show_nested_notes = models.BooleanField(default=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)
     status = models.IntegerField(default=0)
